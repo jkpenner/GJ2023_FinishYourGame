@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=3 uid="uid://db37coqddej2r"]
+
+[ext_resource type="PackedScene" uid="uid://dma4yhapsggvq" path="res://Objects/Player/PlayerController.tscn" id="1_bvfca"]
+[ext_resource type="PackedScene" uid="uid://meina3ocbxe5" path="res://Objects/Stations/Table/Table.tscn" id="2_3nigr"]
+[ext_resource type="Resource" uid="uid://bouk7jwa0exfh" path="res://Objects/Items/Variants/TestItem/TestItem.tres" id="3_w6b1b"]
+[ext_resource type="PackedScene" uid="uid://njgujnb7rotf" path="res://Objects/Stations/Conveyor/Conveyor.tscn" id="4_wr5uq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_njr01"]
+size = Vector3(20, 0.5, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_uign8"]
+size = Vector3(20, 0.5, 20)
+
+[node name="StationTestScene" type="Node3D"]
+
+[node name="Floor" type="Node3D" parent="."]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_njr01")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+mesh = SubResource("BoxMesh_uign8")
+
+[node name="PlayerController" parent="." instance=ExtResource("1_bvfca")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 0, 6.25682, 7.34673)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.708611, 0.395597, 0.584272, -0.7056, 0.397285, 0.586766, 0, -0.828051, 0.560653, 0, 6.03881, 0)
+
+[node name="Station" type="Node3D" parent="."]
+
+[node name="Table" parent="." instance=ExtResource("2_3nigr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 3)
+initialItem = ExtResource("3_w6b1b")
+
+[node name="Table2" parent="." instance=ExtResource("2_3nigr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 3)
+
+[node name="Table3" parent="." instance=ExtResource("2_3nigr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
+initialItem = ExtResource("3_w6b1b")
+
+[node name="Table4" parent="." instance=ExtResource("2_3nigr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.994, 0, 3)
+
+[node name="Conveyor" parent="." node_paths=PackedStringArray("nextSlot") instance=ExtResource("4_wr5uq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+nextSlot = NodePath("../Table/ItemSlot")
+
+[node name="Conveyor2" parent="." node_paths=PackedStringArray("nextSlot") instance=ExtResource("4_wr5uq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)
+nextSlot = NodePath("../Conveyor/ItemSlot")
+
+[node name="Conveyor3" parent="." node_paths=PackedStringArray("nextSlot") instance=ExtResource("4_wr5uq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 3)
+nextSlot = NodePath("../Conveyor2/ItemSlot")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 297.0
+offset_bottom = 240.0
+text = "W,A,S,D: Move
+E: Interact
+"
+
+[editable path="Table"]
+[editable path="Conveyor"]
+[editable path="Conveyor2"]

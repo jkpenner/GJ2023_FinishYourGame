@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://njgujnb7rotf"]
+
+[ext_resource type="Script" path="res://Objects/Stations/Conveyor/Conveyor.cs" id="1_7gxcy"]
+[ext_resource type="Script" path="res://Objects/Items/ItemSlot.cs" id="2_xtapw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dlxq0"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cv1sa"]
+size = Vector3(0.9, 0.8, 0.9)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6rg08"]
+albedo_color = Color(0.815686, 0.556863, 0.329412, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wy4ti"]
+
+[node name="Conveyor" type="StaticBody3D" node_paths=PackedStringArray("slot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.58072)
+script = ExtResource("1_7gxcy")
+slot = NodePath("ItemSlot")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_dlxq0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+mesh = SubResource("BoxMesh_cv1sa")
+surface_material_override/0 = SubResource("StandardMaterial3D_6rg08")
+
+[node name="ItemVisualParent" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.849192, 0)
+
+[node name="ItemSlot" type="Area3D" parent="." node_paths=PackedStringArray("visualParent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.80095, 0)
+script = ExtResource("2_xtapw")
+visualParent = NodePath(".")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ItemSlot"]
+shape = SubResource("SphereShape3D_wy4ti")

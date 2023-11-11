@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://bouk7jwa0exfh"]
+
+[ext_resource type="Script" path="res://Objects/Items/Item.cs" id="1_rblk5"]
+[ext_resource type="PackedScene" uid="uid://bf62ffqlet3jx" path="res://Objects/Items/Variants/TestItem/TestItemVisual.tscn" id="2_kc6y4"]
+
+[resource]
+script = ExtResource("1_rblk5")
+visualScene = ExtResource("2_kc6y4")
