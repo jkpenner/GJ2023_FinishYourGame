@@ -10,14 +10,14 @@ config_version=5
 
 [application]
 
-config/name="Fyg.godot"
+config/name="GJ23_SpaceEngineer.godot"
 run/main_scene="res://Scenes/Main.tscn"
 config/features=PackedStringArray("4.1", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
 
-project/assembly_name="Fyg.godot"
+project/assembly_name="GJ23_SpaceEngineer.godot"
 
 [input]
 
