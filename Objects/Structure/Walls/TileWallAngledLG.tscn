@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://byay8tfwcgm1b"]
+
+[ext_resource type="PackedScene" uid="uid://o0g41bkwmdxw" path="res://Assets/Models/Walls/Tile_Wall_Angled_LG.gltf" id="1_a06pm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1dw0f"]
+size = Vector3(0.5, 2, 5.65)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fb58q"]
+size = Vector3(1.40481, 0.5, 5.65)
+
+[node name="TileWallAngledLG" type="StaticBody3D"]
+
+[node name="Tile_Wall_Angled_LG" parent="." instance=ExtResource("1_a06pm")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -1.324, 1, -1.676)
+shape = SubResource("BoxShape3D_1dw0f")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -1.00041, -0.25, -1.99959)
+shape = SubResource("BoxShape3D_fb58q")

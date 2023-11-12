@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://mblq53kvd3g0"]
+
+[ext_resource type="PackedScene" uid="uid://ieyfwl2ywfhy" path="res://Assets/Models/Walls/Tile_Wall_Straight_SM.gltf" id="1_a2oih"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mrbfc"]
+size = Vector3(0.5, 2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ge6or"]
+size = Vector3(1, 0.5, 1)
+
+[node name="Tile_Wall_Straight_SM" type="StaticBody3D"]
+
+[node name="WallCollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 1, 0)
+shape = SubResource("BoxShape3D_mrbfc")
+
+[node name="WallCollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_ge6or")
+
+[node name="Tile_Wall_Straight_SM" parent="." instance=ExtResource("1_a2oih")]

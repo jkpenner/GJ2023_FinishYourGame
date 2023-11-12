@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://nx35t6j75l7k"]
+
+[ext_resource type="PackedScene" uid="uid://bx7xeq42pxxyn" path="res://Assets/Models/Walls/Tile_Wall_Corner_Inner_Rounded.gltf" id="1_utcnq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1dw0f"]
+size = Vector3(0.5, 2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ouvqs"]
+size = Vector3(0.5, 2, 1.43)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fb58q"]
+size = Vector3(1.5, 0.5, 1)
+
+[node name="TileWallCornerInnerRounded" type="StaticBody3D"]
+
+[node name="Tile_Wall_Corner_Inner_Rounded" parent="." instance=ExtResource("1_utcnq")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2511, 1, -1.00392)
+shape = SubResource("BoxShape3D_1dw0f")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.807835, 1, -0.183841)
+shape = SubResource("BoxShape3D_ouvqs")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.000342607, 1, 0.25)
+shape = SubResource("BoxShape3D_1dw0f")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.248148, -0.25, 0)
+shape = SubResource("BoxShape3D_fb58q")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.993318, -0.25, -0.753014)
+shape = SubResource("BoxShape3D_fb58q")
