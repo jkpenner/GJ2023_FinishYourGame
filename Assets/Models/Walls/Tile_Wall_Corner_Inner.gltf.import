@@ -1,0 +1,39 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://dt72aqd6nm17l"
+path="res://.godot/imported/Tile_Wall_Corner_Inner.gltf-1c199f64d6d7b3eb1002c9b5cf36815e.scn"
+
+[deps]
+
+source_file="res://Assets/Models/Walls/Tile_Wall_Corner_Inner.gltf"
+dest_files=["res://.godot/imported/Tile_Wall_Corner_Inner.gltf-1c199f64d6d7b3eb1002c9b5cf36815e.scn"]
+
+[params]
+
+nodes/root_type="Node3D"
+nodes/root_name="Scene Root"
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+import_script/path=""
+_subresources={
+"materials": {
+"Material.001": {
+"use_external/enabled": true,
+"use_external/path": "res://Assets/ColorPalatteMat.tres"
+}
+}
+}
+gltf/embedded_image_handling=1

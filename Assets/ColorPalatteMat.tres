@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c1rw6r5j30wcl"]
+
+[ext_resource type="Texture2D" uid="uid://d4mpqyjbdj5vq" path="res://Assets/Textures/Endesga64_ColorPalette.png" id="1_11w8n"]
+
+[resource]
+albedo_texture = ExtResource("1_11w8n")
