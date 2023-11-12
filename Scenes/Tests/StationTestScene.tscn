@@ -1,15 +1,31 @@
-[gd_scene load_steps=7 format=3 uid="uid://db37coqddej2r"]
+[gd_scene load_steps=22 format=3 uid="uid://db37coqddej2r"]
 
 [ext_resource type="PackedScene" uid="uid://dma4yhapsggvq" path="res://Objects/Player/PlayerController.tscn" id="1_bvfca"]
 [ext_resource type="PackedScene" uid="uid://meina3ocbxe5" path="res://Objects/Stations/Table/Table.tscn" id="2_3nigr"]
 [ext_resource type="Resource" uid="uid://bouk7jwa0exfh" path="res://Objects/Items/Variants/TestItem/TestItem.tres" id="3_w6b1b"]
 [ext_resource type="PackedScene" uid="uid://njgujnb7rotf" path="res://Objects/Stations/Conveyor/Conveyor.tscn" id="4_wr5uq"]
+[ext_resource type="PackedScene" uid="uid://mblq53kvd3g0" path="res://Objects/Structure/Walls/TileWallStraightSM.tscn" id="5_e85px"]
+[ext_resource type="PackedScene" uid="uid://qq3r1ejoewpb" path="res://Objects/Structure/Floor/TileFloorSquareLG.tscn" id="5_qm2jm"]
+[ext_resource type="PackedScene" uid="uid://4vxuethen0x7" path="res://Objects/Structure/Floor/TileFloorSquareSM.tscn" id="6_f50dh"]
+[ext_resource type="PackedScene" uid="uid://cr0jw2re5fmo6" path="res://Objects/Structure/Walls/TileWallStraightLG.tscn" id="7_5auwq"]
+[ext_resource type="PackedScene" uid="uid://dia3yt47b5xv4" path="res://Objects/Structure/Walls/TileWallCornerInner.tscn" id="8_3p45i"]
+[ext_resource type="PackedScene" uid="uid://wgmgv3s7i4u3" path="res://Objects/Structure/Walls/TileWallCornerOuterRounded.tscn" id="9_6l4iy"]
+[ext_resource type="PackedScene" uid="uid://em3gkp203y1" path="res://Objects/Structure/Walls/TileWallAngledSM.tscn" id="10_plsnj"]
+[ext_resource type="PackedScene" uid="uid://crxjuc4vmtlpt" path="res://Objects/Structure/Walls/TileWallStraightMD.tscn" id="11_t8mvm"]
+[ext_resource type="PackedScene" uid="uid://thsiqfunpqbm" path="res://Objects/Structure/Floor/TileFloorTriangleSM.tscn" id="13_bucxs"]
+[ext_resource type="PackedScene" uid="uid://cst3ihv3rfbw4" path="res://Objects/Structure/Floor/TileFloorSquareMD.tscn" id="14_4dryy"]
+[ext_resource type="PackedScene" uid="uid://d3bmxjp67y5fy" path="res://Objects/Structure/Floor/TileFloorTriangleLG.tscn" id="15_enn7g"]
+[ext_resource type="PackedScene" uid="uid://cew4pigc3luc0" path="res://Objects/Structure/Walls/TileWallCornerOuterSegB.tscn" id="16_v2r0b"]
+[ext_resource type="PackedScene" uid="uid://usiuttau5e17" path="res://Objects/Structure/Walls/TileWallCornerOuterSegA.tscn" id="17_nxbvq"]
+[ext_resource type="PackedScene" uid="uid://cl6sk6ct2hdhs" path="res://Objects/Structure/Walls/TileWallCornerInnerSegB.tscn" id="18_hlm0l"]
+[ext_resource type="PackedScene" uid="uid://bp1m5k70ei4rm" path="res://Objects/Structure/Walls/TileWallCornerInnerSegA.tscn" id="19_riasa"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_njr01"]
 size = Vector3(20, 0.5, 20)
 
-[sub_resource type="BoxMesh" id="BoxMesh_uign8"]
-size = Vector3(20, 0.5, 20)
+[sub_resource type="Environment" id="Environment_56rmj"]
+background_mode = 1
+ambient_light_color = Color(0.8, 0.8, 0.8, 1)
 
 [node name="StationTestScene" type="Node3D"]
 
@@ -21,17 +37,21 @@ size = Vector3(20, 0.5, 20)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 shape = SubResource("BoxShape3D_njr01")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
-mesh = SubResource("BoxMesh_uign8")
-
 [node name="PlayerController" parent="." instance=ExtResource("1_bvfca")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 0, 6.25682, 7.34673)
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 11.8325, 4.05298)
+environment = SubResource("Environment_56rmj")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(-0.164423, 0.713658, -0.680924, -0.7056, 0.397285, 0.586765, 0.689271, 0.576937, 0.438234, -6.68532, 1.85199, -2.28714)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(-0.164423, 0.713658, -0.680924, -0.7056, 0.397285, 0.586765, 0.689271, 0.576937, 0.438234, 7.12566, 1.85199, -2.31076)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.708611, 0.395597, 0.584272, -0.7056, 0.397285, 0.586766, 0, -0.828051, 0.560653, 0, 6.03881, 0)
+transform = Transform3D(-0.164423, 0.713658, -0.680924, -0.7056, 0.397285, 0.586765, 0.689271, 0.576937, 0.438234, 0, 6.03881, 0)
+shadow_enabled = true
 
 [node name="Station" type="Node3D" parent="."]
 
@@ -67,6 +87,218 @@ offset_bottom = 240.0
 text = "W,A,S,D: Move
 E: Interact
 "
+
+[node name="Room" type="Node3D" parent="."]
+
+[node name="TileFloorSquareLG" parent="Room" instance=ExtResource("5_qm2jm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 7)
+
+[node name="TileFloorSquareLG2" parent="Room" instance=ExtResource("5_qm2jm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 3)
+
+[node name="TileFloorSquareLG3" parent="Room" instance=ExtResource("5_qm2jm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -1)
+
+[node name="TileFloorSquareLG4" parent="Room" instance=ExtResource("5_qm2jm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -5)
+
+[node name="TileFloorSquareLG5" parent="Room" instance=ExtResource("5_qm2jm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 7)
+
+[node name="TileFloorSquareLG6" parent="Room" instance=ExtResource("5_qm2jm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 3)
+
+[node name="TileFloorSquareLG7" parent="Room" instance=ExtResource("5_qm2jm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 3)
+
+[node name="TileFloorSquareLG8" parent="Room" instance=ExtResource("5_qm2jm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 7)
+
+[node name="TileFloorSquareSM" parent="Room" instance=ExtResource("6_f50dh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, 0)
+
+[node name="TileFloorSquareSM2" parent="Room" instance=ExtResource("6_f50dh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, 0)
+
+[node name="TileFloorSquareSM3" parent="Room" instance=ExtResource("6_f50dh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 0, 0)
+
+[node name="TileFloorSquareSM4" parent="Room" instance=ExtResource("6_f50dh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0, 0)
+
+[node name="TileFloorSquareSM5" parent="Room" instance=ExtResource("6_f50dh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0, 0)
+
+[node name="TileFloorSquareSM6" parent="Room" instance=ExtResource("6_f50dh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0, 0)
+
+[node name="TileFloorSquareSM7" parent="Room" instance=ExtResource("6_f50dh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0, 0)
+
+[node name="TileFloorSquareSM8" parent="Room" instance=ExtResource("6_f50dh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 0)
+
+[node name="TileFloorSquareSM9" parent="Room" instance=ExtResource("6_f50dh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 0, 0)
+
+[node name="TileFloorSquareSM10" parent="Room" instance=ExtResource("6_f50dh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 0, 0)
+
+[node name="TileFloorSquareSM11" parent="Room" instance=ExtResource("6_f50dh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0, 0)
+
+[node name="TileFloorSquareSM12" parent="Room" instance=ExtResource("6_f50dh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0, 0)
+
+[node name="TileWallStraightLG" parent="Room" instance=ExtResource("7_5auwq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0, 7)
+
+[node name="TileWallStraightLG2" parent="Room" instance=ExtResource("7_5auwq")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 6.5, 0, 4)
+
+[node name="TileWallCornerInner" parent="Room" instance=ExtResource("8_3p45i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0, 8)
+
+[node name="TileWallCornerInner2" parent="Room" instance=ExtResource("8_3p45i")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.5, 0, 8)
+
+[node name="TileWallStraightLG3" parent="Room" instance=ExtResource("7_5auwq")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.5, 0, 8)
+
+[node name="TileWallStraightLG4" parent="Room" instance=ExtResource("7_5auwq")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.5, 0, 8)
+
+[node name="TileWallStraightLG5" parent="Room" instance=ExtResource("7_5auwq")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.5, 0, 8)
+
+[node name="TileWallStraightLG6" parent="Room" instance=ExtResource("7_5auwq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.5, 0, -9)
+
+[node name="TileWallCornerOuterRounded" parent="Room" instance=ExtResource("9_6l4iy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0, 3)
+
+[node name="TileWallCornerOuterRounded2" parent="Room" instance=ExtResource("9_6l4iy")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8.5, 0, 1)
+
+[node name="TileWallAngledSM" parent="Room" instance=ExtResource("10_plsnj")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7.5, 0, -3)
+
+[node name="TileWallAngledSM4" parent="Room" instance=ExtResource("10_plsnj")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.5, 0, -8)
+
+[node name="TileWallAngledSM2" parent="Room" instance=ExtResource("10_plsnj")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -7.5, 0, -3)
+
+[node name="TileWallAngledSM3" parent="Room" instance=ExtResource("10_plsnj")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -4.5, 0, -8)
+
+[node name="TileWallCornerInner3" parent="Room" instance=ExtResource("8_3p45i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 0, 1)
+
+[node name="TileWallStraightMD" parent="Room" instance=ExtResource("11_t8mvm")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10.5, 0, 1)
+
+[node name="TileWallStraightMD2" parent="Room" instance=ExtResource("11_t8mvm")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11.5, 0, 1)
+
+[node name="TileWallStraightMD3" parent="Room" instance=ExtResource("11_t8mvm")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -11.5, 0, -1)
+
+[node name="TileWallStraightMD4" parent="Room" instance=ExtResource("11_t8mvm")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 10.5, 0, -1)
+
+[node name="TileWallCornerInner4" parent="Room" instance=ExtResource("8_3p45i")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -12.5, 0, -1)
+
+[node name="Tile_Wall_Straight_SM" parent="Room" instance=ExtResource("5_e85px")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9.5, 0, 1)
+
+[node name="TileFloorTriangleSM" parent="Room" instance=ExtResource("13_bucxs")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.5, 0, -4)
+
+[node name="TileFloorTriangleSM2" parent="Room" instance=ExtResource("13_bucxs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0, -4)
+
+[node name="TileFloorTriangleSM3" parent="Room" instance=ExtResource("13_bucxs")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3.5, 0, -7)
+
+[node name="TileFloorSquareMD" parent="Room" instance=ExtResource("14_4dryy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -1)
+
+[node name="TileFloorSquareMD2" parent="Room" instance=ExtResource("14_4dryy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -3)
+
+[node name="TileFloorSquareSM13" parent="Room" instance=ExtResource("6_f50dh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0, -5)
+
+[node name="TileFloorSquareSM14" parent="Room" instance=ExtResource("6_f50dh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -7)
+
+[node name="TileFloorSquareSM15" parent="Room" instance=ExtResource("6_f50dh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -7)
+
+[node name="TileFloorSquareSM16" parent="Room" instance=ExtResource("6_f50dh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0, -5)
+
+[node name="TileFloorSquareMD3" parent="Room" instance=ExtResource("14_4dryy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -5)
+
+[node name="TileFloorSquareMD4" parent="Room" instance=ExtResource("14_4dryy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, -1)
+
+[node name="TileFloorSquareMD5" parent="Room" instance=ExtResource("14_4dryy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, -3)
+
+[node name="TileFloorSquareMD6" parent="Room" instance=ExtResource("14_4dryy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, -5)
+
+[node name="TileFloorTriangleSM4" parent="Room" instance=ExtResource("13_bucxs")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -3.5, 0, -7)
+
+[node name="TileFloorTriangleLG" parent="Room" instance=ExtResource("15_enn7g")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.5, 0, -4)
+
+[node name="TileFloorTriangleLG2" parent="Room" instance=ExtResource("15_enn7g")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -7.5, 0, -1)
+
+[node name="Tile_Wall_Straight_SM2" parent="Room" instance=ExtResource("5_e85px")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, 1)
+
+[node name="Tile_Wall_Straight_SM3" parent="Room" instance=ExtResource("5_e85px")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 12.5, 0, 0)
+
+[node name="Tile_Wall_Straight_SM4" parent="Room" instance=ExtResource("5_e85px")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 0, 0)
+
+[node name="TileWallCornerInner5" parent="Room" instance=ExtResource("8_3p45i")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 12.5, 0, 1)
+
+[node name="TileWallCornerInner6" parent="Room" instance=ExtResource("8_3p45i")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 12.5, 0, -1)
+
+[node name="TileWallCornerOuterSegB" parent="Room" instance=ExtResource("16_v2r0b")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -5.5, 0, -5)
+
+[node name="TileWallCornerOuterSegB2" parent="Room" instance=ExtResource("16_v2r0b")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 9.5, 0, -1)
+
+[node name="TileWallCornerOuterSegA" parent="Room" instance=ExtResource("17_nxbvq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -9.5, 0, -1)
+
+[node name="TileWallCornerInnerSegB" parent="Room" instance=ExtResource("18_hlm0l")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -2.5, 0, -9)
+
+[node name="TileWallCornerInnerSegB2" parent="Room" instance=ExtResource("18_hlm0l")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.5, 0, -6)
+
+[node name="TileWallCornerInnerSegA" parent="Room" instance=ExtResource("19_riasa")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -5.5, 0, -6)
+
+[node name="TileWallCornerInnerSegA2" parent="Room" instance=ExtResource("19_riasa")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.5, 0, -9)
+
+[node name="TileWallCornerOuterSegA2" parent="Room" instance=ExtResource("17_nxbvq")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.5, 0, -5)
 
 [editable path="Table"]
 [editable path="Conveyor"]
