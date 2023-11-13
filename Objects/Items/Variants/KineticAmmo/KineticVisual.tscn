@@ -4,7 +4,7 @@
 size = Vector3(0.2, 0.2, 0.2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sunfi"]
-albedo_color = Color(0.117647, 1, 0, 1)
+albedo_color = Color(1, 0, 0.933333, 1)
 
 [node name="ItemVisual" type="Node3D"]
 
