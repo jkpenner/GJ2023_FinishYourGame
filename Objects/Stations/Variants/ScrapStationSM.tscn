@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dn4nf3fcvgjg3"]
+
+[ext_resource type="PackedScene" uid="uid://clcmqcd01iw3x" path="res://Objects/Stations/Converter/ScrapConverter.tscn" id="1_tl5i4"]
+[ext_resource type="PackedScene" uid="uid://meina3ocbxe5" path="res://Objects/Stations/Table/Table.tscn" id="2_6ge5s"]
+[ext_resource type="PackedScene" uid="uid://njgujnb7rotf" path="res://Objects/Stations/Conveyor/Conveyor.tscn" id="3_oitp3"]
+
+[node name="ScrapStationSM" type="Node3D"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -6.92352, 0, -2.2962)
+
+[node name="ScrapConverter" parent="." node_paths=PackedStringArray("outputTarget") instance=ExtResource("1_tl5i4")]
+outputTarget = NodePath("../OutputTable")
+
+[node name="OutputTable" parent="." instance=ExtResource("2_6ge5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 9.53674e-07)
+
+[node name="InputConveyor" parent="." node_paths=PackedStringArray("moveTarget") instance=ExtResource("3_oitp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 4.76837e-07)
+moveTarget = NodePath("../ScrapConverter")
