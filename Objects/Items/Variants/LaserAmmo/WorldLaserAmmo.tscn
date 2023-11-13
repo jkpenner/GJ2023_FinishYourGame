@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdjbf3h30pqd0"]
+
+[ext_resource type="PackedScene" uid="uid://bmili8jha4sie" path="res://Objects/Items/WorldItem.tscn" id="1_80mkd"]
+[ext_resource type="Resource" uid="uid://c6wcu8a3giglk" path="res://Objects/Items/Variants/LaserAmmo/LaserAmmo.tres" id="2_sm8hl"]
+
+[node name="WorldLaserAmmo" instance=ExtResource("1_80mkd")]
+item = ExtResource("2_sm8hl")

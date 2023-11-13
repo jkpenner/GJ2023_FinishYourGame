@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvxct8q5x5taj"]
+
+[ext_resource type="PackedScene" uid="uid://bmili8jha4sie" path="res://Objects/Items/WorldItem.tscn" id="1_mmnby"]
+[ext_resource type="Resource" uid="uid://ddl68a36pot58" path="res://Objects/Items/Variants/KineticAmmo/KineticAmmo.tres" id="2_cvche"]
+
+[node name="WorldKineticAmmo" instance=ExtResource("1_mmnby")]
+item = ExtResource("2_cvche")
