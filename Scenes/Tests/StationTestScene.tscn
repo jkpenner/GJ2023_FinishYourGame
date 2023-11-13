@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://db37coqddej2r"]
+[gd_scene load_steps=29 format=3 uid="uid://db37coqddej2r"]
 
 [ext_resource type="PackedScene" uid="uid://dma4yhapsggvq" path="res://Objects/Player/PlayerController.tscn" id="1_bvfca"]
 [ext_resource type="PackedScene" uid="uid://meina3ocbxe5" path="res://Objects/Stations/Table/Table.tscn" id="2_3nigr"]
@@ -24,6 +24,9 @@
 [ext_resource type="PackedScene" uid="uid://usiuttau5e17" path="res://Objects/Structure/Walls/TileWallCornerOuterSegA.tscn" id="17_nxbvq"]
 [ext_resource type="PackedScene" uid="uid://cl6sk6ct2hdhs" path="res://Objects/Structure/Walls/TileWallCornerInnerSegB.tscn" id="18_hlm0l"]
 [ext_resource type="PackedScene" uid="uid://bp1m5k70ei4rm" path="res://Objects/Structure/Walls/TileWallCornerInnerSegA.tscn" id="19_riasa"]
+[ext_resource type="PackedScene" uid="uid://ohy7mhd3xjpb" path="res://Objects/Stations/Weapon/KineticWeapon.tscn" id="26_mosfv"]
+[ext_resource type="PackedScene" uid="uid://dyy4c3n3auxwx" path="res://Objects/Stations/Weapon/LaserWeapon.tscn" id="27_w5hry"]
+[ext_resource type="PackedScene" uid="uid://ddr10dpgg41f1" path="res://Objects/Stations/Weapon/MissileWeapon.tscn" id="28_ev8im"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_njr01"]
 size = Vector3(20, 0.5, 20)
@@ -313,3 +316,12 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.5, 0
 
 [node name="TileWallCornerOuterSegA2" parent="Room" instance=ExtResource("17_nxbvq")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.5, 0, -5)
+
+[node name="KineticWeapon" parent="." instance=ExtResource("26_mosfv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.54442, 0, -7.64487)
+
+[node name="LaserWeapon" parent="." instance=ExtResource("27_w5hry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.180483, 0, -7.57177)
+
+[node name="MissileWeapon" parent="." instance=ExtResource("28_ev8im")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.32615, 0, -7.37194)
