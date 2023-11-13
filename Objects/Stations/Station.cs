@@ -130,17 +130,50 @@ namespace SpaceEngineer
             State = StationState.Idle;
             moveMode = ItemMoveMode.Instant;
 
-            visualParent.RemoveChild(visual);
+            if (visual is not null)
+            {
+                visualParent.RemoveChild(visual);
+            }
 
             // Add the item to the next slot
             other.HeldItem = item;
             other.ItemVisual = visual;
 
-            other.visualParent.AddChild(visual);
-            visual.GlobalPosition = visualParent.GlobalPosition;
+            if (visual is not null)
+            {
+                other.visualParent.AddChild(visual);
+                visual.GlobalPosition = visualParent.GlobalPosition;
+                visual.GlobalRotation = visualParent.GlobalRotation;
+            }
 
             other.State = StationState.MovingItem;
             other.moveMode = mode;
+        }
+
+        protected void DestroyItem()
+        {
+            HeldItem = null;
+            if (ItemVisual is not null)
+            {
+                visualParent.RemoveChild(ItemVisual);
+                ItemVisual.QueueFree();
+            }
+            ItemVisual = null;
+        }
+
+        protected void SpawnItem(Item item)
+        {
+            HeldItem = item;
+            if (item is not null)
+            {
+                ItemVisual = item.InstantiateVisual();
+                if (ItemVisual is not null)
+                {
+                    visualParent.AddChild(ItemVisual);
+                    ItemVisual.GlobalPosition = visualParent.GlobalPosition;
+                    ItemVisual.GlobalRotation = visualParent.GlobalRotation;
+                }
+            }
         }
 
         public override void _Process(double delta)
