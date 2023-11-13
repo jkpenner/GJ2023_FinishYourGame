@@ -19,10 +19,10 @@ namespace SpaceEngineer
     {
         [Export] Node3D visualParent;
 
+        public StationState State { get; private set; }
         public Item HeldItem { get; private set; }
         protected Node3D ItemVisual { get; private set; }
 
-        private StationState state;
         private ItemMoveMode moveMode;
 
         public delegate void ItemEvent(Item item);
@@ -53,7 +53,7 @@ namespace SpaceEngineer
 
         public bool CheckIfCanTakeItem()
         {
-            if (state == StationState.MovingItem)
+            if (State == StationState.MovingItem)
             {
                 return false;
             }
@@ -122,7 +122,7 @@ namespace SpaceEngineer
             this.HeldItem = null;
             this.ItemVisual = null;
 
-            state = StationState.Idle;
+            State = StationState.Idle;
             moveMode = ItemMoveMode.Instant;
 
             visualParent.RemoveChild(visual);
@@ -134,13 +134,13 @@ namespace SpaceEngineer
             other.visualParent.AddChild(visual);
             visual.GlobalPosition = visualParent.GlobalPosition;
 
-            other.state = StationState.MovingItem;
+            other.State = StationState.MovingItem;
             other.moveMode = mode;
         }
 
         public override void _Process(double delta)
         {
-            if (state == StationState.MovingItem)
+            if (State == StationState.MovingItem)
             {
                 OnItemMoveUpdate(delta, moveMode);
             }
@@ -195,7 +195,7 @@ namespace SpaceEngineer
         /// </summary>
         protected void CompleteItemMove()
         {
-            state = StationState.Idle;
+            State = StationState.Idle;
             OnItemMoveComplete();
         }
     }
