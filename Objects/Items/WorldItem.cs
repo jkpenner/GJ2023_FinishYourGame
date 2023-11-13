@@ -36,10 +36,14 @@ namespace SpaceEngineer
             }
 
             item = newItem;
-            visual = item.InstantiateVisual();
-            if (visual is not null)
+
+            if (item is not null)
             {
-                AddChild(visual);
+                visual = item.InstantiateVisual();
+                if (visual is not null)
+                {
+                    AddChild(visual);
+                }
             }
         }
     }
