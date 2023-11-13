@@ -1,4 +1,4 @@
-namespace AetherPunk
+namespace SpaceEngineer
 {
     public static class GameEvents
     {
