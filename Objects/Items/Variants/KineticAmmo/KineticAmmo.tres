@@ -6,5 +6,10 @@
 
 [resource]
 script = ExtResource("1_nu22b")
+ammoType = 1
+shieldDamage = 1
+hullDamage = 2
+hitChance = 0.8
+peirceChance = 0.25
 visualScene = ExtResource("2_4uxck")
 worldScene = ExtResource("3_ngio0")

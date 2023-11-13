@@ -6,5 +6,10 @@
 
 [resource]
 script = ExtResource("1_5avs2")
+ammoType = 2
+shieldDamage = 2
+hullDamage = 3
+hitChance = 0.7
+peirceChance = 0.5
 visualScene = ExtResource("2_chdsj")
 worldScene = ExtResource("3_ug576")

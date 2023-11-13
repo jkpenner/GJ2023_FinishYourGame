@@ -6,5 +6,10 @@
 
 [resource]
 script = ExtResource("1_vmpy0")
+ammoType = 3
+shieldDamage = 3
+hullDamage = 1
+hitChance = 0.9
+peirceChance = 0.75
 visualScene = ExtResource("2_u5cn1")
 worldScene = ExtResource("3_8gwrc")
