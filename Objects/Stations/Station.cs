@@ -92,6 +92,11 @@ namespace SpaceEngineer
                 return false;
             }
 
+            if (State == StationState.MovingItem)
+            {
+                CompleteItemMove();
+            }
+
             item = HeldItem;
             HeldItem = null;
 
