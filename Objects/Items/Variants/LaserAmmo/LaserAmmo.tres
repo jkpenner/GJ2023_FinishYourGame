@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://c6wcu8a3giglk"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://c6wcu8a3giglk"]
 
 [ext_resource type="Script" path="res://Objects/Items/Item.cs" id="1_vmpy0"]
 [ext_resource type="PackedScene" uid="uid://duuwwqcqnslt6" path="res://Objects/Items/Variants/LaserAmmo/LaserVisual.tscn" id="2_u5cn1"]
+[ext_resource type="PackedScene" uid="uid://bmili8jha4sie" path="res://Objects/Items/WorldItem.tscn" id="3_8gwrc"]
 
 [resource]
 script = ExtResource("1_vmpy0")
 visualScene = ExtResource("2_u5cn1")
+worldScene = ExtResource("3_8gwrc")

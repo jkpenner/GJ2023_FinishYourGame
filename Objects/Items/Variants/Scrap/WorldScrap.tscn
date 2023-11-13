@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://clmntptixsnar"]
 
-[ext_resource type="PackedScene" uid="uid://bmili8jha4sie" path="res://Objects/Items/WorldItem.tscn" id="1_kmph1"]
-[ext_resource type="Resource" uid="uid://boxryp6hujwtv" path="res://Objects/Items/Variants/Scrap/Scrap.tres" id="2_2e4v8"]
+[ext_resource type="PackedScene" uid="uid://bmili8jha4sie" path="res://Objects/Items/WorldItem.tscn" id="1_t3n31"]
+[ext_resource type="Resource" uid="uid://boxryp6hujwtv" path="res://Objects/Items/Variants/Scrap/Scrap.tres" id="2_8hhfo"]
 
-[node name="WorldScrap" instance=ExtResource("1_kmph1")]
-item = ExtResource("2_2e4v8")
+[node name="WorldScrap" instance=ExtResource("1_t3n31")]
+item = ExtResource("2_8hhfo")

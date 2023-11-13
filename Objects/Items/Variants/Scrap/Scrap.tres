@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://boxryp6hujwtv"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://boxryp6hujwtv"]
 
 [ext_resource type="Script" path="res://Objects/Items/Item.cs" id="1_1rumx"]
 [ext_resource type="PackedScene" uid="uid://ciy4td68r4mji" path="res://Objects/Items/Variants/Scrap/ScrapVisual.tscn" id="2_layip"]
+[ext_resource type="PackedScene" uid="uid://bmili8jha4sie" path="res://Objects/Items/WorldItem.tscn" id="3_er573"]
 
 [resource]
 script = ExtResource("1_1rumx")
 visualScene = ExtResource("2_layip")
+worldScene = ExtResource("3_er573")

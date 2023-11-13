@@ -8,13 +8,11 @@ namespace SpaceEngineer
         [Export] private Item item;
         [Export] private Interactable interactable;
 
+        private Node3D visual;
+
         public override void _Ready()
         {
-            var visual = item.InstantiateVisual();
-            if (visual is not null)
-            {
-                AddChild(visual);
-            }
+            SetItem(item);
 
             interactable.IsInteractable = true;
             interactable.Interacted += OnInteraction;
@@ -26,6 +24,22 @@ namespace SpaceEngineer
             {
                 interactor.SetHeldItem(item);
                 QueueFree();
+            }
+        }
+
+        public void SetItem(Item newItem)
+        {
+            if (visual is not null)
+            {
+                RemoveChild(visual);
+                visual.QueueFree();
+            }
+
+            item = newItem;
+            visual = item.InstantiateVisual();
+            if (visual is not null)
+            {
+                AddChild(visual);
             }
         }
     }
