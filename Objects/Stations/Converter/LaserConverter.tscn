@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://bs1ak1x2qpjd4"]
+
+[ext_resource type="Script" path="res://Objects/Stations/Converter/Converter.cs" id="1_ix4xw"]
+[ext_resource type="Resource" uid="uid://boxryp6hujwtv" path="res://Objects/Items/Variants/Scrap/Scrap.tres" id="2_21xlj"]
+[ext_resource type="Resource" uid="uid://c6wcu8a3giglk" path="res://Objects/Items/Variants/LaserAmmo/LaserAmmo.tres" id="3_ogro8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dlxq0"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cv1sa"]
+size = Vector3(0.9, 0.8, 0.9)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xorcr"]
+albedo_color = Color(0.141176, 0.286275, 0.92549, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dlrjh"]
+size = Vector3(0.8, 0.5, 0.8)
+
+[node name="LaserConverter" type="StaticBody3D" node_paths=PackedStringArray("visualParent")]
+script = ExtResource("1_ix4xw")
+inputItem = ExtResource("2_21xlj")
+outputItem = ExtResource("3_ogro8")
+visualParent = NodePath("ItemVisualParent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_dlxq0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+mesh = SubResource("BoxMesh_cv1sa")
+surface_material_override/0 = SubResource("StandardMaterial3D_xorcr")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+mesh = SubResource("BoxMesh_dlrjh")
+surface_material_override/0 = SubResource("StandardMaterial3D_xorcr")
+
+[node name="ItemVisualParent" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.849192, 0)
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.00335104, 0.999994, 0, -0.999994, 0.00335104, 0, 1.36304, 0)
+text = "Laser"
