@@ -1,13 +1,17 @@
-[gd_scene load_steps=22 format=3 uid="uid://db37coqddej2r"]
+[gd_scene load_steps=26 format=3 uid="uid://db37coqddej2r"]
 
 [ext_resource type="PackedScene" uid="uid://dma4yhapsggvq" path="res://Objects/Player/PlayerController.tscn" id="1_bvfca"]
 [ext_resource type="PackedScene" uid="uid://meina3ocbxe5" path="res://Objects/Stations/Table/Table.tscn" id="2_3nigr"]
-[ext_resource type="Resource" uid="uid://bouk7jwa0exfh" path="res://Objects/Items/Variants/TestItem/TestItem.tres" id="3_w6b1b"]
+[ext_resource type="PackedScene" uid="uid://dn4nf3fcvgjg3" path="res://Objects/Stations/Variants/ScrapStationSM.tscn" id="2_p44os"]
+[ext_resource type="PackedScene" uid="uid://beixk1wkylriv" path="res://Objects/Stations/Variants/LaserStationSM.tscn" id="3_5r6p3"]
+[ext_resource type="PackedScene" uid="uid://bd7gkrnps4vvj" path="res://Objects/Stations/Variants/KineticStationSM.tscn" id="4_54qet"]
 [ext_resource type="PackedScene" uid="uid://njgujnb7rotf" path="res://Objects/Stations/Conveyor/Conveyor.tscn" id="4_wr5uq"]
 [ext_resource type="PackedScene" uid="uid://mblq53kvd3g0" path="res://Objects/Structure/Walls/TileWallStraightSM.tscn" id="5_e85px"]
+[ext_resource type="PackedScene" uid="uid://4igxf41xruo1" path="res://Objects/Stations/Variants/MissileStationSM.tscn" id="5_ges5k"]
 [ext_resource type="PackedScene" uid="uid://qq3r1ejoewpb" path="res://Objects/Structure/Floor/TileFloorSquareLG.tscn" id="5_qm2jm"]
 [ext_resource type="PackedScene" uid="uid://4vxuethen0x7" path="res://Objects/Structure/Floor/TileFloorSquareSM.tscn" id="6_f50dh"]
 [ext_resource type="PackedScene" uid="uid://cr0jw2re5fmo6" path="res://Objects/Structure/Walls/TileWallStraightLG.tscn" id="7_5auwq"]
+[ext_resource type="Resource" uid="uid://boxryp6hujwtv" path="res://Objects/Items/Variants/Scrap/Scrap.tres" id="7_p22is"]
 [ext_resource type="PackedScene" uid="uid://dia3yt47b5xv4" path="res://Objects/Structure/Walls/TileWallCornerInner.tscn" id="8_3p45i"]
 [ext_resource type="PackedScene" uid="uid://wgmgv3s7i4u3" path="res://Objects/Structure/Walls/TileWallCornerOuterRounded.tscn" id="9_6l4iy"]
 [ext_resource type="PackedScene" uid="uid://em3gkp203y1" path="res://Objects/Structure/Walls/TileWallAngledSM.tscn" id="10_plsnj"]
@@ -51,20 +55,27 @@ transform = Transform3D(-0.164423, 0.713658, -0.680924, -0.7056, 0.397285, 0.586
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.164423, 0.713658, -0.680924, -0.7056, 0.397285, 0.586765, 0.689271, 0.576937, 0.438234, 0, 6.03881, 0)
-shadow_enabled = true
 
 [node name="Station" type="Node3D" parent="."]
 
+[node name="ScrapStationSM" parent="." instance=ExtResource("2_p44os")]
+
+[node name="LaserStationSM" parent="." instance=ExtResource("3_5r6p3")]
+
+[node name="KineticStationSM" parent="." instance=ExtResource("4_54qet")]
+
+[node name="MissileStationSM" parent="." instance=ExtResource("5_ges5k")]
+
 [node name="Table" parent="." instance=ExtResource("2_3nigr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 3)
-initialItem = ExtResource("3_w6b1b")
+initialItem = ExtResource("7_p22is")
 
 [node name="Table2" parent="." instance=ExtResource("2_3nigr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 3)
 
 [node name="Table3" parent="." instance=ExtResource("2_3nigr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
-initialItem = ExtResource("3_w6b1b")
+initialItem = ExtResource("7_p22is")
 
 [node name="Table4" parent="." instance=ExtResource("2_3nigr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.994, 0, 3)
@@ -76,11 +87,17 @@ moveTarget = NodePath("../Table")
 [node name="Conveyor2" parent="." node_paths=PackedStringArray("moveTarget") instance=ExtResource("4_wr5uq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)
 moveTarget = NodePath("../Conveyor")
-initialItem = ExtResource("3_w6b1b")
+initialItem = ExtResource("7_p22is")
 
 [node name="Conveyor3" parent="." node_paths=PackedStringArray("moveTarget") instance=ExtResource("4_wr5uq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 3)
 moveTarget = NodePath("../Conveyor2")
+
+[node name="Conveyor4" parent="." node_paths=PackedStringArray("moveTarget", "interactable", "visualParent") instance=ExtResource("4_wr5uq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 3)
+moveTarget = NodePath("../Conveyor2")
+interactable = NodePath("../Conveyor3/Interactable")
+visualParent = NodePath("../Conveyor3/ItemVisualParent")
 
 [node name="Label" type="Label" parent="."]
 offset_right = 297.0
