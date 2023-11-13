@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://4igxf41xruo1"]
 
 [ext_resource type="PackedScene" uid="uid://bu4m8bi4q268g" path="res://Objects/Stations/Converter/MissileConverter.tscn" id="1_dwabs"]
-[ext_resource type="PackedScene" uid="uid://meina3ocbxe5" path="res://Objects/Stations/Table/Table.tscn" id="2_5537q"]
+[ext_resource type="PackedScene" uid="uid://meina3ocbxe5" path="res://Objects/Stations/Table/TableSM.tscn" id="2_5537q"]
 [ext_resource type="PackedScene" uid="uid://njgujnb7rotf" path="res://Objects/Stations/Conveyor/Conveyor.tscn" id="3_k7qad"]
 
 [node name="MissileStationSM" type="Node3D"]

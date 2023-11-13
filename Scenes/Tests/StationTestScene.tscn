@@ -1,7 +1,6 @@
-[gd_scene load_steps=29 format=3 uid="uid://db37coqddej2r"]
+[gd_scene load_steps=33 format=3 uid="uid://db37coqddej2r"]
 
 [ext_resource type="PackedScene" uid="uid://dma4yhapsggvq" path="res://Objects/Player/PlayerController.tscn" id="1_bvfca"]
-[ext_resource type="PackedScene" uid="uid://meina3ocbxe5" path="res://Objects/Stations/Table/Table.tscn" id="2_3nigr"]
 [ext_resource type="PackedScene" uid="uid://dn4nf3fcvgjg3" path="res://Objects/Stations/Variants/ScrapStationSM.tscn" id="2_p44os"]
 [ext_resource type="PackedScene" uid="uid://b5d5u1gteslnb" path="res://Objects/Player/PlayerCamera.tscn" id="2_rw2gm"]
 [ext_resource type="PackedScene" uid="uid://beixk1wkylriv" path="res://Objects/Stations/Variants/LaserStationSM.tscn" id="3_5r6p3"]
@@ -12,8 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://qq3r1ejoewpb" path="res://Objects/Structure/Floor/TileFloorSquareLG.tscn" id="5_qm2jm"]
 [ext_resource type="PackedScene" uid="uid://4vxuethen0x7" path="res://Objects/Structure/Floor/TileFloorSquareSM.tscn" id="6_f50dh"]
 [ext_resource type="PackedScene" uid="uid://cr0jw2re5fmo6" path="res://Objects/Structure/Walls/TileWallStraightLG.tscn" id="7_5auwq"]
+[ext_resource type="PackedScene" uid="uid://wtffefe67pdd" path="res://Objects/Stations/Table/TableEnd.tscn" id="7_beavm"]
 [ext_resource type="Resource" uid="uid://boxryp6hujwtv" path="res://Objects/Items/Variants/Scrap/Scrap.tres" id="7_p22is"]
 [ext_resource type="PackedScene" uid="uid://dia3yt47b5xv4" path="res://Objects/Structure/Walls/TileWallCornerInner.tscn" id="8_3p45i"]
+[ext_resource type="PackedScene" uid="uid://bn1oxw885f81s" path="res://Objects/Stations/Table/TableMiddle.tscn" id="8_6pa8f"]
 [ext_resource type="PackedScene" uid="uid://wgmgv3s7i4u3" path="res://Objects/Structure/Walls/TileWallCornerOuterRounded.tscn" id="9_6l4iy"]
 [ext_resource type="PackedScene" uid="uid://em3gkp203y1" path="res://Objects/Structure/Walls/TileWallAngledSM.tscn" id="10_plsnj"]
 [ext_resource type="PackedScene" uid="uid://crxjuc4vmtlpt" path="res://Objects/Structure/Walls/TileWallStraightMD.tscn" id="11_t8mvm"]
@@ -28,10 +29,29 @@
 [ext_resource type="PackedScene" uid="uid://dyy4c3n3auxwx" path="res://Objects/Stations/Weapon/LaserWeapon.tscn" id="27_w5hry"]
 [ext_resource type="PackedScene" uid="uid://ddr10dpgg41f1" path="res://Objects/Stations/Weapon/MissileWeapon.tscn" id="28_ev8im"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qibh1"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0, 0.0156863, 0.0941176, 1)
+ground_bottom_color = Color(0, 0.0235294, 0.117647, 1)
+ground_horizon_color = Color(0, 0.0156863, 0.0941176, 1)
+
+[sub_resource type="Sky" id="Sky_thlvs"]
+sky_material = SubResource("ProceduralSkyMaterial_qibh1")
+
+[sub_resource type="Environment" id="Environment_bnlts"]
+background_mode = 2
+sky = SubResource("Sky_thlvs")
+ambient_light_source = 3
+reflected_light_source = 2
+ssao_ao_channel_affect = 0.99
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_njr01"]
 size = Vector3(20, 0.5, 20)
 
 [node name="StationTestScene" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_bnlts")
 
 [node name="Floor" type="Node3D" parent="."]
 
@@ -65,23 +85,23 @@ transform = Transform3D(-0.164423, 0.713658, -0.680924, -0.7056, 0.397285, 0.586
 
 [node name="MissileStationSM" parent="." instance=ExtResource("5_ges5k")]
 
-[node name="Table" parent="." instance=ExtResource("2_3nigr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 3)
+[node name="TableEnd2" parent="." instance=ExtResource("7_beavm")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 0, 3)
 initialItem = ExtResource("7_p22is")
 
-[node name="Table2" parent="." instance=ExtResource("2_3nigr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 3)
+[node name="TableMiddle2" parent="." instance=ExtResource("8_6pa8f")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2, 0, 3)
 
-[node name="Table3" parent="." instance=ExtResource("2_3nigr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
+[node name="TableMiddle" parent="." instance=ExtResource("8_6pa8f")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 0, 3)
+
+[node name="TableEnd" parent="." instance=ExtResource("7_beavm")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, 0, 3)
 initialItem = ExtResource("7_p22is")
-
-[node name="Table4" parent="." instance=ExtResource("2_3nigr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.994, 0, 3)
 
 [node name="Conveyor" parent="." node_paths=PackedStringArray("moveTarget") instance=ExtResource("4_wr5uq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
-moveTarget = NodePath("../Table")
+moveTarget = NodePath("../TableEnd2")
 
 [node name="Conveyor2" parent="." node_paths=PackedStringArray("moveTarget") instance=ExtResource("4_wr5uq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)

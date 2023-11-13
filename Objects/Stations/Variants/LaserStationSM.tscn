@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://beixk1wkylriv"]
 
 [ext_resource type="PackedScene" uid="uid://bs1ak1x2qpjd4" path="res://Objects/Stations/Converter/LaserConverter.tscn" id="1_rc44w"]
-[ext_resource type="PackedScene" uid="uid://meina3ocbxe5" path="res://Objects/Stations/Table/Table.tscn" id="2_orrig"]
+[ext_resource type="PackedScene" uid="uid://meina3ocbxe5" path="res://Objects/Stations/Table/TableSM.tscn" id="2_orrig"]
 [ext_resource type="PackedScene" uid="uid://njgujnb7rotf" path="res://Objects/Stations/Conveyor/Conveyor.tscn" id="3_y85d7"]
 
 [node name="LaserStationSM" type="Node3D"]

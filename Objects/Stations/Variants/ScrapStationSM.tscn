@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dn4nf3fcvgjg3"]
 
 [ext_resource type="PackedScene" uid="uid://clcmqcd01iw3x" path="res://Objects/Stations/Converter/ScrapConverter.tscn" id="1_tl5i4"]
-[ext_resource type="PackedScene" uid="uid://meina3ocbxe5" path="res://Objects/Stations/Table/Table.tscn" id="2_6ge5s"]
+[ext_resource type="PackedScene" uid="uid://meina3ocbxe5" path="res://Objects/Stations/Table/TableSM.tscn" id="2_6ge5s"]
 [ext_resource type="PackedScene" uid="uid://njgujnb7rotf" path="res://Objects/Stations/Conveyor/Conveyor.tscn" id="3_oitp3"]
 
 [node name="ScrapStationSM" type="Node3D"]

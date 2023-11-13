@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://bn1oxw885f81s"]
+
+[ext_resource type="Script" path="res://Objects/Stations/Table/Table.cs" id="1_opmgu"]
+[ext_resource type="PackedScene" uid="uid://dpnowpm774lb5" path="res://Assets/Models/Stations/Table_Middle.gltf" id="2_wgb5k"]
+[ext_resource type="Script" path="res://Objects/Stations/Interactable.cs" id="3_v438b"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dlxq0"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wy4ti"]
+
+[node name="TableMiddle" type="StaticBody3D" node_paths=PackedStringArray("interactable", "visualParent")]
+script = ExtResource("1_opmgu")
+interactable = NodePath("Interactable")
+visualParent = NodePath("ItemVisualParent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_dlxq0")
+
+[node name="Table_Middle" parent="." instance=ExtResource("2_wgb5k")]
+
+[node name="ItemVisualParent" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.849192, 0)
+
+[node name="Interactable" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.80095, 0)
+script = ExtResource("3_v438b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+shape = SubResource("SphereShape3D_wy4ti")
