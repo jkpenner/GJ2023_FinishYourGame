@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dma4yhapsggvq" path="res://Objects/Player/PlayerController.tscn" id="1_bvfca"]
 [ext_resource type="PackedScene" uid="uid://meina3ocbxe5" path="res://Objects/Stations/Table/Table.tscn" id="2_3nigr"]
 [ext_resource type="PackedScene" uid="uid://dn4nf3fcvgjg3" path="res://Objects/Stations/Variants/ScrapStationSM.tscn" id="2_p44os"]
+[ext_resource type="PackedScene" uid="uid://b5d5u1gteslnb" path="res://Objects/Player/PlayerCamera.tscn" id="2_rw2gm"]
 [ext_resource type="PackedScene" uid="uid://beixk1wkylriv" path="res://Objects/Stations/Variants/LaserStationSM.tscn" id="3_5r6p3"]
 [ext_resource type="PackedScene" uid="uid://bd7gkrnps4vvj" path="res://Objects/Stations/Variants/KineticStationSM.tscn" id="4_54qet"]
 [ext_resource type="PackedScene" uid="uid://njgujnb7rotf" path="res://Objects/Stations/Conveyor/Conveyor.tscn" id="4_wr5uq"]
@@ -27,10 +28,6 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_njr01"]
 size = Vector3(20, 0.5, 20)
 
-[sub_resource type="Environment" id="Environment_56rmj"]
-background_mode = 1
-ambient_light_color = Color(0.8, 0.8, 0.8, 1)
-
 [node name="StationTestScene" type="Node3D"]
 
 [node name="Floor" type="Node3D" parent="."]
@@ -43,9 +40,8 @@ shape = SubResource("BoxShape3D_njr01")
 
 [node name="PlayerController" parent="." instance=ExtResource("1_bvfca")]
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 11.8325, 4.05298)
-environment = SubResource("Environment_56rmj")
+[node name="PlayerCamera" parent="." node_paths=PackedStringArray("followTarget") instance=ExtResource("2_rw2gm")]
+followTarget = NodePath("../PlayerController")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(-0.164423, 0.713658, -0.680924, -0.7056, 0.397285, 0.586765, 0.689271, 0.576937, 0.438234, -6.68532, 1.85199, -2.28714)
