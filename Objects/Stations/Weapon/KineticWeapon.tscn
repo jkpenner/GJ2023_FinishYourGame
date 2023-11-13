@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://ohy7mhd3xjpb"]
+
+[ext_resource type="Script" path="res://Objects/Stations/Weapon/Weapon.cs" id="1_flcku"]
+[ext_resource type="Script" path="res://Objects/Stations/Interactable.cs" id="2_00n6i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dlxq0"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cv1sa"]
+size = Vector3(0.9, 0.8, 0.9)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xorcr"]
+albedo_color = Color(0.666667, 0, 0.552941, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dlrjh"]
+size = Vector3(0.8, 0.5, 0.8)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0uutk"]
+
+[node name="KineticWeapon" type="StaticBody3D" node_paths=PackedStringArray("interactable", "visualParent")]
+script = ExtResource("1_flcku")
+ammoType = 1
+interactable = NodePath("Interactable")
+visualParent = NodePath("ItemVisualParent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_dlxq0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+mesh = SubResource("BoxMesh_cv1sa")
+surface_material_override/0 = SubResource("StandardMaterial3D_xorcr")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.71259, -0.701581, 0, 0.701581, 0.71259, -0.00242019, 0.851845, -0.0271519)
+mesh = SubResource("BoxMesh_dlrjh")
+surface_material_override/0 = SubResource("StandardMaterial3D_xorcr")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 2.30742, 0, 0, 0, 0.497809, -0.00232315, 1.20867, -0.259681)
+mesh = SubResource("BoxMesh_dlrjh")
+surface_material_override/0 = SubResource("StandardMaterial3D_xorcr")
+
+[node name="ItemVisualParent" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.92001, -0.305271)
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.642787, 0.766044, 0, -0.766044, 0.642787, 0, 1.09909, 0.166677)
+text = "Kinetic
+Weapon"
+
+[node name="Interactable" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.868215, 0.404914)
+script = ExtResource("2_00n6i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+shape = SubResource("SphereShape3D_0uutk")
