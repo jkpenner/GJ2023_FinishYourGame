@@ -5,8 +5,20 @@ namespace SpaceEngineer
     [GlobalClass]
     public partial class Item : Resource
     {
+        [Export] private AmmoType ammoType;
+        [Export] private int shieldDamage;
+        [Export] private int hullDamage;
+        [Export] private float hitChance;
+        [Export] private float peirceChance;
+
         [Export] private PackedScene visualScene;
         [Export] private PackedScene worldScene;
+
+        public AmmoType AmmoType => ammoType;
+        public int ShieldDamage => shieldDamage;
+        public int HullDamage => hullDamage;
+        public float HitChance => hitChance;
+        public float PeirceChance => peirceChance;
 
         public Node3D InstantiateVisual()
         {
