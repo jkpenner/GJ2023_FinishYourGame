@@ -81,6 +81,8 @@ namespace SpaceEngineer
                 ItemVisual.Position = Vector3.Zero;
                 ItemVisual.Rotation = Vector3.Zero;
             }
+
+            ItemPlaced?.Invoke(item);
             return true;
         }
 
@@ -105,6 +107,7 @@ namespace SpaceEngineer
                 ItemVisual.QueueFree();
             }
 
+            ItemTaken?.Invoke(item);
             return true;
         }
 
@@ -148,6 +151,9 @@ namespace SpaceEngineer
 
             other.State = StationState.MovingItem;
             other.moveMode = mode;
+
+            this.ItemTaken?.Invoke(item);
+            other.ItemPlaced?.Invoke(item);
         }
 
         protected void DestroyItem()
