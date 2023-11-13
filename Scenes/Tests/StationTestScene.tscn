@@ -69,17 +69,18 @@ initialItem = ExtResource("3_w6b1b")
 [node name="Table4" parent="." instance=ExtResource("2_3nigr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.994, 0, 3)
 
-[node name="Conveyor" parent="." node_paths=PackedStringArray("nextSlot") instance=ExtResource("4_wr5uq")]
+[node name="Conveyor" parent="." node_paths=PackedStringArray("moveTarget") instance=ExtResource("4_wr5uq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
-nextSlot = NodePath("../Table/ItemSlot")
+moveTarget = NodePath("../Table")
 
-[node name="Conveyor2" parent="." node_paths=PackedStringArray("nextSlot") instance=ExtResource("4_wr5uq")]
+[node name="Conveyor2" parent="." node_paths=PackedStringArray("moveTarget") instance=ExtResource("4_wr5uq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)
-nextSlot = NodePath("../Conveyor/ItemSlot")
+moveTarget = NodePath("../Conveyor")
+initialItem = ExtResource("3_w6b1b")
 
-[node name="Conveyor3" parent="." node_paths=PackedStringArray("nextSlot") instance=ExtResource("4_wr5uq")]
+[node name="Conveyor3" parent="." node_paths=PackedStringArray("moveTarget") instance=ExtResource("4_wr5uq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 3)
-nextSlot = NodePath("../Conveyor2/ItemSlot")
+moveTarget = NodePath("../Conveyor2")
 
 [node name="Label" type="Label" parent="."]
 offset_right = 297.0
@@ -299,7 +300,3 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.5, 0
 
 [node name="TileWallCornerOuterSegA2" parent="Room" instance=ExtResource("17_nxbvq")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.5, 0, -5)
-
-[editable path="Table"]
-[editable path="Conveyor"]
-[editable path="Conveyor2"]
