@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://ddl68a36pot58"]
+
+[ext_resource type="Script" path="res://Objects/Items/Item.cs" id="1_nu22b"]
+[ext_resource type="PackedScene" uid="uid://c2djnwh2qi3a" path="res://Objects/Items/Variants/KineticAmmo/KineticVisual.tscn" id="2_4uxck"]
+
+[resource]
+script = ExtResource("1_nu22b")
+visualScene = ExtResource("2_4uxck")

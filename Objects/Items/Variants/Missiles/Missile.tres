@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://3fcscuyyva6e"]
+
+[ext_resource type="Script" path="res://Objects/Items/Item.cs" id="1_5avs2"]
+[ext_resource type="PackedScene" uid="uid://dixdw5kfxb3a6" path="res://Objects/Items/Variants/Missiles/MissileVisual.tscn" id="2_chdsj"]
+
+[resource]
+script = ExtResource("1_5avs2")
+visualScene = ExtResource("2_chdsj")
