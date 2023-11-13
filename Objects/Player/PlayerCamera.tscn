@@ -1,15 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://b5d5u1gteslnb"]
+[gd_scene load_steps=2 format=3 uid="uid://b5d5u1gteslnb"]
 
 [ext_resource type="Script" path="res://Objects/Player/PlayerCamera.cs" id="1_rh5fg"]
 
-[sub_resource type="Environment" id="Environment_56rmj"]
-background_mode = 1
-ambient_light_color = Color(0.8, 0.8, 0.8, 1)
-
-[node name="PlayerCamera" type="Node3D" node_paths=PackedStringArray("followTarget")]
+[node name="PlayerCamera" type="Node3D"]
 script = ExtResource("1_rh5fg")
-followTarget = NodePath("")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 5.5, 3.5)
-environment = SubResource("Environment_56rmj")
+current = true
