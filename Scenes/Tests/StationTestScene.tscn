@@ -92,11 +92,9 @@ initialItem = ExtResource("7_p22is")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 3)
 moveTarget = NodePath("../Conveyor2")
 
-[node name="Conveyor4" parent="." node_paths=PackedStringArray("moveTarget", "interactable", "visualParent") instance=ExtResource("4_wr5uq")]
+[node name="Conveyor4" parent="." node_paths=PackedStringArray("moveTarget") instance=ExtResource("4_wr5uq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 3)
 moveTarget = NodePath("../Conveyor2")
-interactable = NodePath("../Conveyor3/Interactable")
-visualParent = NodePath("../Conveyor3/ItemVisualParent")
 
 [node name="Label" type="Label" parent="."]
 offset_right = 297.0
