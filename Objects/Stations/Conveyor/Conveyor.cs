@@ -2,19 +2,16 @@ using Godot;
 
 namespace SpaceEngineer
 {
-    public partial class Conveyor : Node3D
+    public partial class Conveyor : Table
     {
-        [Export] private ItemSlot slot;
-        [Export] private ItemSlot nextSlot;
-
-        public override void _Ready()
-        {
-            slot.IsInteractable = true;
-        }
+        [Export] private Station moveTarget;
 
         public override void _Process(double delta)
         {
-            slot.MoveTo(nextSlot, MoveMode.Slide);
+            base._Process(delta);
+            
+            // Moves item to the next station.
+            MoveTo(moveTarget, ItemMoveMode.Slide);
         }
     }
 }

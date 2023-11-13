@@ -1,20 +1,48 @@
+using System;
 using Godot;
 
 namespace SpaceEngineer
 {
-    public partial class Table : Node3D
+    public partial class Table : Station
     {
         [Export] Item initialItem;
-        [Export] ItemSlot slot;
+        [Export] Interactable interactable;
 
         public override void _Ready()
         {
-            slot.IsInteractable = true;
+            base._Ready();
 
-            if (initialItem is not null)
-            {
-                slot.TryPlaceObject(initialItem);
-            }            
+            interactable.IsInteractable = true;
+            interactable.Interacted += OnInteraction;
+
+            TryPlaceObject(initialItem);
         }
+
+        private void OnInteraction(PlayerController interactor)
+        {
+            if (interactor.HeldItem is not null)
+            {
+                if (TryPlaceObject(interactor.HeldItem))
+                {
+                    interactor.SetHeldItem(null);
+                }
+                else
+                {
+                    GD.Print("Failed to place item");
+                }
+            }
+            else
+            {
+                if (TryTakeObject(out var item))
+                {
+                    interactor.SetHeldItem(item);
+                }
+                else
+                {
+                    GD.Print("Failed to take item");
+                }
+            }
+        }
+
     }
 }

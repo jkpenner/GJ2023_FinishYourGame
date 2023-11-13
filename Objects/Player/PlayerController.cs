@@ -19,12 +19,12 @@ namespace SpaceEngineer
 		public const float Speed = 5.0f;
 		public const float JumpVelocity = 4.5f;
 
-		private Item heldItem;
-		private List<ItemSlot> interactables;
+		public Item HeldItem { get; private set; }
+		private List<Interactable> interactables;
 
 		public PlayerController()
 		{
-			interactables = new List<ItemSlot>();
+			interactables = new List<Interactable>();
 		}
 
 		public override void _Ready()
@@ -35,9 +35,8 @@ namespace SpaceEngineer
 
 		private void OnInteractAreaEntered(Area3D area)
 		{
-			if (area is ItemSlot interactable)
+			if (area is Interactable interactable)
 			{
-				GD.Print($"{area.Name} entered the interact area.");
 				interactables.Add(interactable);
 			}
 		}
@@ -45,30 +44,32 @@ namespace SpaceEngineer
 
 		private void OnInteractAreaExited(Area3D area)
 		{
-			if (area is ItemSlot interactable)
+			if (area is Interactable interactable)
 			{
-				GD.Print($"{area.Name} exited the interact area.");
 				interactables.Remove(interactable);
 			}
 		}
 
-		public ItemSlot GetTargetInteractable()
+		public void SetHeldItem(Item item)
 		{
-			ItemSlot target = null;
+			HeldItem = item;
+		}
+
+		public Interactable GetTargetInteractable()
+		{
+			Interactable target = null;
 			float targetDot = -1;
 
 			foreach (var interactable in interactables)
 			{
 				if (!interactable.IsInteractable)
 				{
-					GD.Print($"Skipping {interactable.Name} as it is not interactable.");
 					continue;
 				}
 
 				var playerToTarget = (interactable.GlobalPosition - GlobalPosition).Normalized();
-				var playerToTargetDot = (GlobalTransform.Basis.Z).Dot(playerToTarget);
+				var playerToTargetDot = GlobalTransform.Basis.Z.Dot(playerToTarget);
 
-				GD.Print($"{playerToTargetDot} > {targetDot}?");
 				if (playerToTargetDot > targetDot)
 				{
 					target = interactable;
@@ -89,28 +90,7 @@ namespace SpaceEngineer
 				var interactable = GetTargetInteractable();
 				if (interactable?.IsInteractable ?? false)
 				{
-					if (heldItem is not null)
-					{
-						if (interactable.TryPlaceObject(heldItem))
-						{
-							heldItem = null;
-						}
-						else
-						{
-							GD.Print("Failed to place item");
-						}
-					}
-					else
-					{
-						if (interactable.TryTakeObject(out var item))
-						{
-							heldItem = item;
-						}
-						else
-						{
-							GD.Print("Failed to take item");
-						}
-					}
+					interactable.Interact(this);
 				}
 			}
 
