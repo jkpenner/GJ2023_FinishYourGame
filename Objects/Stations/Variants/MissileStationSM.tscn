@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://njgujnb7rotf" path="res://Objects/Stations/Conveyor/Conveyor.tscn" id="3_k7qad"]
 
 [node name="MissileStationSM" type="Node3D"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.92692, -4.76837e-07, 4.99458)
 
 [node name="MissileConverter" parent="." node_paths=PackedStringArray("outputTarget") instance=ExtResource("1_dwabs")]
 outputTarget = NodePath("../OutputTable")
@@ -14,5 +13,5 @@ outputTarget = NodePath("../OutputTable")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 
 [node name="InputConveyor" parent="." node_paths=PackedStringArray("moveTarget") instance=ExtResource("3_k7qad")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 0, 0)
 moveTarget = NodePath("../MissileConverter")

@@ -1,30 +1,30 @@
-[gd_scene load_steps=6 format=3 uid="uid://njgujnb7rotf"]
+[gd_scene load_steps=6 format=3 uid="uid://flbva3d5aoil"]
 
-[ext_resource type="Script" path="res://Objects/Stations/Conveyor/Conveyor.cs" id="1_7gxcy"]
-[ext_resource type="Script" path="res://Objects/Stations/Interactable.cs" id="2_eklu1"]
-[ext_resource type="PackedScene" uid="uid://blegch2ol7avl" path="res://Assets/Models/Stations/Conveyor_SM.gltf" id="2_ye5ic"]
+[ext_resource type="Script" path="res://Objects/Stations/Conveyor/Conveyor.cs" id="1_ee645"]
+[ext_resource type="Script" path="res://Objects/Stations/Interactable.cs" id="2_8ympo"]
+[ext_resource type="PackedScene" uid="uid://clp5epfuuayh6" path="res://Assets/Models/Stations/Conveyor_Middle.gltf" id="2_mr04a"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dlxq0"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wy4ti"]
 
-[node name="Conveyor" type="StaticBody3D" node_paths=PackedStringArray("interactable", "visualParent")]
-script = ExtResource("1_7gxcy")
+[node name="ConveyorMiddle" type="StaticBody3D" node_paths=PackedStringArray("interactable", "visualParent")]
+script = ExtResource("1_ee645")
 interactable = NodePath("Interactable")
 visualParent = NodePath("ItemVisualParent")
-
-[node name="Conveyor_SM" parent="." instance=ExtResource("2_ye5ic")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_dlxq0")
+
+[node name="Conveyor_Middle" parent="." instance=ExtResource("2_mr04a")]
 
 [node name="ItemVisualParent" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.849192, 0)
 
 [node name="Interactable" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.80095, 0)
-script = ExtResource("2_eklu1")
+script = ExtResource("2_8ympo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
 shape = SubResource("SphereShape3D_wy4ti")
