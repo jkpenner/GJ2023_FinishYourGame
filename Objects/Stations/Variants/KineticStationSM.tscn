@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://njgujnb7rotf" path="res://Objects/Stations/Conveyor/Conveyor.tscn" id="3_4fodv"]
 
 [node name="KineticStation" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="KineticConverter" parent="." node_paths=PackedStringArray("outputTarget") instance=ExtResource("1_cao4r")]
 outputTarget = NodePath("../OutputTable")
