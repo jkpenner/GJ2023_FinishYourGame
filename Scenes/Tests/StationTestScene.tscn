@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://db37coqddej2r"]
+[gd_scene load_steps=34 format=3 uid="uid://db37coqddej2r"]
 
 [ext_resource type="PackedScene" uid="uid://dma4yhapsggvq" path="res://Objects/Player/PlayerController.tscn" id="1_bvfca"]
 [ext_resource type="PackedScene" uid="uid://dn4nf3fcvgjg3" path="res://Objects/Stations/Variants/ScrapStationSM.tscn" id="2_p44os"]
@@ -29,6 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://ohy7mhd3xjpb" path="res://Objects/Stations/Weapon/KineticWeapon.tscn" id="26_mosfv"]
 [ext_resource type="PackedScene" uid="uid://dyy4c3n3auxwx" path="res://Objects/Stations/Weapon/LaserWeapon.tscn" id="27_w5hry"]
 [ext_resource type="PackedScene" uid="uid://ddr10dpgg41f1" path="res://Objects/Stations/Weapon/MissileWeapon.tscn" id="28_ev8im"]
+[ext_resource type="PackedScene" uid="uid://drsb1i04eipm" path="res://Objects/Structure/Walls/Damagable/TileWallStraightLGDamagable.tscn" id="30_vmcig"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qibh1"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -231,12 +232,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0, 0)
 [node name="TileFloorSquareSM12" parent="Room" instance=ExtResource("6_f50dh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0, 0)
 
-[node name="TileWallStraightLG" parent="Room" instance=ExtResource("7_5auwq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0, 7)
-
-[node name="TileWallStraightLG2" parent="Room" instance=ExtResource("7_5auwq")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 6.5, 0, 4)
-
 [node name="TileWallCornerInner" parent="Room" instance=ExtResource("8_3p45i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0, 8)
 
@@ -387,3 +382,9 @@ offset_bottom = 240.0
 text = "W,A,S,D: Move
 E: Interact
 "
+
+[node name="TileWallStraightLGDamagable" parent="." instance=ExtResource("30_vmcig")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0, 7)
+
+[node name="TileWallStraightLGDamagable2" parent="." instance=ExtResource("30_vmcig")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 6.5, 0, 4)
