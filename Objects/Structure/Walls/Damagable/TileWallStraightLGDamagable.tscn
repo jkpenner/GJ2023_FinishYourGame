@@ -1,0 +1,50 @@
+[gd_scene load_steps=10 format=3 uid="uid://drsb1i04eipm"]
+
+[ext_resource type="Script" path="res://Objects/Structure/Walls/Damagable/DamagableHull.cs" id="1_tuayy"]
+[ext_resource type="PackedScene" uid="uid://dl6qvd8ixqpuf" path="res://Assets/Models/Walls/Tile_Wall_Straight_LG_Damaged.gltf" id="2_gjhte"]
+[ext_resource type="Resource" uid="uid://boxryp6hujwtv" path="res://Objects/Items/Variants/Scrap/Scrap.tres" id="2_vj4aa"]
+[ext_resource type="PackedScene" uid="uid://rooykdd7dylf" path="res://Assets/Models/Walls/Tile_Wall_Straight_LG.gltf" id="3_gq0q3"]
+[ext_resource type="PackedScene" uid="uid://dlqk2cpif7sxh" path="res://Assets/Models/Walls/Tile_Wall_Straight_LG_Breached.gltf" id="4_7eqor"]
+[ext_resource type="Script" path="res://Objects/Stations/Interactable.cs" id="5_vnfr4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mrbfc"]
+size = Vector3(0.5, 2, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ge6or"]
+size = Vector3(1, 0.5, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u5k1t"]
+size = Vector3(1, 1, 3.31998)
+
+[node name="TileWallStraightLGDamagable" type="Node3D" node_paths=PackedStringArray("armoredVisual", "damagedVisual", "breachedVisual", "interactable")]
+script = ExtResource("1_tuayy")
+armoredVisual = NodePath("Tile_Wall_Straight_LG")
+damagedVisual = NodePath("Tile_Wall_Straight_LG_Damaged")
+breachedVisual = NodePath("Tile_Wall_Straight_LG_Breached")
+interactable = NodePath("Interactable")
+itemGainedAfterScrapped = ExtResource("2_vj4aa")
+requiredItemToRepair = ExtResource("2_vj4aa")
+
+[node name="Collisions" type="StaticBody3D" parent="."]
+
+[node name="WallCollisionShape3D" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 1, -1.5)
+shape = SubResource("BoxShape3D_mrbfc")
+
+[node name="WallCollisionShape3D2" type="CollisionShape3D" parent="Collisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, -1.5)
+shape = SubResource("BoxShape3D_ge6or")
+
+[node name="Tile_Wall_Straight_LG_Damaged" parent="." instance=ExtResource("2_gjhte")]
+
+[node name="Tile_Wall_Straight_LG_Breached" parent="." instance=ExtResource("4_7eqor")]
+
+[node name="Tile_Wall_Straight_LG" parent="." instance=ExtResource("3_gq0q3")]
+
+[node name="Interactable" type="Area3D" parent="."]
+script = ExtResource("5_vnfr4")
+interactDuration = 1.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0217493, 0.522178, -1.50564)
+shape = SubResource("BoxShape3D_u5k1t")
