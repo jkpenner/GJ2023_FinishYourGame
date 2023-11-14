@@ -21,6 +21,7 @@ namespace SpaceEngineer
 
 		public Item HeldItem { get; private set; }
 		private List<Interactable> interactables;
+		private Interactable targetInteractable;
 
 		public PlayerController()
 		{
@@ -84,14 +85,16 @@ namespace SpaceEngineer
 		{
 			Vector3 velocity = Velocity;
 
-			// Handle player interaction.
-			if (Input.IsActionJustPressed(interactAction) && interactables.Count > 0)
+			if (Input.IsActionJustPressed(interactAction))
 			{
-				var interactable = GetTargetInteractable();
-				if (interactable?.IsInteractable ?? false)
-				{
-					interactable.Interact(this);
-				}
+				targetInteractable = GetTargetInteractable();
+				targetInteractable?.StartInteract(this);
+			}
+
+			if (Input.IsActionJustReleased(interactAction))
+			{
+				targetInteractable?.StopInteract(this);
+				targetInteractable = null;
 			}
 
 			// Get the input direction and handle the movement/deceleration.
