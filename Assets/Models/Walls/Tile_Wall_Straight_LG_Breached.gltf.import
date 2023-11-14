@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dl6qvd8ixqpuf"
-path="res://.godot/imported/Tile_Wall_Straight_LG_Scrapped.gltf-2fdc99d7cdfac72c49cffbe161d61c13.scn"
+uid="uid://dlqk2cpif7sxh"
+path="res://.godot/imported/Tile_Wall_Straight_LG_Breached.gltf-5b5c3424c7a4a20347a35fbfea5d6cda.scn"
 
 [deps]
 
-source_file="res://Assets/Models/Walls/Tile_Wall_Straight_LG_Scrapped.gltf"
-dest_files=["res://.godot/imported/Tile_Wall_Straight_LG_Scrapped.gltf-2fdc99d7cdfac72c49cffbe161d61c13.scn"]
+source_file="res://Assets/Models/Walls/Tile_Wall_Straight_LG_Breached.gltf"
+dest_files=["res://.godot/imported/Tile_Wall_Straight_LG_Breached.gltf-5b5c3424c7a4a20347a35fbfea5d6cda.scn"]
 
 [params]
 
@@ -22,8 +22,8 @@ meshes/generate_lods=true
 meshes/create_shadow_meshes=true
 meshes/light_baking=1
 meshes/lightmap_texel_size=0.2
-skins/use_named_skins=true
-animation/import=true
+skins/use_named_skins=false
+animation/import=false
 animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
@@ -36,4 +36,4 @@ _subresources={
 }
 }
 }
-gltf/embedded_image_handling=1
+gltf/embedded_image_handling=0
