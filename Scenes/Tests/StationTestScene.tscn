@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://b5d5u1gteslnb" path="res://Objects/Player/PlayerCamera.tscn" id="2_rw2gm"]
 [ext_resource type="PackedScene" uid="uid://beixk1wkylriv" path="res://Objects/Stations/Variants/LaserStationSM.tscn" id="3_5r6p3"]
 [ext_resource type="PackedScene" uid="uid://bd7gkrnps4vvj" path="res://Objects/Stations/Variants/KineticStationSM.tscn" id="4_54qet"]
-[ext_resource type="PackedScene" uid="uid://njgujnb7rotf" path="res://Objects/Stations/Conveyor/Conveyor.tscn" id="4_wr5uq"]
 [ext_resource type="PackedScene" uid="uid://mblq53kvd3g0" path="res://Objects/Structure/Walls/TileWallStraightSM.tscn" id="5_e85px"]
 [ext_resource type="PackedScene" uid="uid://4igxf41xruo1" path="res://Objects/Stations/Variants/MissileStationSM.tscn" id="5_ges5k"]
 [ext_resource type="PackedScene" uid="uid://qq3r1ejoewpb" path="res://Objects/Structure/Floor/TileFloorSquareLG.tscn" id="5_qm2jm"]
@@ -16,7 +15,9 @@
 [ext_resource type="PackedScene" uid="uid://dia3yt47b5xv4" path="res://Objects/Structure/Walls/TileWallCornerInner.tscn" id="8_3p45i"]
 [ext_resource type="PackedScene" uid="uid://bn1oxw885f81s" path="res://Objects/Stations/Table/TableMiddle.tscn" id="8_6pa8f"]
 [ext_resource type="PackedScene" uid="uid://wgmgv3s7i4u3" path="res://Objects/Structure/Walls/TileWallCornerOuterRounded.tscn" id="9_6l4iy"]
+[ext_resource type="PackedScene" uid="uid://dxw5g8wv42ld1" path="res://Objects/Stations/Conveyor/ConveyorEnd.tscn" id="10_p25yu"]
 [ext_resource type="PackedScene" uid="uid://em3gkp203y1" path="res://Objects/Structure/Walls/TileWallAngledSM.tscn" id="10_plsnj"]
+[ext_resource type="PackedScene" uid="uid://flbva3d5aoil" path="res://Objects/Stations/Conveyor/ConveyorMiddle.tscn" id="11_dajrm"]
 [ext_resource type="PackedScene" uid="uid://crxjuc4vmtlpt" path="res://Objects/Structure/Walls/TileWallStraightMD.tscn" id="11_t8mvm"]
 [ext_resource type="PackedScene" uid="uid://thsiqfunpqbm" path="res://Objects/Structure/Floor/TileFloorTriangleSM.tscn" id="13_bucxs"]
 [ext_resource type="PackedScene" uid="uid://cst3ihv3rfbw4" path="res://Objects/Structure/Floor/TileFloorSquareMD.tscn" id="14_4dryy"]
@@ -43,85 +44,130 @@ background_mode = 2
 sky = SubResource("Sky_thlvs")
 ambient_light_source = 3
 reflected_light_source = 2
-ssao_ao_channel_affect = 0.99
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_njr01"]
-size = Vector3(20, 0.5, 20)
+tonemap_mode = 2
+tonemap_exposure = 2.0
+tonemap_white = 4.0
+ssao_enabled = true
+sdfgi_enabled = true
+adjustment_enabled = true
+adjustment_contrast = 1.1
 
 [node name="StationTestScene" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bnlts")
 
-[node name="Floor" type="Node3D" parent="."]
+[node name="Lighting" type="Node3D" parent="."]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+[node name="SpotLight3D2" type="SpotLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 3, 3.98443, -4)
+visible = false
+light_color = Color(1, 0.937255, 0.8, 1)
+light_energy = 5.0
+spot_range = 10.0
+spot_angle = 63.86
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
-shape = SubResource("BoxShape3D_njr01")
+[node name="SpotLight3D3" type="SpotLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -3, 3.98443, -4)
+visible = false
+light_color = Color(1, 0.937255, 0.8, 1)
+light_energy = 5.0
+spot_range = 10.0
+spot_angle = 63.86
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 3, 3.98443, 3)
+visible = false
+light_color = Color(1, 0.937255, 0.8, 1)
+light_energy = 5.0
+spot_range = 10.0
+spot_angle = 63.86
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -3, 3.98443, 3)
+visible = false
+light_color = Color(1, 0.937255, 0.8, 1)
+light_energy = 5.0
+spot_range = 10.0
+spot_angle = 63.86
+
+[node name="SpotLight3D6" type="SpotLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -10.5627, 2.37995, 0.035638)
+visible = false
+light_color = Color(1, 0.937255, 0.8, 1)
+light_energy = 5.0
+spot_range = 10.0
+spot_angle = 63.86
+
+[node name="SpotLight3D7" type="SpotLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 10.5317, 2.37995, 0.035638)
+visible = false
+light_color = Color(1, 0.937255, 0.8, 1)
+light_energy = 5.0
+spot_range = 10.0
+spot_angle = 63.86
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5, 0)
+light_color = Color(1, 0.933333, 0.8, 1)
+shadow_enabled = true
 
 [node name="PlayerController" parent="." instance=ExtResource("1_bvfca")]
 
 [node name="PlayerCamera" parent="." node_paths=PackedStringArray("followTarget") instance=ExtResource("2_rw2gm")]
 followTarget = NodePath("../PlayerController")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(-0.164423, 0.713658, -0.680924, -0.7056, 0.397285, 0.586765, 0.689271, 0.576937, 0.438234, -6.68532, 1.85199, -2.28714)
+[node name="Stations" type="Node3D" parent="."]
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="."]
-transform = Transform3D(-0.164423, 0.713658, -0.680924, -0.7056, 0.397285, 0.586765, 0.689271, 0.576937, 0.438234, 7.12566, 1.85199, -2.31076)
+[node name="ScrapStationSM" parent="Stations" instance=ExtResource("2_p44os")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.164423, 0.713658, -0.680924, -0.7056, 0.397285, 0.586765, 0.689271, 0.576937, 0.438234, 0, 6.03881, 0)
+[node name="LaserStationSM" parent="Stations" instance=ExtResource("3_5r6p3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 
-[node name="Station" type="Node3D" parent="."]
+[node name="KineticStationSM" parent="Stations" instance=ExtResource("4_54qet")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 0, -5)
 
-[node name="ScrapStationSM" parent="." instance=ExtResource("2_p44os")]
+[node name="MissileStationSM" parent="Stations" instance=ExtResource("5_ges5k")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 0, -5)
 
-[node name="LaserStationSM" parent="." instance=ExtResource("3_5r6p3")]
-
-[node name="KineticStationSM" parent="." instance=ExtResource("4_54qet")]
-
-[node name="MissileStationSM" parent="." instance=ExtResource("5_ges5k")]
-
-[node name="TableEnd2" parent="." instance=ExtResource("7_beavm")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 0, 3)
-initialItem = ExtResource("7_p22is")
-
-[node name="TableMiddle2" parent="." instance=ExtResource("8_6pa8f")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2, 0, 3)
-
-[node name="TableMiddle" parent="." instance=ExtResource("8_6pa8f")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 0, 3)
-
-[node name="TableEnd" parent="." instance=ExtResource("7_beavm")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, 0, 3)
-initialItem = ExtResource("7_p22is")
-
-[node name="Conveyor" parent="." node_paths=PackedStringArray("moveTarget") instance=ExtResource("4_wr5uq")]
+[node name="ConveyorTableCombo" type="Node3D" parent="Stations"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
-moveTarget = NodePath("../TableEnd2")
 
-[node name="Conveyor2" parent="." node_paths=PackedStringArray("moveTarget") instance=ExtResource("4_wr5uq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)
-moveTarget = NodePath("../Conveyor")
+[node name="TableEnd01" parent="Stations/ConveyorTableCombo" instance=ExtResource("7_beavm")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 initialItem = ExtResource("7_p22is")
 
-[node name="Conveyor3" parent="." node_paths=PackedStringArray("moveTarget") instance=ExtResource("4_wr5uq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 3)
-moveTarget = NodePath("../Conveyor2")
+[node name="TableMiddle01" parent="Stations/ConveyorTableCombo" instance=ExtResource("8_6pa8f")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 0, 0)
 
-[node name="Conveyor4" parent="." node_paths=PackedStringArray("moveTarget") instance=ExtResource("4_wr5uq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 3)
-moveTarget = NodePath("../Conveyor2")
+[node name="TableMiddle02" parent="Stations/ConveyorTableCombo" instance=ExtResource("8_6pa8f")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2, 0, 0)
 
-[node name="Label" type="Label" parent="."]
-offset_right = 297.0
-offset_bottom = 240.0
-text = "W,A,S,D: Move
-E: Interact
-"
+[node name="TableEnd02" parent="Stations/ConveyorTableCombo" instance=ExtResource("7_beavm")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 0, 0)
+initialItem = ExtResource("7_p22is")
+
+[node name="ConveyorEnd01" parent="Stations/ConveyorTableCombo" node_paths=PackedStringArray("moveTarget") instance=ExtResource("10_p25yu")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 0, 0)
+moveTarget = NodePath("../TableEnd01")
+
+[node name="ConveyorMiddle01" parent="Stations/ConveyorTableCombo" node_paths=PackedStringArray("moveTarget") instance=ExtResource("11_dajrm")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 0, 0)
+moveTarget = NodePath("../ConveyorEnd01")
+
+[node name="ConveyorEnd02" parent="Stations/ConveyorTableCombo" node_paths=PackedStringArray("moveTarget") instance=ExtResource("10_p25yu")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 0, 0)
+moveTarget = NodePath("../ConveyorMiddle01")
+
+[node name="KineticWeapon" parent="Stations" instance=ExtResource("26_mosfv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.54442, 0, -7.64487)
+
+[node name="LaserWeapon" parent="Stations" instance=ExtResource("27_w5hry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.180483, 0, -7.57177)
+
+[node name="MissileWeapon" parent="Stations" instance=ExtResource("28_ev8im")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.32615, 0, -7.37194)
 
 [node name="Room" type="Node3D" parent="."]
 
@@ -335,11 +381,9 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.5, 0
 [node name="TileWallCornerOuterSegA2" parent="Room" instance=ExtResource("17_nxbvq")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.5, 0, -5)
 
-[node name="KineticWeapon" parent="." instance=ExtResource("26_mosfv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.54442, 0, -7.64487)
-
-[node name="LaserWeapon" parent="." instance=ExtResource("27_w5hry")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.180483, 0, -7.57177)
-
-[node name="MissileWeapon" parent="." instance=ExtResource("28_ev8im")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.32615, 0, -7.37194)
+[node name="Label" type="Label" parent="."]
+offset_right = 297.0
+offset_bottom = 240.0
+text = "W,A,S,D: Move
+E: Interact
+"
