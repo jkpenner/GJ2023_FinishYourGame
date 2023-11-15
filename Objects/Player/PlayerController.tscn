@@ -6,7 +6,8 @@
 
 [sub_resource type="SphereMesh" id="SphereMesh_rwyo6"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_cb14y"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_75jvu"]
+radius = 1.0
 
 [node name="PlayerController" type="CharacterBody3D" node_paths=PackedStringArray("interactArea")]
 script = ExtResource("1_rq43e")
@@ -27,5 +28,5 @@ mesh = SubResource("SphereMesh_rwyo6")
 [node name="InteractArea" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.663103, 1.00003)
-shape = SubResource("BoxShape3D_cb14y")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.663103, 0.624683)
+shape = SubResource("SphereShape3D_75jvu")

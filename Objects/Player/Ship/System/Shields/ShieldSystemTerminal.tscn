@@ -1,0 +1,117 @@
+[gd_scene load_steps=11 format=3 uid="uid://bpsjlr0du4l8b"]
+
+[ext_resource type="Script" path="res://Objects/Player/Ship/System/ShipSystemTerminal.cs" id="1_81wft"]
+[ext_resource type="Script" path="res://Objects/Stations/Interactable.cs" id="1_xkeuy"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_nt81m"]
+size = Vector3(2, 0.8, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dbmlp"]
+albedo_color = Color(1, 0, 0.898039, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5xp2s"]
+top_radius = 0.3
+bottom_radius = 0.3
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tdxfs"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52bus"]
+albedo_color = Color(0, 1, 0.866667, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xq120"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_01bmy"]
+size = Vector3(2.32341, 1, 1.36346)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h06nq"]
+size = Vector3(2, 1, 1)
+
+[node name="ShieldSystemTerminal" type="Node3D" node_paths=PackedStringArray("toggle", "overclock", "repair")]
+script = ExtResource("1_81wft")
+systemType = 2
+toggle = NodePath("ToggleInteractable")
+overclock = NodePath("OverclockInteractable")
+repair = NodePath("RepairInteractable")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 1.02734, 0.140424)
+text = "Toggle
+Power"
+
+[node name="Label3D2" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 1.00119, 1.02734, 0.140424)
+text = "Overclock"
+
+[node name="Label3D3" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.509609, 1.46436, -0.0991705)
+text = "Shields"
+
+[node name="Visual" type="MeshInstance3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.4, 0)
+mesh = SubResource("BoxMesh_nt81m")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_dbmlp")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, 0.516607, -0.435994, 0, 0.4563, 0.493617, 0.5, 0.81771, -0.0742009)
+mesh = SubResource("BoxMesh_nt81m")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_dbmlp")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.583514, 0, 0, 0, 0.0185886, -1.69394, 0, 0.665898, 0.0472865, 0.5, 0.918489, -0.37291)
+mesh = SubResource("BoxMesh_nt81m")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_dbmlp")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(0.1, 0, 0, 0, 1.2, 0, 0, 0, 0.6, 0.5, 0.5, 0.299)
+mesh = SubResource("BoxMesh_nt81m")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_dbmlp")
+
+[node name="Button" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.393978, 0.379499)
+mesh = SubResource("CylinderMesh_5xp2s")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_tdxfs")
+
+[node name="Button2" type="MeshInstance3D" parent="Visual"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1, 0.393978, 0.379499)
+mesh = SubResource("CylinderMesh_5xp2s")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_52bus")
+
+[node name="ToggleInteractable" type="Area3D" parent="."]
+script = ExtResource("1_xkeuy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ToggleInteractable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.361961, 0.520608)
+shape = SubResource("SphereShape3D_xq120")
+
+[node name="OverclockInteractable" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+script = ExtResource("1_xkeuy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="OverclockInteractable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.361961, 0.520608)
+shape = SubResource("SphereShape3D_xq120")
+
+[node name="RepairInteractable" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.633066, 0.265759, -0.290557)
+script = ExtResource("1_xkeuy")
+interactDuration = 2.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RepairInteractable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.119392, 0.361961, 0.337323)
+shape = SubResource("BoxShape3D_01bmy")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0)
+shape = SubResource("BoxShape3D_h06nq")

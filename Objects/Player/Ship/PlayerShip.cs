@@ -11,6 +11,13 @@ namespace SpaceEngineer
 		Overloaded,
 	}
 
+	public enum PlayerShipSystem
+	{
+		Engines,
+		Sensors,
+
+	}
+
 	[GlobalClass]
 	public partial class PlayerShip : Node3D
 	{
@@ -44,37 +51,18 @@ namespace SpaceEngineer
 
 		public override void _Ready()
 		{
+			Energy = energy;
+
 			foreach (var system in systems)
 			{
 				system.Ship = this;
+				system.StateChanged += OnSystemStateChanged;
+				EnergyUsage += system.EnergyUsage;
 			}
 		}
 
 		public override void _Process(double delta)
 		{
-			// Todo: Eventually move to an event based approach to check
-			if (UpdateEnergyUsage())
-			{
-				GD.Print($"Energy Usage: {EnergyUsage}, Energy Capacity: {Energy}");
-
-				if (EnergyUsage > Energy && OverloadState == EnergyOverloadState.NotOverloaded)
-				{
-					GD.Print($"Ship energy is overloading ({overloadDelay} seconds)");
-					OverloadState = EnergyOverloadState.Overloading;
-					overloadCounter = 0f;
-
-					GameEvents.ShipEnergyOverloading.Emit();
-				}
-				else if (EnergyUsage <= Energy && OverloadState == EnergyOverloadState.Overloading)
-				{
-					GD.Print("Ship energy returned to normal");
-					OverloadState = EnergyOverloadState.NotOverloaded;
-					overloadCounter = 0f;
-
-					GameEvents.ShipEnergyNormalized.Emit();
-				}
-			}
-
 			if (OverloadState == EnergyOverloadState.Overloading)
 			{
 				overloadCounter += (float)delta;
@@ -86,33 +74,78 @@ namespace SpaceEngineer
 			}
 		}
 
+		private void OnSystemStateChanged(ShipSystem system)
+		{
+			var newEnergyUsage = CalculateEnergyUsage();
+			// if (EnergyUsage == newEnergyUsage)
+			// {
+			// 	return;
+			// }
+
+			EnergyUsage = newEnergyUsage;
+
+			GD.Print($"Energy Usage: {EnergyUsage}, Energy Capacity: {Energy}");
+
+			if (EnergyUsage > Energy && OverloadState == EnergyOverloadState.NotOverloaded)
+			{
+				GD.Print($"Ship energy is overloading ({overloadDelay} seconds)");
+				OverloadState = EnergyOverloadState.Overloading;
+				overloadCounter = 0f;
+
+				GameEvents.ShipEnergyOverloading.Emit(this);
+			}
+			else if (EnergyUsage <= Energy && OverloadState == EnergyOverloadState.Overloading)
+			{
+				GD.Print("Ship energy returned to normal");
+				OverloadState = EnergyOverloadState.NotOverloaded;
+				overloadCounter = 0f;
+
+				GameEvents.ShipEnergyNormalized.Emit(this);
+			}
+		}
+
 		private void OnOverloadEvent()
-        {
+		{
 			GD.Print("Ship overloaded!");
-			GameEvents.ShipEnergyOverloaded.Emit();
+			GameEvents.ShipEnergyOverloaded.Emit(this);
+
+			int energyUsage = CalculateEnergyUsage();
 
 			// All overclocked systems are destroyed when an overload event occurs.
-            foreach(var system in systems)
+			foreach (var system in systems.Where(s => s.State == ShipSystemState.Overclocked))
 			{
-				if (system.State == SystemState.Overclocked)
-				{
-					system.Destroy();
-				}
+				energyUsage -= system.EnergyUsage;
+				system.Destroy();
 			}
 
 			// If ship is still overloaded afterwards, randomly disable other systems
-			if (UpdateEnergyUsage() && EnergyUsage > Energy)
+			if (energyUsage > Energy)
 			{
-				var remainingSystems = systems.Where((s) => s.PowerUsage > 0).ToList();
+				var poweredSystems = systems.Where((s) =>
+					s.State == ShipSystemState.Powered ||
+					s.State == ShipSystemState.Damaged
+				).ToList();
 
 				Random random = new Random();
-				for (int i = remainingSystems.Count; i > 0; i--)
+				for (int i = poweredSystems.Count; i > 0; i--)
 				{
 					int index = random.Next(i);
-					remainingSystems[index].Destroy();
-					remainingSystems.RemoveAt(index);
+					var system = poweredSystems[index];
+					poweredSystems.RemoveAt(index);
 
-					if (UpdateEnergyUsage() && EnergyUsage <= Energy)
+					if (system.State == ShipSystemState.Powered)
+					{
+						energyUsage -= system.EnergyUsage;
+						system.TogglePower();
+					}
+					// Damage systems are just destroyed
+					else
+					{
+						energyUsage -= system.EnergyUsage;
+						system.Destroy();
+					}
+
+					if (energyUsage <= Energy)
 					{
 						// Energy normalized exit
 						break;
@@ -122,32 +155,33 @@ namespace SpaceEngineer
 
 			// Stop overload event and reduce energy capacity by 1
 			OverloadState = EnergyOverloadState.NotOverloaded;
+			EnergyUsage = CalculateEnergyUsage();
 			Energy = Mathf.Max(Energy - 1, 0);
+			GameEvents.ShipEnergyCapacityChanged.Emit(this);
 
 			GD.Print("Ship energy returned to normal");
-			GameEvents.ShipEnergyNormalized.Emit();
-        }
+			GameEvents.ShipEnergyNormalized.Emit(this);
+		}
 
-        /// <summary>
-        /// Updates the current value for system energy usage. Returns
-        /// true if the value changed.
-        /// </summary>
-        /// <returns></returns>
-        private bool UpdateEnergyUsage()
+		/// <summary>
+		/// Get the total energy usage of all systems.
+		/// </summary>
+		public int CalculateEnergyUsage()
 		{
-			int energyUsage = 0;
+			return systems.Sum(s => s.EnergyUsage);
+		}
+
+		public ShipSystem GetSystem(ShipSystemType systemType)
+		{
 			foreach (var system in systems)
 			{
-				energyUsage += system.PowerUsage;
+				if (system.SystemType == systemType)
+				{
+					return system;
+				}
 			}
 
-			if (EnergyUsage != energyUsage)
-			{
-				EnergyUsage = energyUsage;
-				return true;
-			}
-
-			return false;
+			return null;
 		}
 	}
 }
