@@ -56,11 +56,13 @@ namespace SpaceEngineer
         public void Damage()
         {
             SetSystemState(SystemState.Damaged);
+            GameEvents.SystemDamaged.Emit(this);
         }
 
         public void Destroy()
         {
             SetSystemState(SystemState.Destroyed);
+            GameEvents.SystemDestroyed.Emit(this);
         }
 
         protected void SetSystemState(SystemState state)

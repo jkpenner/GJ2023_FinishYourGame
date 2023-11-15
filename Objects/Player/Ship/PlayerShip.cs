@@ -62,12 +62,16 @@ namespace SpaceEngineer
 					GD.Print($"Ship energy is overloading ({overloadDelay} seconds)");
 					OverloadState = EnergyOverloadState.Overloading;
 					overloadCounter = 0f;
+
+					GameEvents.ShipEnergyOverloading.Emit();
 				}
 				else if (EnergyUsage <= Energy && OverloadState == EnergyOverloadState.Overloading)
 				{
 					GD.Print("Ship energy returned to normal");
 					OverloadState = EnergyOverloadState.NotOverloaded;
 					overloadCounter = 0f;
+
+					GameEvents.ShipEnergyNormalized.Emit();
 				}
 			}
 
@@ -85,6 +89,7 @@ namespace SpaceEngineer
 		private void OnOverloadEvent()
         {
 			GD.Print("Ship overloaded!");
+			GameEvents.ShipEnergyOverloaded.Emit();
 
 			// All overclocked systems are destroyed when an overload event occurs.
             foreach(var system in systems)
@@ -120,6 +125,7 @@ namespace SpaceEngineer
 			Energy = Mathf.Max(Energy - 1, 0);
 
 			GD.Print("Ship energy returned to normal");
+			GameEvents.ShipEnergyNormalized.Emit();
         }
 
         /// <summary>
