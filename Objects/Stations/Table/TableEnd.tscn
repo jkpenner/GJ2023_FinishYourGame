@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://wtffefe67pdd"]
 
 [ext_resource type="Script" path="res://Objects/Stations/Table/Table.cs" id="1_rxy4h"]
-[ext_resource type="PackedScene" uid="uid://fdobkpuh3vwy" path="res://Assets/Models/Stations/Table_End.gltf" id="2_asis8"]
+[ext_resource type="PackedScene" uid="uid://fdobkpuh3vwy" path="res://Assets/Models/Stations/Table_End.gltf" id="2_ysr8e"]
 [ext_resource type="Script" path="res://Objects/Stations/Interactable.cs" id="3_j1rwh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dlxq0"]
@@ -13,11 +13,11 @@ script = ExtResource("1_rxy4h")
 interactable = NodePath("Interactable")
 visualParent = NodePath("ItemVisualParent")
 
+[node name="Table_End" parent="." instance=ExtResource("2_ysr8e")]
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_dlxq0")
-
-[node name="Table_End" parent="." instance=ExtResource("2_asis8")]
 
 [node name="ItemVisualParent" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.849192, 0)
