@@ -25,7 +25,7 @@ namespace SpaceEngineer
             {
                 system.StateChanged += OnSystemStateChanged;
                 // Initial value setup
-                OnSystemStateChanged(system);
+                OnSystemStateChanged();
             }
 
             toggle.Interacted += OnToggleInteraction;
@@ -41,7 +41,7 @@ namespace SpaceEngineer
             }
         }
 
-        private void OnSystemStateChanged(ShipSystem system)
+        private void OnSystemStateChanged()
         {
             switch (system.State)
             {

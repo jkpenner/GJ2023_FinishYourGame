@@ -38,6 +38,7 @@ namespace SpaceEngineer
             counter += (float)delta;
             if (counter >= interactDuration)
             {
+                GD.Print($"Intracted with {GetParent()?.Name ?? Name}");
                 Interacted?.Invoke(Interactor);
 
                 ActiveInteraction = false;

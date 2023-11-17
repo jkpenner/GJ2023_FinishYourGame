@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://l4gch8yqqvqh"]
 
-[ext_resource type="Script" path="res://Objects/Player/Ship/System/ShipSystemTerminal.cs" id="1_58n7q"]
+[ext_resource type="Script" path="res://Objects/Player/Ship/SystemTerminals/ShipSystemTerminal.cs" id="1_58n7q"]
 [ext_resource type="Script" path="res://Objects/Stations/Interactable.cs" id="2_xl1jp"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_y4vbi"]

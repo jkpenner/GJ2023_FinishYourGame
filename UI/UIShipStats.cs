@@ -11,10 +11,11 @@ namespace SpaceEngineer
 
         private GameManager gameManager;
 
+        private ShipController Ship => gameManager?.PlayerShip;
+
         public override void _Ready()
         {
             gameManager = GetNode<GameManager>("%GameManager");
-
         }
 
         public override void _EnterTree()
@@ -37,27 +38,36 @@ namespace SpaceEngineer
 
         public override void _Process(double delta)
         {
-            if (gameManager.PlayerShip is not null)
+            if (Ship is not null && Ship.OverloadState == ShipOverloadState.Overloading)
             {
-                if (gameManager.PlayerShip.OverloadState == EnergyOverloadState.Overloading)
-                {
-                    overloadTimeLabel.Text = $"Time till overload: {gameManager.PlayerShip.TimeTillOverload}";
-                }
-                else
-                {
-                    overloadTimeLabel.Text = "Time till overload: N/a";
-                }
+                overloadTimeLabel.Text = $"Time till overload: {Ship.GetRemainingTimeTillOverload()}";
+            }
+            else
+            {
+                overloadTimeLabel.Text = "Time till overload: N/a";
             }
         }
 
-        private void OnShipEnergyChanged(PlayerShip ship)
+        private void OnShipEnergyChanged(int _)
         {
-            energyLabel.Text = $"Energy Usage: {ship.EnergyUsage}, Energy Capacity: {ship.Energy}";
+            if (Ship is null)
+            {
+                energyLabel.Text = "Energy Usage: Unknown, Energy Capacity: Unknown";
+                return;
+            }
+
+            energyLabel.Text = $"Energy Usage: {Ship.EnergyUsage}, Energy Capacity: {Ship.EnergyCapacity}";
         }
 
-        private void OnShipOverloadStateChanged(PlayerShip ship)
+        private void OnShipOverloadStateChanged()
         {
-            overloadStateLabel.Text = $"Overload State: {ship.OverloadState.ToString()}";
+            if (Ship is null)
+            {
+                overloadStateLabel.Text = "Overload State: Unknown";
+                return;
+            }
+
+            overloadStateLabel.Text = $"Overload State: {Ship.OverloadState}";
         }
     }
 }

@@ -11,38 +11,31 @@ namespace SpaceEngineer
         /// Occurs when the energy usage for all active system exceeds the ship's energy capacity
         /// and the ship is about to be overloaded.
         /// </summary>
-        public static readonly GameEvent<PlayerShip> ShipEnergyOverloading = new GameEvent<PlayerShip>();
+        public static readonly GameEvent ShipEnergyOverloading = new GameEvent();
         
         /// <summary>
         /// Occurs when the energy usage for all active system exceeds the ship's energy capacity
         /// for an extended period of time.
         /// </summary>
-        public static readonly GameEvent<PlayerShip> ShipEnergyOverloaded = new GameEvent<PlayerShip>();
+        public static readonly GameEvent ShipEnergyOverloaded = new GameEvent();
         
         /// <summary>
         /// Occurs when the energy usage falls back below the ship's capacity after entering
         /// an overloading state.
         /// </summary>
-        public static readonly GameEvent<PlayerShip> ShipEnergyNormalized = new GameEvent<PlayerShip>();
+        public static readonly GameEvent ShipEnergyNormalized = new GameEvent();
 
         /// <summary>
         /// Invoked when the amount of energy being used by the player ship changes.
         /// </summary>
-        public static readonly GameEvent<PlayerShip> ShipEnergyUsageChanged = new GameEvent<PlayerShip>();
+        public static readonly GameEvent<int> ShipEnergyUsageChanged = new GameEvent<int>();
 
         /// <summary>
         /// Invoked when the total usable amount of energy for the player ship changes.
         /// </summary>
-        public static readonly GameEvent<PlayerShip> ShipEnergyCapacityChanged = new GameEvent<PlayerShip>();
+        public static readonly GameEvent<int> ShipEnergyCapacityChanged = new GameEvent<int>();
 
-        /// <summary>
-        /// Occurs when a system is damaged.
-        /// </summary>
-        public static readonly GameEvent<ShipSystem> SystemDamaged = new GameEvent<ShipSystem>();
-
-        /// <summary>
-        /// Occurs when a system is destoyed.
-        /// </summary>
-        public static readonly GameEvent<ShipSystem> SystemDestroyed = new GameEvent<ShipSystem>();
+        public static readonly GameEvent<ShipSystemType> ShipSystemStateChanged = new GameEvent<ShipSystemType>();
+        public static readonly GameEvent<ShipSystemType> SystemDestroyed = new GameEvent<ShipSystemType>();
     }
 }

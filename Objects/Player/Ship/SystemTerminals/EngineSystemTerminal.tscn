@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://cj2x356scj2ji"]
 
 [ext_resource type="Script" path="res://Objects/Stations/Interactable.cs" id="1_87s0l"]
-[ext_resource type="Script" path="res://Objects/Player/Ship/System/ShipSystemTerminal.cs" id="1_y2r7e"]
+[ext_resource type="Script" path="res://Objects/Player/Ship/SystemTerminals/ShipSystemTerminal.cs" id="1_y2r7e"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_uwo6m"]
 size = Vector3(2, 0.8, 1)

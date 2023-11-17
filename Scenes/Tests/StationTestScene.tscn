@@ -33,19 +33,18 @@
 [ext_resource type="PackedScene" uid="uid://dyy4c3n3auxwx" path="res://Objects/Stations/Weapon/LaserWeapon.tscn" id="27_w5hry"]
 [ext_resource type="PackedScene" uid="uid://ddr10dpgg41f1" path="res://Objects/Stations/Weapon/MissileWeapon.tscn" id="28_ev8im"]
 [ext_resource type="PackedScene" uid="uid://drsb1i04eipm" path="res://Objects/Structure/Walls/Damagable/TileWallStraightLGDamagable.tscn" id="30_vmcig"]
-[ext_resource type="PackedScene" uid="uid://l4gch8yqqvqh" path="res://Objects/Player/Ship/System/Weapons/WeaponSystemTerminal.tscn" id="34_t378j"]
-[ext_resource type="PackedScene" uid="uid://bpsjlr0du4l8b" path="res://Objects/Player/Ship/System/Shields/ShieldSystemTerminal.tscn" id="35_p1xre"]
-[ext_resource type="PackedScene" uid="uid://onkjebfdkw0j" path="res://Objects/Player/Ship/System/Sensors/SensorSystemTerminal.tscn" id="36_gy1m1"]
-[ext_resource type="PackedScene" uid="uid://cj2x356scj2ji" path="res://Objects/Player/Ship/System/Engines/EngineSystemTerminal.tscn" id="37_yjv17"]
+[ext_resource type="PackedScene" uid="uid://l4gch8yqqvqh" path="res://Objects/Player/Ship/SystemTerminals/WeaponSystemTerminal.tscn" id="34_t378j"]
+[ext_resource type="PackedScene" uid="uid://bpsjlr0du4l8b" path="res://Objects/Player/Ship/SystemTerminals/ShieldSystemTerminal.tscn" id="35_p1xre"]
+[ext_resource type="PackedScene" uid="uid://onkjebfdkw0j" path="res://Objects/Player/Ship/SystemTerminals/SensorSystemTerminal.tscn" id="36_gy1m1"]
+[ext_resource type="PackedScene" uid="uid://cj2x356scj2ji" path="res://Objects/Player/Ship/SystemTerminals/EngineSystemTerminal.tscn" id="37_yjv17"]
 
-[node name="StationTestScene" type="Node3D" node_paths=PackedStringArray("playerShip")]
+[node name="StationTestScene" type="Node3D"]
 script = ExtResource("1_0r0o3")
-playerShip = NodePath("")
 
 [node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("playerShip")]
 unique_name_in_owner = true
 script = ExtResource("1_0r0o3")
-playerShip = NodePath("")
+playerShip = NodePath("../PlayerShip")
 
 [node name="PlayerShip" parent="." instance=ExtResource("2_oes3a")]
 
