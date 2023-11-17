@@ -47,6 +47,11 @@ namespace SpaceEngineer
             }
         }
 
+        public bool CanInteract(PlayerController interactor)
+        {
+            return IsInteractable && (ValidateInteraction?.Invoke(interactor) ?? true);
+        }
+
         public bool StartInteract(PlayerController interactor)
         {
             if (!IsInteractable || ActiveInteraction || interactor is null)
@@ -55,7 +60,7 @@ namespace SpaceEngineer
             }
 
             // If a validation method is assign check if interator is allowed to interact
-            if (!(ValidateInteraction?.Invoke(interactor) ?? true))
+            if (!CanInteract(interactor))
             {
                 return false;
             }
