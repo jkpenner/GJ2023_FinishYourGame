@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://4ud5jfu3ytfp"]
+[gd_scene load_steps=24 format=3 uid="uid://4ud5jfu3ytfp"]
 
 [ext_resource type="Script" path="res://Game/GameManager.cs" id="1_xxbf2"]
 [ext_resource type="Script" path="res://Objects/Player/Ship/ShipController.cs" id="2_toswr"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://l4gch8yqqvqh" path="res://Objects/Player/Ship/SystemTerminals/WeaponSystemTerminal.tscn" id="18_pm8vy"]
 [ext_resource type="PackedScene" uid="uid://meina3ocbxe5" path="res://Objects/Stations/Table/TableSM.tscn" id="19_enw6j"]
 [ext_resource type="Resource" uid="uid://boxryp6hujwtv" path="res://Objects/Items/Variants/Scrap/Scrap.tres" id="20_5m50r"]
+[ext_resource type="PackedScene" uid="uid://chuectjwxwnvh" path="res://Scenes/CardUI.tscn" id="23_0hnw5"]
 
 [node name="GameManager" type="Node" node_paths=PackedStringArray("playerShip")]
 script = ExtResource("1_xxbf2")
@@ -218,6 +219,11 @@ followTarget = NodePath("../PlayerController")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CardUI" parent="UI" instance=ExtResource("23_0hnw5")]
+layout_mode = 1
