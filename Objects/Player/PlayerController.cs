@@ -89,22 +89,32 @@ namespace SpaceEngineer
 		public Interactable GetTargetInteractable()
 		{
 			Interactable target = null;
-			float targetDot = -1;
+			float targetWeight = 0f;
 
 			foreach (var interactable in interactables)
 			{
-				if (!interactable.IsInteractable)
+				if (!interactable.CanInteract(this))
 				{
 					continue;
 				}
 
-				var playerToTarget = (interactable.GlobalPosition - GlobalPosition).Normalized();
-				var playerToTargetDot = GlobalTransform.Basis.Z.Dot(playerToTarget);
+				var playerToTarget = interactable.GlobalPosition - GlobalPosition;
+				var playerToTargetDirection = playerToTarget.Normalized();
 
-				if (playerToTargetDot > targetDot)
+				var playerToTargetDot = GlobalTransform.Basis.Z.Dot(playerToTargetDirection);
+				// Convert dot value to a 0 to 1 range where closer to 1 is better.
+				playerToTargetDot = (playerToTargetDot + 1f) / 2f;
+
+				var playerToTargetDistance = playerToTarget.Length();
+				// Convert distance to a 0 to 1 range where closer to 1 is better.
+				playerToTargetDistance = (2f - Mathf.Clamp(playerToTargetDistance, 0f, 2f)) / 2f;
+
+				var weight = playerToTargetDot + playerToTargetDistance;
+
+				if (weight > targetWeight)
 				{
 					target = interactable;
-					targetDot = playerToTargetDot;
+					targetWeight = weight;
 				}
 			}
 
