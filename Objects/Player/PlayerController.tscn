@@ -3,8 +3,7 @@
 [ext_resource type="Script" path="res://Objects/Player/PlayerController.cs" id="1_rq43e"]
 [ext_resource type="PackedScene" uid="uid://dqxj4cu3cdf05" path="res://Assets/Models/Characters/Hamster.gltf" id="2_0paya"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_xvvb1"]
-radius = 0.87842
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cksdp"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_rwyo6"]
 
@@ -21,7 +20,7 @@ transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.870007, -0.0963534)
-shape = SubResource("SphereShape3D_xvvb1")
+shape = SubResource("CapsuleShape3D_cksdp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
