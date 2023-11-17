@@ -9,7 +9,8 @@ namespace SpaceEngineer
         /// </summary>
         public static bool TryGetGameManager(this Node node, out GameManager gameManager)
         {
-            gameManager = node.GetNode<GameManager>("%GameManager");
+            // gameManager = node.GetNode<GameManager>("%GameManager");
+            gameManager = node.GetNode<GameManager>("/root/GameManager");
             if (gameManager is null)
             {
                 GD.PrintErr("No GameManager found in the scene. Make sure a node name GameManager exists and is marked as a unique node.");
