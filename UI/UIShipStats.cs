@@ -15,7 +15,7 @@ namespace SpaceEngineer
 
         public override void _Ready()
         {
-            gameManager = GetNode<GameManager>("%GameManager");
+            this.TryGetGameManager(out gameManager);
         }
 
         public override void _EnterTree()
