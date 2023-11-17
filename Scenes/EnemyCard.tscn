@@ -1,0 +1,85 @@
+[gd_scene load_steps=9 format=3 uid="uid://bs6k07egg3whx"]
+
+[ext_resource type="Script" path="res://UIScripts/EnemyCard.cs" id="1_2u1oy"]
+[ext_resource type="Texture2D" uid="uid://c0f0mnw4bkpod" path="res://Assets/Sprites/Ships/F-222.png" id="4_quvyh"]
+[ext_resource type="Texture2D" uid="uid://dic3figx4h8mx" path="res://Assets/Sprites/Shields/RedShield.png" id="7_qpwlr"]
+[ext_resource type="Texture2D" uid="uid://brctikuwp5apy" path="res://Assets/Sprites/Shields/BlueShield.png" id="8_3fw46"]
+[ext_resource type="Texture2D" uid="uid://nuoheyet2e4x" path="res://Assets/Sprites/Shields/YellowShield.png" id="9_im653"]
+[ext_resource type="Texture2D" uid="uid://xxe0jiy5lrho" path="res://Assets/Sprites/Weapons/Laser.png" id="10_q4tjd"]
+[ext_resource type="Texture2D" uid="uid://crx257h5rfxse" path="res://Assets/Sprites/Weapons/Missile.png" id="11_h0dsa"]
+[ext_resource type="Texture2D" uid="uid://dw75hlt1s5s44" path="res://Assets/Sprites/Weapons/Bullet.png" id="12_yh3uw"]
+
+[node name="EnemyCard" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1009.0
+offset_bottom = -536.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2u1oy")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 142.0
+offset_bottom = 112.0
+color = Color(0.254902, 0.254902, 0.254902, 1)
+
+[node name="ShipImage" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 52.0
+offset_right = 90.0
+offset_bottom = 39.0
+texture = ExtResource("4_quvyh")
+expand_mode = 1
+
+[node name="ArmorContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_top = 39.0
+offset_right = 142.0
+offset_bottom = 63.0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="ArmorContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("7_qpwlr")
+expand_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="ArmorContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("8_3fw46")
+expand_mode = 3
+
+[node name="TextureRect3" type="TextureRect" parent="ArmorContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("9_im653")
+expand_mode = 3
+
+[node name="WeaponContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_top = 71.0
+offset_right = 143.0
+offset_bottom = 106.0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="WeaponContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("10_q4tjd")
+expand_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="WeaponContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("11_h0dsa")
+expand_mode = 3
+
+[node name="TextureRect3" type="TextureRect" parent="WeaponContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("12_yh3uw")
+expand_mode = 3
