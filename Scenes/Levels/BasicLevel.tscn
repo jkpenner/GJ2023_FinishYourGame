@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://4ud5jfu3ytfp"]
+[gd_scene load_steps=27 format=3 uid="uid://4ud5jfu3ytfp"]
 
 [ext_resource type="Script" path="res://Game/GameManager.cs" id="1_xxbf2"]
 [ext_resource type="Script" path="res://Objects/Player/Ship/ShipController.cs" id="2_toswr"]
@@ -19,10 +19,13 @@
 [ext_resource type="PackedScene" uid="uid://cj2x356scj2ji" path="res://Objects/Player/Ship/SystemTerminals/EngineSystemTerminal.tscn" id="15_ckrsj"]
 [ext_resource type="PackedScene" uid="uid://onkjebfdkw0j" path="res://Objects/Player/Ship/SystemTerminals/SensorSystemTerminal.tscn" id="16_1rll1"]
 [ext_resource type="PackedScene" uid="uid://bpsjlr0du4l8b" path="res://Objects/Player/Ship/SystemTerminals/ShieldSystemTerminal.tscn" id="17_rwhdw"]
+[ext_resource type="PackedScene" uid="uid://dxw5g8wv42ld1" path="res://Objects/Stations/Conveyor/ConveyorEnd.tscn" id="18_l3ppp"]
 [ext_resource type="PackedScene" uid="uid://l4gch8yqqvqh" path="res://Objects/Player/Ship/SystemTerminals/WeaponSystemTerminal.tscn" id="18_pm8vy"]
 [ext_resource type="PackedScene" uid="uid://meina3ocbxe5" path="res://Objects/Stations/Table/TableSM.tscn" id="19_enw6j"]
+[ext_resource type="PackedScene" uid="uid://flbva3d5aoil" path="res://Objects/Stations/Conveyor/ConveyorMiddle.tscn" id="19_jrcl6"]
 [ext_resource type="Resource" uid="uid://boxryp6hujwtv" path="res://Objects/Items/Variants/Scrap/Scrap.tres" id="20_5m50r"]
-[ext_resource type="PackedScene" uid="uid://chuectjwxwnvh" path="res://Scenes/CardUI.tscn" id="23_0hnw5"]
+[ext_resource type="PackedScene" uid="uid://6qq0n25p1wnf" path="res://Objects/Stations/AirLock/AirLock.tscn" id="20_qiaqx"]
+[ext_resource type="PackedScene" path="res://Scenes/CardUI.tscn" id="23_0hnw5"]
 
 [node name="GameManager" type="Node" node_paths=PackedStringArray("playerShip")]
 script = ExtResource("1_xxbf2")
@@ -185,21 +188,50 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -3)
 [node name="WeaponSystemTerminal" parent="Ship/Stations" instance=ExtResource("18_pm8vy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -3)
 
-[node name="Table" parent="Ship/Stations" instance=ExtResource("19_enw6j")]
+[node name="TableB5" parent="Ship/Stations" instance=ExtResource("19_enw6j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+initialItem = ExtResource("20_5m50r")
+
+[node name="ConveyorB4" parent="Ship/Stations" node_paths=PackedStringArray("moveTarget") instance=ExtResource("18_l3ppp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
-initialItem = ExtResource("20_5m50r")
+moveTarget = NodePath("../TableB5")
 
-[node name="Table2" parent="Ship/Stations" instance=ExtResource("19_enw6j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 5)
-initialItem = ExtResource("20_5m50r")
+[node name="ConveyorB3" parent="Ship/Stations" node_paths=PackedStringArray("moveTarget") instance=ExtResource("19_jrcl6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+moveTarget = NodePath("../ConveyorB4")
 
-[node name="Table3" parent="Ship/Stations" instance=ExtResource("19_enw6j")]
+[node name="ConveyorB2" parent="Ship/Stations" node_paths=PackedStringArray("moveTarget") instance=ExtResource("19_jrcl6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
+moveTarget = NodePath("../ConveyorB3")
+
+[node name="ConveyorB1_AirlockOutput" parent="Ship/Stations" node_paths=PackedStringArray("moveTarget") instance=ExtResource("19_jrcl6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+moveTarget = NodePath("../ConveyorB2")
+
+[node name="TableA5" parent="Ship/Stations" instance=ExtResource("19_enw6j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 4)
 initialItem = ExtResource("20_5m50r")
 
-[node name="Table4" parent="Ship/Stations" instance=ExtResource("19_enw6j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
-initialItem = ExtResource("20_5m50r")
+[node name="ConveyorA4" parent="Ship/Stations" node_paths=PackedStringArray("moveTarget") instance=ExtResource("18_l3ppp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 5)
+moveTarget = NodePath("../TableA5")
+
+[node name="ConveyorA3" parent="Ship/Stations" node_paths=PackedStringArray("moveTarget") instance=ExtResource("19_jrcl6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 6)
+moveTarget = NodePath("../ConveyorA4")
+
+[node name="ConveyorA2" parent="Ship/Stations" node_paths=PackedStringArray("moveTarget") instance=ExtResource("19_jrcl6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 7)
+moveTarget = NodePath("../ConveyorA3")
+
+[node name="ConveyorA1_AirlockOutput" parent="Ship/Stations" node_paths=PackedStringArray("moveTarget") instance=ExtResource("19_jrcl6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 8)
+moveTarget = NodePath("../ConveyorA2")
+
+[node name="AirLock" parent="Ship/Stations" node_paths=PackedStringArray("outputStations") instance=ExtResource("20_qiaqx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.498312, 0, 7.87352)
+outputStations = [NodePath("../ConveyorA1_AirlockOutput"), NodePath("../ConveyorB1_AirlockOutput")]
+debugInfinteOutput = true
 
 [node name="Weapons" type="Node3D" parent="Ship"]
 

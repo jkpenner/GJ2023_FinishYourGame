@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://6qq0n25p1wnf"]
+
+[ext_resource type="Script" path="res://Objects/Stations/AirLock/AirLock.cs" id="1_fl0dx"]
+[ext_resource type="Resource" uid="uid://boxryp6hujwtv" path="res://Objects/Items/Variants/Scrap/Scrap.tres" id="2_x58hw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cfn7b"]
+size = Vector3(2.2, 1.5, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7guwp"]
+albedo_color = Color(0.0509804, 0, 0.239216, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pcre7"]
+size = Vector3(2.2, 1.5, 1)
+
+[node name="AirLock" type="Node3D" node_paths=PackedStringArray("outputStations")]
+script = ExtResource("1_fl0dx")
+outputStations = []
+debugOutputItems = Array[Object]([ExtResource("2_x58hw")])
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+mesh = SubResource("BoxMesh_cfn7b")
+surface_material_override/0 = SubResource("StandardMaterial3D_7guwp")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("BoxShape3D_pcre7")
