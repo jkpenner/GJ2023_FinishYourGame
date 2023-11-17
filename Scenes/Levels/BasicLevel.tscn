@@ -1,0 +1,223 @@
+[gd_scene load_steps=23 format=3 uid="uid://4ud5jfu3ytfp"]
+
+[ext_resource type="Script" path="res://Game/GameManager.cs" id="1_xxbf2"]
+[ext_resource type="Script" path="res://Objects/Player/Ship/ShipController.cs" id="2_toswr"]
+[ext_resource type="PackedScene" uid="uid://cr0jw2re5fmo6" path="res://Objects/Structure/Walls/TileWallStraightLG.tscn" id="3_ap3km"]
+[ext_resource type="PackedScene" uid="uid://nx35t6j75l7k" path="res://Objects/Structure/Walls/TileWallCornerInnerRounded.tscn" id="4_1l57m"]
+[ext_resource type="PackedScene" uid="uid://qq3r1ejoewpb" path="res://Objects/Structure/Floor/TileFloorSquareLG.tscn" id="5_g0gg4"]
+[ext_resource type="PackedScene" uid="uid://cst3ihv3rfbw4" path="res://Objects/Structure/Floor/TileFloorSquareMD.tscn" id="6_hjbe6"]
+[ext_resource type="PackedScene" uid="uid://drsb1i04eipm" path="res://Objects/Structure/Walls/Damagable/TileWallStraightLGDamagable.tscn" id="7_enivw"]
+[ext_resource type="PackedScene" uid="uid://b5d5u1gteslnb" path="res://Objects/Player/PlayerCamera.tscn" id="7_guahy"]
+[ext_resource type="PackedScene" uid="uid://dn4nf3fcvgjg3" path="res://Objects/Stations/Variants/ScrapStationSM.tscn" id="8_15xbe"]
+[ext_resource type="PackedScene" uid="uid://dma4yhapsggvq" path="res://Objects/Player/PlayerController.tscn" id="8_ebhxo"]
+[ext_resource type="PackedScene" uid="uid://4igxf41xruo1" path="res://Objects/Stations/Variants/MissileStationSM.tscn" id="9_4o8b7"]
+[ext_resource type="PackedScene" uid="uid://beixk1wkylriv" path="res://Objects/Stations/Variants/LaserStationSM.tscn" id="10_4jajd"]
+[ext_resource type="PackedScene" uid="uid://bd7gkrnps4vvj" path="res://Objects/Stations/Variants/KineticStationSM.tscn" id="11_rhtax"]
+[ext_resource type="PackedScene" uid="uid://ohy7mhd3xjpb" path="res://Objects/Stations/Weapon/KineticWeapon.tscn" id="12_vkx5a"]
+[ext_resource type="PackedScene" uid="uid://dyy4c3n3auxwx" path="res://Objects/Stations/Weapon/LaserWeapon.tscn" id="13_27m8t"]
+[ext_resource type="PackedScene" uid="uid://ddr10dpgg41f1" path="res://Objects/Stations/Weapon/MissileWeapon.tscn" id="14_gkhw5"]
+[ext_resource type="PackedScene" uid="uid://cj2x356scj2ji" path="res://Objects/Player/Ship/SystemTerminals/EngineSystemTerminal.tscn" id="15_ckrsj"]
+[ext_resource type="PackedScene" uid="uid://onkjebfdkw0j" path="res://Objects/Player/Ship/SystemTerminals/SensorSystemTerminal.tscn" id="16_1rll1"]
+[ext_resource type="PackedScene" uid="uid://bpsjlr0du4l8b" path="res://Objects/Player/Ship/SystemTerminals/ShieldSystemTerminal.tscn" id="17_rwhdw"]
+[ext_resource type="PackedScene" uid="uid://l4gch8yqqvqh" path="res://Objects/Player/Ship/SystemTerminals/WeaponSystemTerminal.tscn" id="18_pm8vy"]
+[ext_resource type="PackedScene" uid="uid://meina3ocbxe5" path="res://Objects/Stations/Table/TableSM.tscn" id="19_enw6j"]
+[ext_resource type="Resource" uid="uid://boxryp6hujwtv" path="res://Objects/Items/Variants/Scrap/Scrap.tres" id="20_5m50r"]
+
+[node name="GameManager" type="Node" node_paths=PackedStringArray("playerShip")]
+script = ExtResource("1_xxbf2")
+playerShip = NodePath("Ship")
+
+[node name="Ship" type="Node3D" parent="." node_paths=PackedStringArray("weapons", "hulls")]
+script = ExtResource("2_toswr")
+weapons = [NodePath("Weapons/KineticWeapon"), NodePath("Weapons/LaserWeapon"), NodePath("Weapons/MissileWeapon")]
+hulls = [NodePath("Hulls/TileWallStraightLGDamagable"), NodePath("Hulls/TileWallStraightLGDamagable2"), NodePath("Hulls/TileWallStraightLGDamagable3")]
+
+[node name="Tiles" type="Node3D" parent="Ship"]
+
+[node name="TileWallStraightLG2" parent="Ship/Tiles" instance=ExtResource("3_ap3km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 6)
+
+[node name="TileWallStraightLG3" parent="Ship/Tiles" instance=ExtResource("3_ap3km")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -2)
+
+[node name="TileWallStraightLG5" parent="Ship/Tiles" instance=ExtResource("3_ap3km")]
+transform = Transform3D(-1, 0, -8.74228e-08, 9.49038e-10, 0.999941, -0.0108557, 8.74176e-08, -0.0108557, -0.999941, 8, 0.0217115, 2.99988)
+
+[node name="TileWallStraightLG6" parent="Ship/Tiles" instance=ExtResource("3_ap3km")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8, 0, -5)
+
+[node name="TileWallStraightLG8" parent="Ship/Tiles" instance=ExtResource("3_ap3km")]
+transform = Transform3D(1.94707e-07, 0, -1, 0, 1, 0, 1, 0, 1.94707e-07, 3, 0, -7)
+
+[node name="TileWallStraightLG9" parent="Ship/Tiles" instance=ExtResource("3_ap3km")]
+transform = Transform3D(1.94707e-07, 0, -1, 0, 1, 0, 1, 0, 1.94707e-07, -5, 0, -7)
+
+[node name="TileWallStraightLG10" parent="Ship/Tiles" instance=ExtResource("3_ap3km")]
+transform = Transform3D(-2.8213e-07, 0, 1, 0, 1, 0, -1, 0, -2.8213e-07, 2, 0, 8)
+
+[node name="TileWallStraightLG11" parent="Ship/Tiles" instance=ExtResource("3_ap3km")]
+transform = Transform3D(-2.8213e-07, 0, 1, 0, 1, 0, -1, 0, -2.8213e-07, -2, 0, 8)
+
+[node name="TileWallStraightLG12" parent="Ship/Tiles" instance=ExtResource("3_ap3km")]
+transform = Transform3D(-2.8213e-07, 0, 1, 0, 1, 0, -1, 0, -2.8213e-07, 6, 0, 8)
+
+[node name="TileWallCornerInnerRounded" parent="Ship/Tiles" instance=ExtResource("4_1l57m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 8)
+
+[node name="TileWallCornerInnerRounded2" parent="Ship/Tiles" instance=ExtResource("4_1l57m")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8, 0, 7)
+
+[node name="TileWallCornerInnerRounded3" parent="Ship/Tiles" instance=ExtResource("4_1l57m")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7, 0, -7)
+
+[node name="TileWallCornerInnerRounded4" parent="Ship/Tiles" instance=ExtResource("4_1l57m")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -7, 0, -6)
+
+[node name="TileFloorSquareLG" parent="Ship/Tiles" instance=ExtResource("5_g0gg4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 7)
+
+[node name="TileFloorSquareLG2" parent="Ship/Tiles" instance=ExtResource("5_g0gg4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 7)
+
+[node name="TileFloorSquareLG3" parent="Ship/Tiles" instance=ExtResource("5_g0gg4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 7)
+
+[node name="TileFloorSquareLG4" parent="Ship/Tiles" instance=ExtResource("5_g0gg4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 3)
+
+[node name="TileFloorSquareLG5" parent="Ship/Tiles" instance=ExtResource("5_g0gg4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 3)
+
+[node name="TileFloorSquareLG6" parent="Ship/Tiles" instance=ExtResource("5_g0gg4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 3)
+
+[node name="TileFloorSquareLG7" parent="Ship/Tiles" instance=ExtResource("5_g0gg4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -1)
+
+[node name="TileFloorSquareLG8" parent="Ship/Tiles" instance=ExtResource("5_g0gg4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
+
+[node name="TileFloorSquareMD" parent="Ship/Tiles" instance=ExtResource("6_hjbe6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -5)
+
+[node name="TileFloorSquareMD2" parent="Ship/Tiles" instance=ExtResource("6_hjbe6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -5)
+
+[node name="TileFloorSquareMD3" parent="Ship/Tiles" instance=ExtResource("6_hjbe6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -5)
+
+[node name="TileFloorSquareMD4" parent="Ship/Tiles" instance=ExtResource("6_hjbe6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -5)
+
+[node name="TileFloorSquareMD5" parent="Ship/Tiles" instance=ExtResource("6_hjbe6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -5)
+
+[node name="TileFloorSquareMD6" parent="Ship/Tiles" instance=ExtResource("6_hjbe6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -5)
+
+[node name="TileFloorSquareMD7" parent="Ship/Tiles" instance=ExtResource("6_hjbe6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -5)
+
+[node name="TileFloorSquareMD8" parent="Ship/Tiles" instance=ExtResource("6_hjbe6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -3)
+
+[node name="TileFloorSquareMD9" parent="Ship/Tiles" instance=ExtResource("6_hjbe6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -1)
+
+[node name="TileFloorSquareMD10" parent="Ship/Tiles" instance=ExtResource("6_hjbe6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 1)
+
+[node name="TileFloorSquareMD11" parent="Ship/Tiles" instance=ExtResource("6_hjbe6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 3)
+
+[node name="TileFloorSquareMD12" parent="Ship/Tiles" instance=ExtResource("6_hjbe6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 5)
+
+[node name="TileFloorSquareMD13" parent="Ship/Tiles" instance=ExtResource("6_hjbe6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 7)
+
+[node name="TileFloorSquareLG9" parent="Ship/Tiles" instance=ExtResource("5_g0gg4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -1)
+
+[node name="Hulls" type="Node3D" parent="Ship"]
+
+[node name="TileWallStraightLGDamagable" parent="Ship/Hulls" instance=ExtResource("7_enivw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 2)
+
+[node name="TileWallStraightLGDamagable2" parent="Ship/Hulls" node_paths=PackedStringArray("armoredVisual", "damagedVisual", "breachedVisual", "interactable") instance=ExtResource("7_enivw")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8, 0, -1)
+armoredVisual = NodePath("../TileWallStraightLGDamagable/Tile_Wall_Straight_LG")
+damagedVisual = NodePath("../TileWallStraightLGDamagable/Tile_Wall_Straight_LG_Damaged")
+breachedVisual = NodePath("../TileWallStraightLGDamagable/Tile_Wall_Straight_LG_Breached")
+interactable = NodePath("../TileWallStraightLGDamagable/Interactable")
+
+[node name="TileWallStraightLGDamagable3" parent="Ship/Hulls" node_paths=PackedStringArray("armoredVisual", "damagedVisual", "breachedVisual", "interactable") instance=ExtResource("7_enivw")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, -1, 0, -7)
+armoredVisual = NodePath("../TileWallStraightLGDamagable/Tile_Wall_Straight_LG")
+damagedVisual = NodePath("../TileWallStraightLGDamagable/Tile_Wall_Straight_LG_Damaged")
+breachedVisual = NodePath("../TileWallStraightLGDamagable/Tile_Wall_Straight_LG_Breached")
+interactable = NodePath("../TileWallStraightLGDamagable/Interactable")
+
+[node name="Stations" type="Node3D" parent="Ship"]
+
+[node name="ScrapStationSM" parent="Ship/Stations" instance=ExtResource("8_15xbe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 5)
+
+[node name="MissileStationSM" parent="Ship/Stations" instance=ExtResource("9_4o8b7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 2)
+
+[node name="LaserStationSM" parent="Ship/Stations" instance=ExtResource("10_4jajd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 5)
+
+[node name="KineticStation" parent="Ship/Stations" instance=ExtResource("11_rhtax")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2)
+
+[node name="EngineSystemTerminal" parent="Ship/Stations" instance=ExtResource("15_ckrsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -3)
+
+[node name="SensorSystemTerminal" parent="Ship/Stations" instance=ExtResource("16_1rll1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -3)
+
+[node name="ShieldSystemTerminal" parent="Ship/Stations" instance=ExtResource("17_rwhdw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -3)
+
+[node name="WeaponSystemTerminal" parent="Ship/Stations" instance=ExtResource("18_pm8vy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -3)
+
+[node name="Table" parent="Ship/Stations" instance=ExtResource("19_enw6j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+initialItem = ExtResource("20_5m50r")
+
+[node name="Table2" parent="Ship/Stations" instance=ExtResource("19_enw6j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 5)
+initialItem = ExtResource("20_5m50r")
+
+[node name="Table3" parent="Ship/Stations" instance=ExtResource("19_enw6j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 4)
+initialItem = ExtResource("20_5m50r")
+
+[node name="Table4" parent="Ship/Stations" instance=ExtResource("19_enw6j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+initialItem = ExtResource("20_5m50r")
+
+[node name="Weapons" type="Node3D" parent="Ship"]
+
+[node name="KineticWeapon" parent="Ship/Weapons" instance=ExtResource("12_vkx5a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -7)
+
+[node name="LaserWeapon" parent="Ship/Weapons" instance=ExtResource("13_27m8t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -7)
+
+[node name="MissileWeapon" parent="Ship/Weapons" instance=ExtResource("14_gkhw5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -7)
+
+[node name="PlayerCamera" parent="." node_paths=PackedStringArray("followTarget") instance=ExtResource("7_guahy")]
+followTarget = NodePath("../PlayerController")
+
+[node name="PlayerController" parent="." instance=ExtResource("8_ebhxo")]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
