@@ -1,28 +1,36 @@
-[gd_scene load_steps=5 format=3 uid="uid://dma4yhapsggvq"]
+[gd_scene load_steps=6 format=3 uid="uid://dma4yhapsggvq"]
 
 [ext_resource type="Script" path="res://Objects/Player/PlayerController.cs" id="1_rq43e"]
+[ext_resource type="PackedScene" uid="uid://dqxj4cu3cdf05" path="res://Assets/Models/Characters/Hamster.gltf" id="2_0paya"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xvvb1"]
+radius = 0.87842
 
 [sub_resource type="SphereMesh" id="SphereMesh_rwyo6"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_75jvu"]
 radius = 1.0
 
-[node name="PlayerController" type="CharacterBody3D" node_paths=PackedStringArray("interactArea")]
+[node name="PlayerController" type="CharacterBody3D" node_paths=PackedStringArray("interactArea", "visual")]
 script = ExtResource("1_rq43e")
 interactArea = NodePath("InteractArea")
+visual = NodePath("Hamster")
+
+[node name="Hamster" parent="." instance=ExtResource("2_0paya")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.870007, -0.0963534)
 shape = SubResource("SphereShape3D_xvvb1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+visible = false
 mesh = SubResource("SphereMesh_rwyo6")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.730517, 0.40521)
+visible = false
 mesh = SubResource("SphereMesh_rwyo6")
 
 [node name="InteractArea" type="Area3D" parent="."]

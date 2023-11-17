@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 namespace SpaceEngineer
@@ -6,6 +7,7 @@ namespace SpaceEngineer
 	public partial class PlayerController : CharacterBody3D
 	{
 		[Export] private Area3D interactArea;
+		[Export] private Node3D visual;
 
 
 		[ExportGroup("Inputs")]
@@ -23,6 +25,9 @@ namespace SpaceEngineer
 		private List<Interactable> interactables;
 		private Interactable targetInteractable;
 
+		private bool isInteracting = false;
+		private AnimationPlayer animationPlayer;
+
 		public PlayerController()
 		{
 			interactables = new List<Interactable>();
@@ -32,6 +37,31 @@ namespace SpaceEngineer
 		{
 			interactArea.AreaEntered += OnInteractAreaEntered;
 			interactArea.AreaExited += OnInteractAreaExited;
+
+			if (visual is not null)
+			{
+				animationPlayer = visual.GetNode<AnimationPlayer>("AnimationPlayer");
+				if (animationPlayer is not null)
+				{
+					animationPlayer.AnimationFinished += OnAnimationFinished;
+				}
+				else
+				{
+					GD.Print("failed to find an animation player on the player's visual");
+				}
+			}
+			else
+			{
+				GD.Print("No character visual assigned to the player controller");
+			}
+
+			animationPlayer?.Play("Idle");
+		}
+
+		private void OnAnimationFinished(StringName animName)
+		{
+			GD.Print("Animation Finished " + animName);
+			isInteracting = false;
 		}
 
 		private void OnInteractAreaEntered(Area3D area)
@@ -89,12 +119,17 @@ namespace SpaceEngineer
 			{
 				targetInteractable = GetTargetInteractable();
 				targetInteractable?.StartInteract(this);
+
+				isInteracting = true;
+				animationPlayer?.Play("Interact");
 			}
 
 			if (Input.IsActionJustReleased(interactAction))
 			{
 				targetInteractable?.StopInteract(this);
 				targetInteractable = null;
+
+				// isInteracting = false;
 			}
 
 			// Get the input direction and handle the movement/deceleration.
@@ -120,6 +155,19 @@ namespace SpaceEngineer
 
 			Velocity = velocity;
 			MoveAndSlide();
+
+			if (!isInteracting)
+			{
+				if (velocity.Length() > 0.1f)
+				{
+					animationPlayer?.Play("Walk");
+
+				}
+				else
+				{
+					animationPlayer?.Play("Idle");
+				}
+			}
 		}
 	}
 }
