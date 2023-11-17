@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://dqxj4cu3cdf05" path="res://Assets/Models/Characters/Hamster.gltf" id="2_0paya"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cksdp"]
+radius = 0.35
+height = 1.4
 
 [sub_resource type="SphereMesh" id="SphereMesh_rwyo6"]
 
@@ -16,10 +18,10 @@ interactArea = NodePath("InteractArea")
 visual = NodePath("Hamster")
 
 [node name="Hamster" parent="." instance=ExtResource("2_0paya")]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.870007, -0.0963534)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 shape = SubResource("CapsuleShape3D_cksdp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
