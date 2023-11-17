@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://db37coqddej2r"]
+[gd_scene load_steps=39 format=3 uid="uid://db37coqddej2r"]
 
 [ext_resource type="Script" path="res://Game/GameManager.cs" id="1_0r0o3"]
 [ext_resource type="PackedScene" uid="uid://dma4yhapsggvq" path="res://Objects/Player/PlayerController.tscn" id="1_bvfca"]
@@ -33,6 +33,7 @@
 [ext_resource type="PackedScene" uid="uid://dyy4c3n3auxwx" path="res://Objects/Stations/Weapon/LaserWeapon.tscn" id="27_w5hry"]
 [ext_resource type="PackedScene" uid="uid://ddr10dpgg41f1" path="res://Objects/Stations/Weapon/MissileWeapon.tscn" id="28_ev8im"]
 [ext_resource type="PackedScene" uid="uid://drsb1i04eipm" path="res://Objects/Structure/Walls/Damagable/TileWallStraightLGDamagable.tscn" id="30_vmcig"]
+[ext_resource type="PackedScene" path="res://Scenes/CardUI.tscn" id="31_356bd"]
 [ext_resource type="PackedScene" uid="uid://l4gch8yqqvqh" path="res://Objects/Player/Ship/SystemTerminals/WeaponSystemTerminal.tscn" id="34_t378j"]
 [ext_resource type="PackedScene" uid="uid://bpsjlr0du4l8b" path="res://Objects/Player/Ship/SystemTerminals/ShieldSystemTerminal.tscn" id="35_p1xre"]
 [ext_resource type="PackedScene" uid="uid://onkjebfdkw0j" path="res://Objects/Player/Ship/SystemTerminals/SensorSystemTerminal.tscn" id="36_gy1m1"]
@@ -46,7 +47,9 @@ unique_name_in_owner = true
 script = ExtResource("1_0r0o3")
 playerShip = NodePath("../PlayerShip")
 
-[node name="PlayerShip" parent="." instance=ExtResource("2_oes3a")]
+[node name="PlayerShip" parent="." node_paths=PackedStringArray("weapons", "hulls") instance=ExtResource("2_oes3a")]
+weapons = []
+hulls = []
 
 [node name="UIShipStats" parent="." instance=ExtResource("3_dvcv7")]
 
@@ -392,3 +395,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 4)
 
 [node name="EngineSystemTerminal" parent="." instance=ExtResource("37_yjv17")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 4)
+
+[node name="CardUI" parent="." instance=ExtResource("31_356bd")]
