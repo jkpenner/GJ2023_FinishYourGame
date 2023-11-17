@@ -2,6 +2,10 @@ namespace SpaceEngineer
 {
     public static class GameEvents
     {
+        public static readonly GameEvent<GameState> GameStateEntered = new GameEvent<GameState>();
+        public static readonly GameEvent<GameState> GameStateExited = new GameEvent<GameState>();
+
+
         /// <summary>
         /// Invoked when an inpact ship event occurs.
         /// </summary>
