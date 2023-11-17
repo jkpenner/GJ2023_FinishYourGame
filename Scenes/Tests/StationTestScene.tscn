@@ -1,21 +1,17 @@
-[gd_scene load_steps=42 format=3 uid="uid://db37coqddej2r"]
+[gd_scene load_steps=38 format=3 uid="uid://db37coqddej2r"]
 
 [ext_resource type="Script" path="res://Game/GameManager.cs" id="1_0r0o3"]
 [ext_resource type="PackedScene" uid="uid://dma4yhapsggvq" path="res://Objects/Player/PlayerController.tscn" id="1_bvfca"]
+[ext_resource type="PackedScene" uid="uid://w3n6ukr6g1vv" path="res://Objects/Player/Ship/PlayerShip.tscn" id="2_oes3a"]
 [ext_resource type="PackedScene" uid="uid://dn4nf3fcvgjg3" path="res://Objects/Stations/Variants/ScrapStationSM.tscn" id="2_p44os"]
 [ext_resource type="PackedScene" uid="uid://b5d5u1gteslnb" path="res://Objects/Player/PlayerCamera.tscn" id="2_rw2gm"]
-[ext_resource type="Script" path="res://Objects/Player/Ship/PlayerShip.cs" id="2_v2wbm"]
 [ext_resource type="PackedScene" uid="uid://beixk1wkylriv" path="res://Objects/Stations/Variants/LaserStationSM.tscn" id="3_5r6p3"]
 [ext_resource type="PackedScene" uid="uid://d31eopqwkmw6n" path="res://UI/UIShipStats.tscn" id="3_dvcv7"]
-[ext_resource type="Script" path="res://Objects/Player/Ship/System/Engines/EngineSystem.cs" id="3_hdhv7"]
 [ext_resource type="PackedScene" uid="uid://bd7gkrnps4vvj" path="res://Objects/Stations/Variants/KineticStationSM.tscn" id="4_54qet"]
-[ext_resource type="Script" path="res://Objects/Player/Ship/System/Sensors/SensorSystem.cs" id="4_q32hi"]
-[ext_resource type="Script" path="res://Objects/Player/Ship/System/Weapons/WeaponSystem.cs" id="5_bjlv7"]
 [ext_resource type="PackedScene" uid="uid://mblq53kvd3g0" path="res://Objects/Structure/Walls/TileWallStraightSM.tscn" id="5_e85px"]
 [ext_resource type="PackedScene" uid="uid://4igxf41xruo1" path="res://Objects/Stations/Variants/MissileStationSM.tscn" id="5_ges5k"]
 [ext_resource type="PackedScene" uid="uid://qq3r1ejoewpb" path="res://Objects/Structure/Floor/TileFloorSquareLG.tscn" id="5_qm2jm"]
 [ext_resource type="PackedScene" uid="uid://4vxuethen0x7" path="res://Objects/Structure/Floor/TileFloorSquareSM.tscn" id="6_f50dh"]
-[ext_resource type="Script" path="res://Objects/Player/Ship/System/Shields/ShieldSystem.cs" id="6_hiquv"]
 [ext_resource type="PackedScene" uid="uid://cr0jw2re5fmo6" path="res://Objects/Structure/Walls/TileWallStraightLG.tscn" id="7_5auwq"]
 [ext_resource type="PackedScene" uid="uid://wtffefe67pdd" path="res://Objects/Stations/Table/TableEnd.tscn" id="7_beavm"]
 [ext_resource type="Resource" uid="uid://boxryp6hujwtv" path="res://Objects/Items/Variants/Scrap/Scrap.tres" id="7_p22is"]
@@ -44,32 +40,14 @@
 
 [node name="StationTestScene" type="Node3D" node_paths=PackedStringArray("playerShip")]
 script = ExtResource("1_0r0o3")
-playerShip = NodePath("PlayerShip")
+playerShip = NodePath("")
 
 [node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("playerShip")]
 unique_name_in_owner = true
 script = ExtResource("1_0r0o3")
-playerShip = NodePath("../PlayerShip")
+playerShip = NodePath("")
 
-[node name="PlayerShip" type="Node3D" parent="." node_paths=PackedStringArray("systems")]
-script = ExtResource("2_v2wbm")
-systems = [NodePath("EngineSystem"), NodePath("SensorSystem"), NodePath("WeaponSystem"), NodePath("ShieldSystem")]
-
-[node name="EngineSystem" type="Node3D" parent="PlayerShip"]
-script = ExtResource("3_hdhv7")
-poweredEnergyUsage = 3
-overclockedEnergyUsage = 6
-
-[node name="SensorSystem" type="Node3D" parent="PlayerShip"]
-script = ExtResource("4_q32hi")
-
-[node name="WeaponSystem" type="Node3D" parent="PlayerShip"]
-script = ExtResource("5_bjlv7")
-
-[node name="ShieldSystem" type="Node3D" parent="PlayerShip"]
-script = ExtResource("6_hiquv")
-poweredEnergyUsage = 3
-overclockedEnergyUsage = 6
+[node name="PlayerShip" parent="." instance=ExtResource("2_oes3a")]
 
 [node name="UIShipStats" parent="." instance=ExtResource("3_dvcv7")]
 

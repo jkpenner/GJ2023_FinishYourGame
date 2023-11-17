@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://w3n6ukr6g1vv"]
+
+[ext_resource type="Script" path="res://Objects/Player/Ship/PlayerShip.cs" id="1_gwsg5"]
+[ext_resource type="Script" path="res://Objects/Player/Ship/System/Engines/EngineSystem.cs" id="2_is2fe"]
+[ext_resource type="Script" path="res://Objects/Player/Ship/System/Sensors/SensorSystem.cs" id="3_wmpjp"]
+[ext_resource type="Script" path="res://Objects/Player/Ship/System/Weapons/WeaponSystem.cs" id="4_4vwr4"]
+[ext_resource type="Script" path="res://Objects/Player/Ship/System/Shields/ShieldSystem.cs" id="5_hpdt3"]
+
+[node name="PlayerShip" type="Node3D" node_paths=PackedStringArray("systems")]
+script = ExtResource("1_gwsg5")
+systems = [NodePath("EngineSystem"), NodePath("SensorSystem"), NodePath("WeaponSystem"), NodePath("ShieldSystem")]
+
+[node name="EngineSystem" type="Node3D" parent="."]
+script = ExtResource("2_is2fe")
+poweredEnergyUsage = 3
+overclockedEnergyUsage = 6
+
+[node name="SensorSystem" type="Node3D" parent="."]
+script = ExtResource("3_wmpjp")
+
+[node name="WeaponSystem" type="Node3D" parent="."]
+script = ExtResource("4_4vwr4")
+
+[node name="ShieldSystem" type="Node3D" parent="."]
+script = ExtResource("5_hpdt3")
+poweredEnergyUsage = 3
+overclockedEnergyUsage = 6
