@@ -20,6 +20,8 @@ namespace SpaceEngineer
         {
             this.TryGetGameManager(out gameManager);
             FetchAndValidateSceneNodes();
+
+            notification.Hide();
         }
 
         public override void _EnterTree()
