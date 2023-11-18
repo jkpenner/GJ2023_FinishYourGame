@@ -23,7 +23,12 @@ namespace SpaceEngineer
 
         private float overclockCounter;
 
-        public ShipSystem(ShipSystemState state, int normalEnergy, int overclockEnergy, float overclockDuration)
+        public ShipSystem()
+        {
+            
+        }
+
+        public void Setup(ShipSystemState state, int normalEnergy, int overclockEnergy, float overclockDuration)
         {
             State = state;
             NormalEnergy = normalEnergy;

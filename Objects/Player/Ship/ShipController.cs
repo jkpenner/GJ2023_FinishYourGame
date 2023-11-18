@@ -99,14 +99,22 @@ namespace SpaceEngineer
         public event Action<int> EnergyCapacityChanged;
         public event Action<ShipSystemType> SystemStateChanged;
 
+        public ShipController()
+        {
+            WeaponSystem = new ShipSystem();
+            EngineSystem = new ShipSystem();
+            ShieldSystem = new ShipSystem();
+            SensorSystem = new ShipSystem();
+        }
+
         public override void _Ready()
         {
             EnergyCapacity = initialEnergyCapacity;
 
-            WeaponSystem = new ShipSystem(initialWeaponState, weaponNormalEnergy, weaponOverclockEnergy, weaponOverclockDuration);
-            EngineSystem = new ShipSystem(initialEngineState, engineNormalEnergy, engineOverclockEnergy, engineOverclockDuration);
-            ShieldSystem = new ShipSystem(initialShieldState, shieldNormalEnergy, shieldOverclockEnergy, shieldOverclockDuration);
-            SensorSystem = new ShipSystem(initialSensorState, sensorNormalEnergy, sensorOverclockEnergy, sensorOverclockDuration);
+            WeaponSystem.Setup(initialWeaponState, weaponNormalEnergy, weaponOverclockEnergy, weaponOverclockDuration);
+            EngineSystem.Setup(initialEngineState, engineNormalEnergy, engineOverclockEnergy, engineOverclockDuration);
+            ShieldSystem.Setup(initialShieldState, shieldNormalEnergy, shieldOverclockEnergy, shieldOverclockDuration);
+            SensorSystem.Setup(initialSensorState, sensorNormalEnergy, sensorOverclockEnergy, sensorOverclockDuration);
 
             WeaponSystem.EnergyUsageChanged += OnEnergyUsageChanged;
             EngineSystem.EnergyUsageChanged += OnEnergyUsageChanged;
