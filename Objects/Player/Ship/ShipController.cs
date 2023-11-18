@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
@@ -83,7 +84,7 @@ namespace SpaceEngineer
         [ExportGroup("In Scene References")]
         [Export] Godot.Collections.Array<Weapon> weapons;
         [Export] Godot.Collections.Array<DamagableHull> hulls;
-        [Export] Godot.Collections.Array<Treadmill> treadmills;
+        
 
         public ShipSystem WeaponSystem { get; private set; }
         public ShipSystem EngineSystem { get; private set; }
@@ -98,6 +99,8 @@ namespace SpaceEngineer
         private float overloadCounter;
         private float energyRegenCounter;
         private int energyRegenPlayerInput;
+
+        private List<Treadmill> treadmills;
 
         public event Action Overloading;
         public event Action OverloadEventStarted;
@@ -114,6 +117,8 @@ namespace SpaceEngineer
             EngineSystem = new ShipSystem();
             ShieldSystem = new ShipSystem();
             SensorSystem = new ShipSystem();
+
+            treadmills = new List<Treadmill>();
         }
 
         public override void _Ready()
@@ -134,11 +139,6 @@ namespace SpaceEngineer
             ShieldSystem.StateChanged += () => SystemStateChanged?.Invoke(ShipSystemType.Shields);
             EngineSystem.StateChanged += () => SystemStateChanged?.Invoke(ShipSystemType.Engines);
             SensorSystem.StateChanged += () => SystemStateChanged?.Invoke(ShipSystemType.Sensors);
-
-            foreach (var treadmill in treadmills)
-            {
-                treadmill.EnergyGenerated += IncrementEnergyRegen;
-            }
 
             // Initial calls to populate values
             OnEnergyUsageChanged();
@@ -321,5 +321,28 @@ namespace SpaceEngineer
                 ShipSystemType.Sensors,
             };
         }
+
+        public void RegisterTreadmill(Treadmill treadmill)
+        {
+            if (treadmill is null)
+            {
+                return;
+            }
+
+            treadmill.EnergyGenerated += IncrementEnergyRegen;
+            treadmills.Add(treadmill);
+        }
+
+        public void UnregisterTreadmill(Treadmill treadmill)
+        {
+            if (treadmill is null)
+            {
+                return;
+            }
+
+            treadmill.EnergyGenerated -= IncrementEnergyRegen;
+            treadmills.Remove(treadmill);
+        }
+
     }
 }

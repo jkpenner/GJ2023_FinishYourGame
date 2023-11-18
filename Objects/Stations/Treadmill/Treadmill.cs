@@ -7,18 +7,34 @@ public partial class Treadmill : Node3D
 {
 	[Export] Area3D area;
 
-	private GameManager gameManager;
+	private ShipController ship;
 	private List<PlayerController> players = new List<PlayerController>();
 
 	public Action EnergyGenerated;
 
 	public override void _Ready()
 	{
-		this.TryGetGameManager(out gameManager);
+		ship = this.FindParentOfType<ShipController>();
+		if (ship is null)
+		{
+			GD.PrintErr($"[{nameof(Treadmill)}]: Treadmill must be a child of a {nameof(ShipController)} node.");
+			QueueFree();
+			return;
+		}
+
+		ship.RegisterTreadmill(this);
 
 		area.BodyEntered += OnBodyEntered;
 		area.BodyExited += OnBodyExited;
 	}
+
+    public override void _ExitTree()
+    {
+        if (ship is not null)
+		{
+			ship.UnregisterTreadmill(this);
+		}
+    }
 
     public override void _Process(double delta)
     {
