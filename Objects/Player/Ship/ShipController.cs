@@ -83,7 +83,6 @@ namespace SpaceEngineer
 
         [ExportGroup("In Scene References")]
         [Export] Godot.Collections.Array<Weapon> weapons;
-        [Export] Godot.Collections.Array<DamagableHull> hulls;
         
 
         public ShipSystem WeaponSystem { get; private set; }
@@ -101,6 +100,7 @@ namespace SpaceEngineer
         private int energyRegenPlayerInput;
 
         private List<Treadmill> treadmills;
+        private List<DamagableHull> hulls;
 
         public event Action Overloading;
         public event Action OverloadEventStarted;
@@ -119,6 +119,7 @@ namespace SpaceEngineer
             SensorSystem = new ShipSystem();
 
             treadmills = new List<Treadmill>();
+            hulls = new List<DamagableHull>();
         }
 
         public override void _Ready()
@@ -344,5 +345,24 @@ namespace SpaceEngineer
             treadmills.Remove(treadmill);
         }
 
+        public void RegisterHull(DamagableHull damagableHull)
+        {
+            if (damagableHull is null)
+            {
+                return;
+            }
+
+            hulls.Add(damagableHull);
+        }
+
+        public void UnregisterHull(DamagableHull damagableHull)
+        {
+            if (damagableHull is null)
+            {
+                return;
+            }
+
+            hulls.Remove(damagableHull);
+        }
     }
 }

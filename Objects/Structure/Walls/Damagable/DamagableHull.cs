@@ -21,6 +21,7 @@ namespace SpaceEngineer
         [Export] Item itemGainedAfterScrapped;
         [Export] Item requiredItemToRepair;
 
+        private ShipController ship;
         private Node3D armoredVisual;
         private Node3D damagedVisual;
         private Node3D breachedVisual;
@@ -35,10 +36,28 @@ namespace SpaceEngineer
 
         public override void _Ready()
         {
+            ship = this.FindParentOfType<ShipController>();
+            if (ship is null)
+            {
+                GD.PrintErr($"[{nameof(DamagableHull)}]: Node must be a child of a {nameof(ShipController)} node.");
+                QueueFree();
+                return;
+            }
+
+            ship.RegisterHull(this);
+
             FetchAndValidateSceneNodes();
 
             UpdateVisibility();
             UpdateInteractablity();
+        }
+
+        public override void _ExitTree()
+        {
+            if (ship is not null)
+            {
+                ship.UnregisterHull(this);
+            }
         }
 
         private void FetchAndValidateSceneNodes()
