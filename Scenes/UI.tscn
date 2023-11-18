@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvcjnwns7wnyx"]
+
+[ext_resource type="PackedScene" uid="uid://chuectjwxwnvh" path="res://Scenes/CardUI.tscn" id="1_beiqm"]
+[ext_resource type="Script" path="res://UI/UIShipStats.cs" id="2_f015j"]
+[ext_resource type="PackedScene" uid="uid://bt4so6txrls2p" path="res://UI/UIHullBreachNotification.tscn" id="3_sj372"]
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CardUI" parent="." instance=ExtResource("1_beiqm")]
+layout_mode = 1
+
+[node name="ShipStats" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_top = -36.0
+offset_right = 57.0
+offset_bottom = -10.0
+grow_vertical = 0
+text = "Hello"
+script = ExtResource("2_f015j")
+
+[node name="UIHullBreachNotification" parent="." instance=ExtResource("3_sj372")]
+layout_mode = 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://db37coqddej2r"]
+[gd_scene load_steps=38 format=3 uid="uid://db37coqddej2r"]
 
 [ext_resource type="Script" path="res://Game/GameManager.cs" id="1_0r0o3"]
 [ext_resource type="PackedScene" uid="uid://dma4yhapsggvq" path="res://Objects/Player/PlayerController.tscn" id="1_bvfca"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://dn4nf3fcvgjg3" path="res://Objects/Stations/Variants/ScrapStationSM.tscn" id="2_p44os"]
 [ext_resource type="PackedScene" uid="uid://b5d5u1gteslnb" path="res://Objects/Player/PlayerCamera.tscn" id="2_rw2gm"]
 [ext_resource type="PackedScene" uid="uid://beixk1wkylriv" path="res://Objects/Stations/Variants/LaserStationSM.tscn" id="3_5r6p3"]
-[ext_resource type="PackedScene" uid="uid://d31eopqwkmw6n" path="res://UI/UIShipStats.tscn" id="3_dvcv7"]
 [ext_resource type="PackedScene" uid="uid://bd7gkrnps4vvj" path="res://Objects/Stations/Variants/KineticStationSM.tscn" id="4_54qet"]
 [ext_resource type="PackedScene" uid="uid://mblq53kvd3g0" path="res://Objects/Structure/Walls/TileWallStraightSM.tscn" id="5_e85px"]
 [ext_resource type="PackedScene" uid="uid://4igxf41xruo1" path="res://Objects/Stations/Variants/MissileStationSM.tscn" id="5_ges5k"]
@@ -33,18 +32,17 @@
 [ext_resource type="PackedScene" uid="uid://dyy4c3n3auxwx" path="res://Objects/Stations/Weapon/LaserWeapon.tscn" id="27_w5hry"]
 [ext_resource type="PackedScene" uid="uid://ddr10dpgg41f1" path="res://Objects/Stations/Weapon/MissileWeapon.tscn" id="28_ev8im"]
 [ext_resource type="PackedScene" uid="uid://drsb1i04eipm" path="res://Objects/Structure/Walls/Damagable/TileWallStraightLGDamagable.tscn" id="30_vmcig"]
-[ext_resource type="PackedScene" path="res://Scenes/CardUI.tscn" id="31_356bd"]
 [ext_resource type="PackedScene" uid="uid://l4gch8yqqvqh" path="res://Objects/Player/Ship/SystemTerminals/WeaponSystemTerminal.tscn" id="34_t378j"]
 [ext_resource type="PackedScene" uid="uid://bpsjlr0du4l8b" path="res://Objects/Player/Ship/SystemTerminals/ShieldSystemTerminal.tscn" id="35_p1xre"]
 [ext_resource type="PackedScene" uid="uid://onkjebfdkw0j" path="res://Objects/Player/Ship/SystemTerminals/SensorSystemTerminal.tscn" id="36_gy1m1"]
+[ext_resource type="PackedScene" uid="uid://bvcjnwns7wnyx" path="res://Scenes/UI.tscn" id="37_qmwqu"]
 [ext_resource type="PackedScene" uid="uid://cj2x356scj2ji" path="res://Objects/Player/Ship/SystemTerminals/EngineSystemTerminal.tscn" id="37_yjv17"]
 
 [node name="GameManager" type="Node3D" node_paths=PackedStringArray("playerShip")]
 script = ExtResource("1_0r0o3")
 playerShip = NodePath("PlayerShip")
 
-[node name="PlayerShip" parent="." node_paths=PackedStringArray("treadmills") instance=ExtResource("2_oes3a")]
-treadmills = []
+[node name="PlayerShip" parent="." instance=ExtResource("2_oes3a")]
 
 [node name="Stations" type="Node3D" parent="PlayerShip"]
 
@@ -382,24 +380,4 @@ shadow_enabled = true
 [node name="PlayerCamera" parent="." node_paths=PackedStringArray("followTarget") instance=ExtResource("2_rw2gm")]
 followTarget = NodePath("../PlayerController")
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="Control"]
-layout_mode = 0
-offset_right = 297.0
-offset_bottom = 240.0
-text = "W,A,S,D: Move
-E: Interact
-"
-
-[node name="CardUI" parent="Control" instance=ExtResource("31_356bd")]
-layout_mode = 1
-
-[node name="UIShipStats" parent="Control" instance=ExtResource("3_dvcv7")]
-layout_mode = 1
+[node name="UI" parent="." instance=ExtResource("37_qmwqu")]
