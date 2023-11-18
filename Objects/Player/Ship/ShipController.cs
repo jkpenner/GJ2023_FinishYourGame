@@ -135,7 +135,7 @@ namespace SpaceEngineer
             EngineSystem.StateChanged += () => SystemStateChanged?.Invoke(ShipSystemType.Engines);
             SensorSystem.StateChanged += () => SystemStateChanged?.Invoke(ShipSystemType.Sensors);
 
-            foreach(var treadmill in treadmills)
+            foreach (var treadmill in treadmills)
             {
                 treadmill.EnergyGenerated += IncrementEnergyRegen;
             }
@@ -165,9 +165,6 @@ namespace SpaceEngineer
             {
                 energyRegenCounter += GetEnergyRegenRate() * (float)delta;
 
-                // Reset amount of player input each frame.
-                energyRegenPlayerInput = 0;
-
                 if (energyRegenCounter > energyRegenDuration)
                 {
                     var newEnergyCapacity = Mathf.Min(EnergyCapacity + 1, MaximumEnergy);
@@ -180,6 +177,9 @@ namespace SpaceEngineer
                     }
                 }
             }
+
+            // Reset amount of player input each frame.
+            energyRegenPlayerInput = 0;
         }
 
         /// <summary>
@@ -193,6 +193,11 @@ namespace SpaceEngineer
 
         public float GetEnergyRegenRate()
         {
+            if (EnergyCapacity >= MaximumEnergy)
+            {
+                return 0f;
+            }
+
             return 1f + Mathf.Min(energyRegenPerPlayerRate * energyRegenPlayerInput, energyRegenMaxPlayerRate);
         }
 
