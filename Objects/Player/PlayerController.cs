@@ -28,6 +28,8 @@ namespace SpaceEngineer
 		private bool isInteracting = false;
 		private AnimationPlayer animationPlayer;
 
+		public Vector3 DesiredVelocity { get; private set; }
+
 		public PlayerController()
 		{
 			interactables = new List<Interactable>();
@@ -164,6 +166,8 @@ namespace SpaceEngineer
 			}
 
 			Velocity = velocity;
+			DesiredVelocity = velocity;
+			
 			MoveAndSlide();
 
 			if (!isInteracting)
