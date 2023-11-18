@@ -16,12 +16,8 @@ size = Vector3(1, 0.5, 4)
 [sub_resource type="BoxShape3D" id="BoxShape3D_u5k1t"]
 size = Vector3(1, 1, 3.31998)
 
-[node name="TileWallStraightLGDamagable" type="Node3D" node_paths=PackedStringArray("armoredVisual", "damagedVisual", "breachedVisual", "interactable")]
+[node name="TileWallStraightLGDamagable" type="Node3D"]
 script = ExtResource("1_tuayy")
-armoredVisual = NodePath("ArmoredVisual")
-damagedVisual = NodePath("DamagedVisual")
-breachedVisual = NodePath("BreachedVisual")
-interactable = NodePath("Interactable")
 itemGainedAfterScrapped = ExtResource("2_vj4aa")
 requiredItemToRepair = ExtResource("2_vj4aa")
 

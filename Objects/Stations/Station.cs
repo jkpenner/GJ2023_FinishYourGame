@@ -17,17 +17,32 @@ namespace SpaceEngineer
 
     public partial class Station : Node3D
     {
-        [Export] Node3D visualParent;
+        public const string ITEM_VISUAL_PARENT_NODE_PATH = "ItemVisualParent";
 
         public StationState State { get; private set; }
         public Item HeldItem { get; private set; }
         protected Node3D ItemVisual { get; private set; }
 
         private ItemMoveMode moveMode;
+        private Node3D itemVisualParent;
 
         public delegate void ItemEvent(Item item);
         public event ItemEvent ItemPlaced;
         public event ItemEvent ItemTaken;
+
+        public override void _Ready()
+        {
+            FetchAndValidateSceneNodes();
+        }
+
+        private void FetchAndValidateSceneNodes()
+        {
+            itemVisualParent = GetNode<Node3D>(ITEM_VISUAL_PARENT_NODE_PATH);
+            if (itemVisualParent is null)
+            {
+                this.PrintMissingChildError(ITEM_VISUAL_PARENT_NODE_PATH, nameof(Node3D));
+            }
+        }
 
         /// <summary>
         /// Check if the station allows the held item to be taken or replaced.
@@ -77,7 +92,7 @@ namespace SpaceEngineer
             ItemVisual = HeldItem.InstantiateVisual();
             if (ItemVisual is not null)
             {
-                visualParent.AddChild(ItemVisual);
+                itemVisualParent.AddChild(ItemVisual);
                 ItemVisual.Position = Vector3.Zero;
                 ItemVisual.Rotation = Vector3.Zero;
             }
@@ -135,7 +150,7 @@ namespace SpaceEngineer
 
             if (visual is not null)
             {
-                visualParent.RemoveChild(visual);
+                itemVisualParent.RemoveChild(visual);
             }
 
             // Add the item to the next slot
@@ -144,9 +159,9 @@ namespace SpaceEngineer
 
             if (visual is not null)
             {
-                other.visualParent.AddChild(visual);
-                visual.GlobalPosition = visualParent.GlobalPosition;
-                visual.GlobalRotation = visualParent.GlobalRotation;
+                other.itemVisualParent.AddChild(visual);
+                visual.GlobalPosition = itemVisualParent.GlobalPosition;
+                visual.GlobalRotation = itemVisualParent.GlobalRotation;
             }
 
             other.State = StationState.MovingItem;
@@ -161,7 +176,7 @@ namespace SpaceEngineer
             HeldItem = null;
             if (ItemVisual is not null)
             {
-                visualParent.RemoveChild(ItemVisual);
+                itemVisualParent.RemoveChild(ItemVisual);
                 ItemVisual.QueueFree();
             }
             ItemVisual = null;
@@ -175,9 +190,9 @@ namespace SpaceEngineer
                 ItemVisual = item.InstantiateVisual();
                 if (ItemVisual is not null)
                 {
-                    visualParent.AddChild(ItemVisual);
-                    ItemVisual.GlobalPosition = visualParent.GlobalPosition;
-                    ItemVisual.GlobalRotation = visualParent.GlobalRotation;
+                    itemVisualParent.AddChild(ItemVisual);
+                    ItemVisual.GlobalPosition = itemVisualParent.GlobalPosition;
+                    ItemVisual.GlobalRotation = itemVisualParent.GlobalRotation;
                 }
             }
         }
@@ -215,8 +230,8 @@ namespace SpaceEngineer
                         return;
                     }
 
-                    ItemVisual.GlobalPosition = ItemVisual.GlobalPosition.MoveToward(visualParent.GlobalPosition, (float)(delta));
-                    if (ItemVisual.GlobalPosition.DistanceTo(visualParent.GlobalPosition) < Mathf.Epsilon)
+                    ItemVisual.GlobalPosition = ItemVisual.GlobalPosition.MoveToward(itemVisualParent.GlobalPosition, (float)(delta));
+                    if (ItemVisual.GlobalPosition.DistanceTo(itemVisualParent.GlobalPosition) < Mathf.Epsilon)
                     {
                         CompleteItemMove();
                     }
@@ -228,7 +243,7 @@ namespace SpaceEngineer
                         return;
                     }
 
-                    ItemVisual.GlobalPosition = visualParent.GlobalPosition;
+                    ItemVisual.GlobalPosition = itemVisualParent.GlobalPosition;
                     CompleteItemMove();
                     break;
             }

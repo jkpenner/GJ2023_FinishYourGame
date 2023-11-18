@@ -5,8 +5,12 @@ namespace SpaceEngineer
 {
     public partial class Weapon : Station
     {
+        public const string INTERACTABLE_NODE_PATH = "Interactable";
+
         [Export] AmmoType ammoType;
-        [Export] Interactable interactable;
+
+        private ShipController ship;
+        private Interactable interactable;
 
         public delegate void WeaponEvent(Weapon weapon);
 
@@ -26,14 +30,42 @@ namespace SpaceEngineer
         {
             base._Ready();
 
+            FetchAndValidateSceneNodes();
+
+            ship = this.FindParentOfType<ShipController>();
+            if (ship is null)
+            {
+                GD.PrintErr($"[{nameof(DamagableHull)}]: Node must be a child of a {nameof(ShipController)} node.");
+                QueueFree();
+                return;
+            }
+
+            ship.RegisterWeapon(this);
+
+            ItemPlaced += OnItemPlaced;
+            ItemTaken += OnItemTaken;
+        }
+
+        private void FetchAndValidateSceneNodes()
+        {
+            interactable = GetNode<Interactable>("Interactable");
             if (interactable is not null)
             {
                 interactable.IsInteractable = true;
                 interactable.Interacted += OnInteraction;
             }
+            else
+            {
+                this.PrintMissingChildError(INTERACTABLE_NODE_PATH, nameof(Interactable));
+            }
+        }
 
-            ItemPlaced += OnItemPlaced;
-            ItemTaken += OnItemTaken;
+        public override void _ExitTree()
+        {
+            if (ship is not null)
+            {
+                ship.UnregisterWeapon(this);
+            }
         }
 
         private void OnItemPlaced(Item item)

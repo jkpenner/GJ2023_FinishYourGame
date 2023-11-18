@@ -80,9 +80,6 @@ namespace SpaceEngineer
         [Export] int sensorNormalEnergy = 2;
         [Export] int sensorOverclockEnergy = 4;
         [Export] float sensorOverclockDuration = 30f;
-
-        [ExportGroup("In Scene References")]
-        [Export] Godot.Collections.Array<Weapon> weapons;
         
 
         public ShipSystem WeaponSystem { get; private set; }
@@ -99,6 +96,7 @@ namespace SpaceEngineer
         private float energyRegenCounter;
         private int energyRegenPlayerInput;
 
+        private List<Weapon> weapons;
         private List<Treadmill> treadmills;
         private List<DamagableHull> hulls;
 
@@ -118,6 +116,7 @@ namespace SpaceEngineer
             ShieldSystem = new ShipSystem();
             SensorSystem = new ShipSystem();
 
+            weapons = new List<Weapon>();
             treadmills = new List<Treadmill>();
             hulls = new List<DamagableHull>();
         }
@@ -363,6 +362,26 @@ namespace SpaceEngineer
             }
 
             hulls.Remove(damagableHull);
+        }
+
+        internal void RegisterWeapon(Weapon weapon)
+        {
+            if (weapon is null)
+            {
+                return;
+            }
+
+            weapons.Add(weapon);
+        }
+
+        internal void UnregisterWeapon(Weapon weapon)
+        {
+            if (weapon is null)
+            {
+                return;
+            }
+
+            weapons.Remove(weapon);
         }
     }
 }

@@ -16,11 +16,9 @@ size = Vector3(0.8, 0.5, 0.8)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0uutk"]
 
-[node name="KineticWeapon" type="StaticBody3D" node_paths=PackedStringArray("interactable", "visualParent")]
+[node name="KineticWeapon" type="StaticBody3D"]
 script = ExtResource("1_flcku")
 ammoType = 1
-interactable = NodePath("Interactable")
-visualParent = NodePath("ItemVisualParent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
