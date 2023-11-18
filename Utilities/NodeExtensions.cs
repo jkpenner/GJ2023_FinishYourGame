@@ -36,5 +36,10 @@ namespace SpaceEngineer
 
             return parent.FindParentOfType<T>();
         }
+
+        public static void PrintMissingChildError(this Node node, string childName, string typeName)
+        {
+            GD.PrintErr($"[{node.GetType().Name}]: Missing child node! Expected a child named '{childName}' with a node type of {typeName}.");
+        }
     }
 }

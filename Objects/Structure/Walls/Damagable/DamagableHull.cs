@@ -12,29 +12,65 @@ namespace SpaceEngineer
 
     public partial class DamagableHull : Node3D
     {
-        [Export] HullState initialState;
-        [Export] Node3D armoredVisual;
-        [Export] Node3D damagedVisual;
-        [Export] Node3D breachedVisual;
+        public string INTERACTABLE_NODE_PATH = "Interactable";
+        public string ARMORED_VISUAL_NODE_PATH = "ArmoredVisual";
+        public string DAMAGED_VISUAL_NODE_PATH = "DamagedVisual";
+        public string BREACHED_VISUAL_NODE_PATH = "BreachedVisual";
 
-        [Export] Interactable interactable;
+        [Export] HullState initialState;
         [Export] Item itemGainedAfterScrapped;
         [Export] Item requiredItemToRepair;
+
+        private Node3D armoredVisual;
+        private Node3D damagedVisual;
+        private Node3D breachedVisual;
+        private Interactable interactable;
 
         public HullState State { get; private set; }
 
         public delegate void HullEvent(DamagableHull hull);
         public event HullEvent HullBreached;
         public event HullEvent BreachContained;
-        
+
 
         public override void _Ready()
         {
-            interactable.Interacted += OnInteraction;
-            interactable.ValidateInteraction = OnValidateInteraction;
+            FetchAndValidateSceneNodes();
 
             UpdateVisibility();
             UpdateInteractablity();
+        }
+
+        private void FetchAndValidateSceneNodes()
+        {
+            armoredVisual = GetNode<Node3D>(ARMORED_VISUAL_NODE_PATH);
+            if (armoredVisual is null)
+            {
+                this.PrintMissingChildError(ARMORED_VISUAL_NODE_PATH, nameof(Node3D));
+            }
+
+            damagedVisual = GetNode<Node3D>(DAMAGED_VISUAL_NODE_PATH);
+            if (damagedVisual is null)
+            {
+                this.PrintMissingChildError(DAMAGED_VISUAL_NODE_PATH, nameof(Node3D));
+            }
+
+            breachedVisual = GetNode<Node3D>(BREACHED_VISUAL_NODE_PATH);
+            if (breachedVisual is null)
+            {
+                this.PrintMissingChildError(BREACHED_VISUAL_NODE_PATH, nameof(Node3D));
+            }
+
+            interactable = GetNode<Interactable>("Interactable");
+            if (interactable is not null)
+            {
+                interactable.Interacted += OnInteraction;
+                interactable.ValidateInteraction = OnValidateInteraction;
+            }
+            else
+            {
+                this.PrintMissingChildError(INTERACTABLE_NODE_PATH, nameof(Interactable));
+            }
         }
 
         private bool OnValidateInteraction(PlayerController interactor)
@@ -93,7 +129,8 @@ namespace SpaceEngineer
             }
 
             // Update to the next damage state
-            State = State switch {
+            State = State switch
+            {
                 HullState.Armored => HullState.Damaged,
                 _ => HullState.Breached,
             };
@@ -119,7 +156,8 @@ namespace SpaceEngineer
             var wasBreached = State == HullState.Breached;
 
             // Update to the next repaired state
-            State = State switch {
+            State = State switch
+            {
                 HullState.Breached => HullState.Damaged,
                 _ => HullState.Armored
             };
