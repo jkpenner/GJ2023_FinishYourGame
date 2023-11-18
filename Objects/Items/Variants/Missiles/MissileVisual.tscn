@@ -1,14 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dixdw5kfxb3a6"]
+[gd_scene load_steps=2 format=3 uid="uid://dixdw5kfxb3a6"]
 
-[sub_resource type="PrismMesh" id="PrismMesh_0lman"]
-size = Vector3(0.2, 0.2, 0.2)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8kb8w"]
-albedo_color = Color(0.0313726, 1, 0, 1)
+[ext_resource type="PackedScene" uid="uid://bqi3mj75tceof" path="res://Assets/Models/Items/Missiles.gltf" id="1_1kt6y"]
 
 [node name="ItemVisual" type="Node3D"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-mesh = SubResource("PrismMesh_0lman")
-surface_material_override/0 = SubResource("StandardMaterial3D_8kb8w")
+[node name="Missiles" parent="." instance=ExtResource("1_1kt6y")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)

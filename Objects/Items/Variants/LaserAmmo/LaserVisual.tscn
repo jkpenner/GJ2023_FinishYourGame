@@ -1,14 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://duuwwqcqnslt6"]
+[gd_scene load_steps=2 format=3 uid="uid://duuwwqcqnslt6"]
 
-[sub_resource type="PrismMesh" id="PrismMesh_0lman"]
-size = Vector3(0.2, 0.2, 0.2)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1q8pn"]
-albedo_color = Color(0.0509804, 0, 1, 1)
+[ext_resource type="PackedScene" uid="uid://dbnv8dkxea58y" path="res://Assets/Models/Items/LaserAmmo.gltf" id="1_y4fpw"]
 
 [node name="ItemVisual" type="Node3D"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-mesh = SubResource("PrismMesh_0lman")
-surface_material_override/0 = SubResource("StandardMaterial3D_1q8pn")
+[node name="LaserAmmo" parent="." instance=ExtResource("1_y4fpw")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
