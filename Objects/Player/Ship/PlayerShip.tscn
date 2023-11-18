@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" path="res://Objects/Player/Ship/ShipController.cs" id="1_i7xk6"]
 
-[node name="PlayerShip" type="Node3D" node_paths=PackedStringArray("weapons", "hulls")]
+[node name="PlayerShip" type="Node3D" node_paths=PackedStringArray("weapons", "hulls", "treadmills")]
 script = ExtResource("1_i7xk6")
 weapons = []
 hulls = []
+treadmills = []

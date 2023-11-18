@@ -49,6 +49,11 @@ namespace SpaceEngineer
     {
         [Export] int initialEnergyCapacity = 10;
         [Export] int maximumEnergy = 10;
+        [Export] float energyRegenDuration = 30f;
+        // A value of 1 would increase the counter by 1 every second, which
+        // would essentially reduce the recharge rate by half.
+        [Export] float energyRegenPerPlayerRate = 1f;
+        [Export] float energyRegenMaxPlayerRate = 2f; // Multiplayer?
         [Export] float timeTillOverload = 15f;
 
         [ExportGroup("Weapon System")]
@@ -75,8 +80,10 @@ namespace SpaceEngineer
         [Export] int sensorOverclockEnergy = 4;
         [Export] float sensorOverclockDuration = 30f;
 
+        [ExportGroup("In Scene References")]
         [Export] Godot.Collections.Array<Weapon> weapons;
         [Export] Godot.Collections.Array<DamagableHull> hulls;
+        [Export] Godot.Collections.Array<Treadmill> treadmills;
 
         public ShipSystem WeaponSystem { get; private set; }
         public ShipSystem EngineSystem { get; private set; }
@@ -89,6 +96,8 @@ namespace SpaceEngineer
         public ShipOverloadState OverloadState { get; private set; }
 
         private float overloadCounter;
+        private float energyRegenCounter;
+        private int energyRegenPlayerInput;
 
         public event Action Overloading;
         public event Action OverloadEventStarted;
@@ -126,6 +135,11 @@ namespace SpaceEngineer
             EngineSystem.StateChanged += () => SystemStateChanged?.Invoke(ShipSystemType.Engines);
             SensorSystem.StateChanged += () => SystemStateChanged?.Invoke(ShipSystemType.Sensors);
 
+            foreach(var treadmill in treadmills)
+            {
+                treadmill.EnergyGenerated += IncrementEnergyRegen;
+            }
+
             // Initial calls to populate values
             OnEnergyUsageChanged();
         }
@@ -146,6 +160,40 @@ namespace SpaceEngineer
                     OnOverloadEvent();
                 }
             }
+
+            if (EnergyCapacity < MaximumEnergy)
+            {
+                energyRegenCounter += GetEnergyRegenRate() * (float)delta;
+
+                // Reset amount of player input each frame.
+                energyRegenPlayerInput = 0;
+
+                if (energyRegenCounter > energyRegenDuration)
+                {
+                    var newEnergyCapacity = Mathf.Min(EnergyCapacity + 1, MaximumEnergy);
+                    if (EnergyCapacity != newEnergyCapacity)
+                    {
+                        energyRegenCounter = 0f;
+                        EnergyCapacity = newEnergyCapacity;
+                        EnergyCapacityChanged?.Invoke(EnergyCapacity);
+                        OnEnergyUsageChanged();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Inform the ship that a player is generating energy.
+        /// Method must be called each frame.
+        /// </summary>
+        public void IncrementEnergyRegen()
+        {
+            energyRegenPlayerInput += 1;
+        }
+
+        public float GetEnergyRegenRate()
+        {
+            return 1f + Mathf.Min(energyRegenPerPlayerRate * energyRegenPlayerInput, energyRegenMaxPlayerRate);
         }
 
         public ShipSystem GetSystem(ShipSystemType systemType)
