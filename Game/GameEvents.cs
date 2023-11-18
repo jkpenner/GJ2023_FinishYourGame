@@ -11,6 +11,9 @@ namespace SpaceEngineer
         /// </summary>
         public static readonly GameEvent Impact = new GameEvent();
 
+        public static readonly GameEvent LifeSupportDepleting = new GameEvent();
+        public static readonly GameEvent LifeSupportRestored = new GameEvent();
+
         /// <summary>
         /// Occurs when the energy usage for all active system exceeds the ship's energy capacity
         /// and the ship is about to be overloaded.

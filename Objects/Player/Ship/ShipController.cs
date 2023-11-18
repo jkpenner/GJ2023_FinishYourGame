@@ -201,6 +201,22 @@ namespace SpaceEngineer
             return 1f + Mathf.Min(energyRegenPerPlayerRate * energyRegenPlayerInput, energyRegenMaxPlayerRate);
         }
 
+        /// <summary>
+        /// Check if any hull is breached on the ship.
+        /// </summary>
+        public bool CheckForHullBreach()
+        {
+            foreach(var hull in hulls)
+            {
+                if (hull.State == HullState.Breached)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public ShipSystem GetSystem(ShipSystemType systemType)
         {
             return systemType switch

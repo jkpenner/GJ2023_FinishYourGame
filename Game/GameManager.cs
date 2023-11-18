@@ -18,10 +18,35 @@ namespace SpaceEngineer
     {
         [Export] ShipController playerShip;
 
+        [ExportGroup("Life Support")]
+        [Export] float lifeSupportDuration = 20f;
+
+        [ExportGroup("Debug")]
+        [Export] bool debugSimulateHullBreach = false;
+        [Export] bool debugDisableLifeSupport = false;
+
         public GameState State { get; private set; }
         public bool IsGameActive => State == GameState.Active;
-
         public ShipController PlayerShip => playerShip;
+
+        /// <summary>
+        /// Check if the life support is currently failing and the timer is running.
+        /// </summary>
+        public bool IsLifeSupportDepleting { get; private set; }
+
+        /// <summary>
+        /// The maximum amount of time the life support can remain active.
+        /// </summary>
+        public float LifeSupportMaxDuration => lifeSupportDuration;
+
+        /// <summary>
+        /// The current remaining amount of time till life support is depleted and game over.
+        /// </summary>
+        public float LifeSupportRemainingTime => lifeSupportDuration - lifeSupportCounter;
+
+        
+
+        private float lifeSupportCounter;
 
         public GameManager()
         {
@@ -39,6 +64,62 @@ namespace SpaceEngineer
         public override void _ExitTree()
         {
             UnregisterGlobalEvents();
+        }
+
+        public override void _Process(double delta)
+        {
+            switch (State)
+            {
+                case GameState.Active:
+                    ActiveStateProcess(delta);
+                    break;
+            }
+        }
+
+        private void ActiveStateProcess(double delta)
+        {
+            ProcessLifeSupport(delta);
+        }
+
+        private void ProcessLifeSupport(double delta) {
+            if (debugDisableLifeSupport)
+            {
+                if (IsLifeSupportDepleting)
+                {
+                    IsLifeSupportDepleting = false;
+                    lifeSupportCounter = 0f;
+                    GameEvents.LifeSupportRestored.Emit();
+                }
+
+                return;
+            }
+
+            // Life Support starts to deplete if there are any breaches in the ship's hull. When the
+            // ship's shields are overclocked the life support remains stable and does not deplete.
+            if ((PlayerShip.CheckForHullBreach() && PlayerShip.ShieldSystem.State != ShipSystemState.Overclocked) || debugSimulateHullBreach)
+            {
+                if (!IsLifeSupportDepleting)
+                {
+                    IsLifeSupportDepleting = true;
+                    GameEvents.LifeSupportDepleting.Emit();
+                }
+            }
+            else if (IsLifeSupportDepleting)
+            {
+                IsLifeSupportDepleting = false;
+                lifeSupportCounter = 0f;
+                GameEvents.LifeSupportRestored.Emit();
+            }
+
+            if (IsLifeSupportDepleting)
+            {
+                lifeSupportCounter += (float)delta;
+                if (lifeSupportCounter >= lifeSupportDuration)
+                {
+                    GD.Print("Life support ran out.");
+                    TriggerGameOver();
+                }
+            }
         }
 
         private void SetGameState(GameState state)
