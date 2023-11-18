@@ -8,6 +8,7 @@ namespace SpaceEngineer
 	{
 		[Export] private Area3D interactArea;
 		[Export] private Node3D visual;
+		[Export] private Node3D itemVisualParent;
 
 
 		[ExportGroup("Inputs")]
@@ -22,6 +23,8 @@ namespace SpaceEngineer
 		public const float JumpVelocity = 4.5f;
 
 		public Item HeldItem { get; private set; }
+		private Node3D heldItemVisual;
+
 		private List<Interactable> interactables;
 		private Interactable targetInteractable;
 
@@ -85,7 +88,21 @@ namespace SpaceEngineer
 
 		public void SetHeldItem(Item item)
 		{
+			if (heldItemVisual is not null)
+			{
+				heldItemVisual.QueueFree();
+				heldItemVisual = null;
+			}
+
 			HeldItem = item;
+
+			heldItemVisual = HeldItem?.InstantiateVisual();
+			if (heldItemVisual is not null)
+			{
+				itemVisualParent.AddChild(heldItemVisual);
+				heldItemVisual.Position = Vector3.Zero;
+				heldItemVisual.Rotation = Vector3.Zero;
+			}
 		}
 
 		public Interactable GetTargetInteractable()
