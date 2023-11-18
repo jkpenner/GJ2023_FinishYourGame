@@ -17,5 +17,24 @@ namespace SpaceEngineer
             }
             return gameManager is not null;
         }
+
+        /// <summary>
+        /// Attempt to find a parent node of a given type.
+        /// </summary>
+        public static T FindParentOfType<T>(this Node node) where T : Node
+        {
+            var parent = node.GetParent();
+            if (parent is null)
+            {
+                return null;
+            }
+
+            if (parent is T typedParent)
+            {
+                return typedParent;
+            }
+
+            return parent.FindParentOfType<T>();
+        }
     }
 }
