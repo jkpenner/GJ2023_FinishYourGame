@@ -33,7 +33,7 @@
 [ext_resource type="PackedScene" uid="uid://dyy4c3n3auxwx" path="res://Objects/Stations/Weapon/LaserWeapon.tscn" id="27_w5hry"]
 [ext_resource type="PackedScene" uid="uid://ddr10dpgg41f1" path="res://Objects/Stations/Weapon/MissileWeapon.tscn" id="28_ev8im"]
 [ext_resource type="PackedScene" uid="uid://drsb1i04eipm" path="res://Objects/Structure/Walls/Damagable/TileWallStraightLGDamagable.tscn" id="30_vmcig"]
-[ext_resource type="PackedScene" uid="uid://chuectjwxwnvh" path="res://Scenes/CardUI.tscn" id="31_356bd"]
+[ext_resource type="PackedScene" path="res://Scenes/CardUI.tscn" id="31_356bd"]
 [ext_resource type="PackedScene" uid="uid://l4gch8yqqvqh" path="res://Objects/Player/Ship/SystemTerminals/WeaponSystemTerminal.tscn" id="34_t378j"]
 [ext_resource type="PackedScene" uid="uid://bpsjlr0du4l8b" path="res://Objects/Player/Ship/SystemTerminals/ShieldSystemTerminal.tscn" id="35_p1xre"]
 [ext_resource type="PackedScene" uid="uid://onkjebfdkw0j" path="res://Objects/Player/Ship/SystemTerminals/SensorSystemTerminal.tscn" id="36_gy1m1"]
@@ -43,7 +43,8 @@
 script = ExtResource("1_0r0o3")
 playerShip = NodePath("PlayerShip")
 
-[node name="PlayerShip" parent="." instance=ExtResource("2_oes3a")]
+[node name="PlayerShip" parent="." node_paths=PackedStringArray("treadmills") instance=ExtResource("2_oes3a")]
+treadmills = []
 
 [node name="Stations" type="Node3D" parent="PlayerShip"]
 
@@ -390,6 +391,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="Control"]
+layout_mode = 0
 offset_right = 297.0
 offset_bottom = 240.0
 text = "W,A,S,D: Move
