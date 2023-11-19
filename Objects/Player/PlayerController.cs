@@ -4,12 +4,32 @@ using System.Collections.Generic;
 
 namespace SpaceEngineer
 {
+	public enum PlayerState
+	{
+		Normal,
+		Dash,
+		Knockback,
+		Frozen,
+	}
+
 	public partial class PlayerController : CharacterBody3D
 	{
-		[Export] private Area3D interactArea;
-		[Export] private Node3D visual;
-		[Export] private Node3D itemVisualParent;
+		public const string PLAYER_VISUAL_NODE_PATH = "Hamster";
+		public const string BALL_VISUAL_NODE_PATH = "HamsterBall";
+		public const string INTERACT_NODE_PATH = "InteractArea";
+		public const string ITEM_VISUAL_NODE_PATH = "ItemVisualParent";
 
+		[Export] float moveSpeed = 5f;
+
+		[ExportGroup("Dash")]
+		[Export] float dashTurnRate = 5f;
+		[Export] float dashSpeed = 10f;
+
+		[ExportGroup("Knockback")]
+		[Export] float knockbackDuration = 2f;
+		[Export] float knockbackDirChangeTime = 0.25f;
+		[Export] float knockbackSpeed = 15f;
+		[Export] float knockbackTurnRate = 10f;
 
 		[ExportGroup("Inputs")]
 		[Export] private string moveForwardAction = "P1MoveForward";
@@ -19,54 +39,88 @@ namespace SpaceEngineer
 		[Export] private string interactAction = "P1Interact";
 		[Export] private string dashAction = "P1Dash";
 
-		public const float Speed = 5.0f;
-		public const float JumpVelocity = 4.5f;
-
-		public Item HeldItem { get; private set; }
+		// Scene references
+		private Node3D playerVisual;
+		private Node3D ballVisual;
+		private Area3D interactArea;
+		private Node3D itemVisualParent;
 		private Node3D heldItemVisual;
+		private AnimationPlayer animationPlayer;
 
+		// Interactions
+		private bool isInteracting = false;
 		private List<Interactable> interactables;
 		private Interactable targetInteractable;
 
-		private bool isInteracting = false;
-		private AnimationPlayer animationPlayer;
+		// Knockback
+		private bool isOnWall = false;
+		private Random rand = new Random();
+		private float knockbackCounter;
+		private float knockbackDirChangeCounter;
 
+		public PlayerState State { get; private set; }
+		public Item HeldItem { get; private set; }
 		public Vector3 DesiredVelocity { get; private set; }
+		public Vector3 DesiredDirection { get; private set; }
 
 		public PlayerController()
 		{
+			State = PlayerState.Normal;
 			interactables = new List<Interactable>();
 		}
 
 		public override void _Ready()
 		{
-			interactArea.AreaEntered += OnInteractAreaEntered;
-			interactArea.AreaExited += OnInteractAreaExited;
+			FetchAndValidateSceneNodes();
 
-			if (visual is not null)
+			playerVisual.Show();
+			ballVisual.Hide();
+
+			animationPlayer?.Play("Idle");
+		}
+
+		private void FetchAndValidateSceneNodes()
+		{
+			playerVisual = GetNode<Node3D>(PLAYER_VISUAL_NODE_PATH);
+			if (playerVisual is not null)
 			{
-				animationPlayer = visual.GetNode<AnimationPlayer>("AnimationPlayer");
+				animationPlayer = playerVisual.GetNode<AnimationPlayer>("AnimationPlayer");
 				if (animationPlayer is not null)
 				{
 					animationPlayer.AnimationFinished += OnAnimationFinished;
 				}
 				else
 				{
-					GD.Print("failed to find an animation player on the player's visual");
+					playerVisual.PrintMissingChildError("AnimationPlayer", nameof(AnimationPlayer));
 				}
 			}
 			else
 			{
-				GD.Print("No character visual assigned to the player controller");
+				this.PrintMissingChildError(PLAYER_VISUAL_NODE_PATH, nameof(Node3D));
 			}
 
-			animationPlayer?.Play("Idle");
-		}
+			ballVisual = GetNode<Node3D>(BALL_VISUAL_NODE_PATH);
+			if (playerVisual is null)
+			{
+				this.PrintMissingChildError(BALL_VISUAL_NODE_PATH, nameof(Node3D));
+			}
 
-		private void OnAnimationFinished(StringName animName)
-		{
-			GD.Print("Animation Finished " + animName);
-			isInteracting = false;
+			interactArea = GetNode<Area3D>(INTERACT_NODE_PATH);
+			if (interactArea is not null)
+			{
+				interactArea.AreaEntered += OnInteractAreaEntered;
+				interactArea.AreaExited += OnInteractAreaExited;
+			}
+			else
+			{
+				this.PrintMissingChildError(INTERACT_NODE_PATH, nameof(Area3D));
+			}
+
+			itemVisualParent = GetNode<Node3D>(ITEM_VISUAL_NODE_PATH);
+			if (itemVisualParent is null)
+			{
+				this.PrintMissingChildError(ITEM_VISUAL_NODE_PATH, nameof(Node3D));
+			}
 		}
 
 		private void OnInteractAreaEntered(Area3D area)
@@ -77,12 +131,23 @@ namespace SpaceEngineer
 			}
 		}
 
-
 		private void OnInteractAreaExited(Area3D area)
 		{
 			if (area is Interactable interactable)
 			{
 				interactables.Remove(interactable);
+			}
+		}
+
+		private void OnAnimationFinished(StringName animName)
+		{
+			if (animName == "Interact")
+			{
+				isInteracting = false;
+			}
+			else if (animName == "Tuck" && State == PlayerState.Dash)
+			{
+				playerVisual.Hide();
 			}
 		}
 
@@ -140,56 +205,78 @@ namespace SpaceEngineer
 			return target;
 		}
 
-		public override void _PhysicsProcess(double delta)
+		private void SetState(PlayerState state)
 		{
-			Vector3 velocity = Velocity;
+			if (State == state)
+			{
+				return;
+			}
 
+			State = state;
+		}
+
+		public override void _Process(double delta)
+		{
+			switch (State)
+			{
+				case PlayerState.Normal:
+					ProcessNormalState(delta);
+					break;
+				case PlayerState.Dash:
+					ProcessDashState(delta);
+					break;
+				case PlayerState.Knockback:
+					ProcessKnockbackState(delta);
+					break;
+			}
+		}
+
+		private void ProcessNormalState(double delta)
+		{
 			if (Input.IsActionJustPressed(interactAction))
 			{
-				targetInteractable = GetTargetInteractable();
-				targetInteractable?.StartInteract(this);
-
-				isInteracting = true;
-				animationPlayer?.Play("Interact");
+				StartInteraction();
 			}
 
 			if (Input.IsActionJustReleased(interactAction))
 			{
-				targetInteractable?.StopInteract(this);
-				targetInteractable = null;
-
-				// isInteracting = false;
+				StopInteraction();
 			}
 
-			// Get the input direction and handle the movement/deceleration.
-			// As good practice, you should replace UI actions with custom gameplay actions.
-			Vector2 inputDir = Input.GetVector(moveLeftAction, moveRightAction, moveForwardAction, moveBackAction);
-			if (inputDir != Vector2.Zero)
+			if (Input.IsActionJustPressed(dashAction))
 			{
-				var velY = velocity.Y;
-				velocity = Basis.Z * Speed * inputDir.Length();
-				velocity.Y = velY;
+				StartDash();
+				return;
+			}
+
+			DesiredVelocity = GetInputDirection() * moveSpeed;
+			if (DesiredVelocity != Vector3.Zero)
+			{
+				// DesiredVelocity = GlobalTransform.Basis.Z * GetInputDirection().Length();
+				DesiredVelocity = new Vector3(DesiredVelocity.X, Velocity.Y, DesiredVelocity.Z);
 			}
 			else
 			{
-				velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-				velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
+				DesiredVelocity = new Vector3(
+					Mathf.MoveToward(DesiredVelocity.X, 0f, moveSpeed),
+					0f,
+					Mathf.MoveToward(DesiredVelocity.Z, 0f, moveSpeed)
+				);
 			}
 
 			// Rotate the player in the direction of the input.
-			if (inputDir.Length() > 0)
+			if (DesiredVelocity.Length() > 0)
 			{
-				GlobalTransform = GlobalTransform.LookingAt(GlobalPosition - new Vector3(inputDir.X, 0, inputDir.Y), Vector3.Up);
+				GlobalTransform = GlobalTransform.LookingAt(GlobalPosition - DesiredVelocity, Vector3.Up);
 			}
 
-			Velocity = velocity;
-			DesiredVelocity = velocity;
-			
+			Velocity = DesiredVelocity;
+
 			MoveAndSlide();
 
 			if (!isInteracting)
 			{
-				if (velocity.Length() > 0.1f)
+				if (Velocity.Length() > 0.1f)
 				{
 					animationPlayer?.Play("Walk");
 
@@ -199,6 +286,247 @@ namespace SpaceEngineer
 					animationPlayer?.Play("Idle");
 				}
 			}
+		}
+
+		private void ProcessDashState(double delta)
+		{
+			if (Input.IsActionJustReleased(dashAction))
+			{
+				StopDash();
+				return;
+			}
+
+			var input = GetInputDirection();
+			if (input != Vector3.Zero)
+			{
+				DesiredVelocity = GlobalTransform.Basis.Z * input.Length() * dashSpeed;
+			}
+			else
+			{
+				DesiredVelocity = new Vector3(
+					Mathf.MoveToward(DesiredVelocity.X, 0f, moveSpeed),
+					-8f,
+					Mathf.MoveToward(DesiredVelocity.Z, 0f, moveSpeed)
+				);
+			}
+
+			// Rotate the player in the direction of the input.
+			if (DesiredVelocity.Length() > 0 && input != Vector3.Zero)
+			{
+				Vector3 forwardDirection;
+				var desiredDirection = input.Normalized();
+
+				/// There's a known issue with the Slerp function in Godot, where it can throw an error when the two input vectors are 
+				/// collinear (i.e., they point in the same direction or opposite directions). This is because the Slerp function uses 
+				/// the cross product of the two vectors to determine the rotation axis, and the cross product of two collinear vectors 
+				/// is a zero vector, which cannot be normalized 
+				if (desiredDirection.IsEqualApprox(GlobalTransform.Basis.Z))
+				{
+					forwardDirection = desiredDirection;
+				}
+				else if (desiredDirection.IsEqualApprox(-GlobalTransform.Basis.Z))
+				{
+					forwardDirection = (desiredDirection.Cross(Vector3.Up) * 0.01f + desiredDirection).Normalized();
+				}
+				else
+				{
+					forwardDirection = GlobalTransform.Basis.Z.Slerp(desiredDirection, dashTurnRate * (float)delta);
+				}
+
+				GlobalTransform = GlobalTransform.LookingAt(GlobalPosition - forwardDirection, Vector3.Up);
+			}
+
+			Velocity = DesiredVelocity;
+
+			if (MoveAndSlide())
+			{
+				if (IsOnWall() && !isOnWall)
+				{
+					isOnWall = true;
+					var forward = CalculateForwardVectorAfterCollision();
+					GlobalTransform = GlobalTransform.LookingAt(GlobalPosition + forward, Vector3.Up);
+				}
+			}
+
+			if (!IsOnWall() && isOnWall)
+			{
+				isOnWall = false;
+			}
+		}
+
+
+		private void ProcessKnockbackState(double delta)
+		{
+			knockbackCounter += (float)delta;
+			if (knockbackCounter >= knockbackDuration)
+			{
+				knockbackCounter = 0f;
+				SetState(PlayerState.Normal);
+				return;
+			}
+
+			knockbackDirChangeCounter += (float)delta;
+
+			DesiredVelocity = GlobalTransform.Basis.Z * knockbackSpeed;
+
+			// Rotate the player in the direction of the input.
+			if (DesiredVelocity.Length() > 0)
+			{
+				Vector3 forwardDirection;
+
+				if (DesiredDirection == Vector3.Zero)
+				{
+					DesiredDirection = GlobalTransform.Basis.Z;
+				}
+
+				if (knockbackDirChangeCounter >= 0.5f)
+				{
+					knockbackDirChangeCounter = 0f;
+					DesiredDirection = new Vector3(
+						(rand.NextSingle() * 2f) - 1f,
+						0f,
+						(rand.NextSingle() * 2f) - 1f
+					).Normalized();
+				}
+
+
+				/// There's a known issue with the Slerp function in Godot, where it can throw an error when the two input vectors are 
+				/// collinear (i.e., they point in the same direction or opposite directions). This is because the Slerp function uses 
+				/// the cross product of the two vectors to determine the rotation axis, and the cross product of two collinear vectors 
+				/// is a zero vector, which cannot be normalized 
+				if (DesiredDirection.IsEqualApprox(GlobalTransform.Basis.Z))
+				{
+					forwardDirection = DesiredDirection;
+				}
+				else if (DesiredDirection.IsEqualApprox(-GlobalTransform.Basis.Z))
+				{
+					forwardDirection = (DesiredDirection.Cross(Vector3.Up) * 0.01f + DesiredDirection).Normalized();
+				}
+				else
+				{
+					forwardDirection = GlobalTransform.Basis.Z.Slerp(DesiredDirection, knockbackTurnRate * (float)delta);
+				}
+
+				GlobalTransform = GlobalTransform.LookingAt(GlobalPosition - forwardDirection, Vector3.Up);
+			}
+
+			Velocity = DesiredVelocity;
+
+			if (MoveAndSlide())
+			{
+				if (IsOnWall() && !isOnWall)
+				{
+					isOnWall = true;
+					var forward = CalculateForwardVectorAfterCollision();
+					GlobalTransform = GlobalTransform.LookingAt(GlobalPosition + forward, Vector3.Up);
+				}
+			}
+
+			if (!IsOnWall() && isOnWall)
+			{
+				isOnWall = false;
+			}
+		}
+
+		private Vector3 CalculateForwardVectorAfterCollision()
+		{
+			Vector3 result = GlobalTransform.Basis.Z;
+			result.Y = 0;
+			result = result.Normalized();
+
+			for (int i = 0; i < GetSlideCollisionCount(); i++)
+			{
+				var normal = GetSlideCollision(i).GetNormal();
+
+				// Only check for wall normals.
+				if (Mathf.Abs(Vector3.Up.Dot(normal)) > 0.3f)
+				{
+					continue;
+				}
+
+				normal.Y = 0f;
+				normal = normal.Normalized();
+
+				result = result.Reflect(normal);
+			}
+
+			return result;
+		}
+
+		private void StartInteraction()
+		{
+			targetInteractable = GetTargetInteractable();
+			targetInteractable?.StartInteract(this);
+
+			isInteracting = true;
+			animationPlayer?.Play("Interact");
+		}
+
+		private void StopInteraction()
+		{
+			targetInteractable?.StopInteract(this);
+			targetInteractable = null;
+
+			// isInteracting = false;
+		}
+
+		private void StartDash()
+		{
+			if (isInteracting)
+			{
+				StopInteraction();
+				isInteracting = false;
+			}
+
+			SetState(PlayerState.Dash);
+			animationPlayer.Play("Tuck");
+			ballVisual.Show();
+
+			DropItem();
+		}
+
+		private void StopDash()
+		{
+			ballVisual.Hide();
+			playerVisual.Show();
+			animationPlayer.PlayBackwards("Tuck");
+			SetState(PlayerState.Normal);
+		}
+
+		public void Knockback()
+		{
+			if (isInteracting)
+			{
+				StopInteraction();
+				isInteracting = false;
+			}
+
+			SetState(PlayerState.Knockback);
+			animationPlayer.Play("Tuck");
+			ballVisual.Show();
+
+			DropItem();	
+		}
+
+		public void DropItem()
+		{
+			if (HeldItem is null)
+			{
+				return;
+			}
+
+			var item = HeldItem.InstantiateWorld();
+			GetParent().AddChild(item);
+			item.GlobalPosition = itemVisualParent.GlobalPosition;
+			item.GlobalRotation = itemVisualParent.GlobalRotation;
+
+			SetHeldItem(null);
+		}
+
+		private Vector3 GetInputDirection()
+		{
+			var input = Input.GetVector(moveLeftAction, moveRightAction, moveForwardAction, moveBackAction);
+			return new Vector3(input.X, 0f, input.Y);
 		}
 	}
 }
