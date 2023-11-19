@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgv8gqmhdrx3v"]
+
+[ext_resource type="Script" path="res://UI/Notifications/UINotification.cs" id="1_eycfm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x2o5f"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+
+[node name="UINotification" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_x2o5f")
+script = ExtResource("1_eycfm")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Notification here"
+horizontal_alignment = 1

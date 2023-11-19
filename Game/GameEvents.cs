@@ -4,6 +4,7 @@ namespace SpaceEngineer
     {
         public static readonly GameEvent<GameState> GameStateEntered = new GameEvent<GameState>();
         public static readonly GameEvent<GameState> GameStateExited = new GameEvent<GameState>();
+        public static readonly GameEvent<Notification> GameNotification = new GameEvent<Notification>();
 
 
         /// <summary>
@@ -36,6 +37,9 @@ namespace SpaceEngineer
         /// Invoked when the amount of energy being used by the player ship changes.
         /// </summary>
         public static readonly GameEvent<int> ShipEnergyUsageChanged = new GameEvent<int>();
+
+
+        
 
         /// <summary>
         /// Invoked when the total usable amount of energy for the player ship changes.

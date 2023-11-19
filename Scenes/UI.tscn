@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvcjnwns7wnyx"]
+[gd_scene load_steps=6 format=3 uid="uid://bvcjnwns7wnyx"]
 
 [ext_resource type="PackedScene" uid="uid://chuectjwxwnvh" path="res://Scenes/CardUI.tscn" id="1_beiqm"]
 [ext_resource type="Script" path="res://UI/UIShipStats.cs" id="2_f015j"]
 [ext_resource type="PackedScene" path="res://UI/UIHullBreachNotification.tscn" id="3_sj372"]
 [ext_resource type="PackedScene" uid="uid://ccru6kl27et5s" path="res://UI/UIShipEnergy.tscn" id="4_aefyu"]
+[ext_resource type="PackedScene" uid="uid://6ggaalyjavuq" path="res://UI/Notifications/UIGameNotifications.tscn" id="5_j3slu"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -33,4 +34,7 @@ script = ExtResource("2_f015j")
 layout_mode = 1
 
 [node name="UIShipEnergy" parent="." instance=ExtResource("4_aefyu")]
+layout_mode = 1
+
+[node name="UIGameNotifications" parent="." instance=ExtResource("5_j3slu")]
 layout_mode = 1
