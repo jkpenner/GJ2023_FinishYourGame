@@ -192,7 +192,7 @@ namespace SpaceEngineer
                 PlayerShip.EnergyUsageChanged += GameEvents.ShipEnergyUsageChanged.Emit;
                 PlayerShip.EnergyCapacityChanged += GameEvents.ShipEnergyCapacityChanged.Emit;
 
-                PlayerShip.Overloading += GameEvents.ShipEnergyOverloaded.Emit;
+                PlayerShip.Overloading += GameEvents.ShipEnergyOverloading.Emit;
                 PlayerShip.OverloadEventStarted += GameEvents.ShipEnergyOverloaded.Emit;
                 PlayerShip.EnergyNormalized += GameEvents.ShipEnergyNormalized.Emit;
             }
@@ -206,7 +206,7 @@ namespace SpaceEngineer
                 PlayerShip.EnergyUsageChanged -= GameEvents.ShipEnergyUsageChanged.Emit;
                 PlayerShip.EnergyCapacityChanged -= GameEvents.ShipEnergyCapacityChanged.Emit;
 
-                PlayerShip.Overloading -= GameEvents.ShipEnergyOverloaded.Emit;
+                PlayerShip.Overloading -= GameEvents.ShipEnergyOverloading.Emit;
                 PlayerShip.OverloadEventStarted -= GameEvents.ShipEnergyOverloaded.Emit;
                 PlayerShip.EnergyNormalized -= GameEvents.ShipEnergyNormalized.Emit;
             }
