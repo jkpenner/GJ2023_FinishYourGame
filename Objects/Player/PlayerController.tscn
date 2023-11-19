@@ -2,10 +2,7 @@
 
 [ext_resource type="Script" path="res://Objects/Player/PlayerController.cs" id="1_rq43e"]
 [ext_resource type="PackedScene" uid="uid://dqxj4cu3cdf05" path="res://Assets/Models/Characters/Hamster.gltf" id="2_0paya"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_g3faw"]
-radius = 0.6
-height = 1.2
+[ext_resource type="PackedScene" uid="uid://br117piwbw8uy" path="res://Assets/Models/Characters/HamsterBall.gltf" id="3_nu37a"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cksdp"]
 radius = 0.35
@@ -22,9 +19,8 @@ script = ExtResource("1_rq43e")
 [node name="Hamster" parent="." instance=ExtResource("2_0paya")]
 transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0, 0, 0)
 
-[node name="HamsterBall" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("SphereMesh_g3faw")
+[node name="HamsterBall" parent="." instance=ExtResource("3_nu37a")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
 
 [node name="PlayerCollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)

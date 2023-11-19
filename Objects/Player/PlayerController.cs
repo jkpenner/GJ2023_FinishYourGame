@@ -45,7 +45,8 @@ namespace SpaceEngineer
 		private Area3D interactArea;
 		private Node3D itemVisualParent;
 		private Node3D heldItemVisual;
-		private AnimationPlayer animationPlayer;
+		private AnimationPlayer playerAnimationPlayer;
+		private AnimationPlayer ballAnimationPlayer;
 
 		// Interactions
 		private bool isInteracting = false;
@@ -76,7 +77,7 @@ namespace SpaceEngineer
 			playerVisual.Show();
 			ballVisual.Hide();
 
-			animationPlayer?.Play("Idle");
+			playerAnimationPlayer?.Play("Idle");
 		}
 
 		private void FetchAndValidateSceneNodes()
@@ -84,10 +85,10 @@ namespace SpaceEngineer
 			playerVisual = GetNode<Node3D>(PLAYER_VISUAL_NODE_PATH);
 			if (playerVisual is not null)
 			{
-				animationPlayer = playerVisual.GetNode<AnimationPlayer>("AnimationPlayer");
-				if (animationPlayer is not null)
+				playerAnimationPlayer = playerVisual.GetNode<AnimationPlayer>("AnimationPlayer");
+				if (playerAnimationPlayer is not null)
 				{
-					animationPlayer.AnimationFinished += OnAnimationFinished;
+					playerAnimationPlayer.AnimationFinished += OnAnimationFinished;
 				}
 				else
 				{
@@ -100,7 +101,15 @@ namespace SpaceEngineer
 			}
 
 			ballVisual = GetNode<Node3D>(BALL_VISUAL_NODE_PATH);
-			if (playerVisual is null)
+			if (ballVisual is not null)
+			{
+				ballAnimationPlayer = ballVisual.GetNode<AnimationPlayer>("AnimationPlayer");
+				if (ballAnimationPlayer is null)
+				{
+					ballVisual.PrintMissingChildError("AnimationPlayer", nameof(AnimationPlayer));
+				}
+			}
+			else
 			{
 				this.PrintMissingChildError(BALL_VISUAL_NODE_PATH, nameof(Node3D));
 			}
@@ -278,12 +287,12 @@ namespace SpaceEngineer
 			{
 				if (Velocity.Length() > 0.1f)
 				{
-					animationPlayer?.Play("Walk");
+					playerAnimationPlayer?.Play("Walk");
 
 				}
 				else
 				{
-					animationPlayer?.Play("Idle");
+					playerAnimationPlayer?.Play("Idle");
 				}
 			}
 		}
@@ -351,6 +360,15 @@ namespace SpaceEngineer
 			if (!IsOnWall() && isOnWall)
 			{
 				isOnWall = false;
+			}
+
+			if (GetInputDirection().Length() >= 0.2f)
+			{
+				ballAnimationPlayer?.Play("Move");
+			}
+			else
+			{
+				ballAnimationPlayer?.Play("Idle");
 			}
 		}
 
@@ -426,6 +444,8 @@ namespace SpaceEngineer
 			{
 				isOnWall = false;
 			}
+
+			ballAnimationPlayer?.Play("Move");
 		}
 
 		private Vector3 CalculateForwardVectorAfterCollision()
@@ -459,7 +479,7 @@ namespace SpaceEngineer
 			targetInteractable?.StartInteract(this);
 
 			isInteracting = true;
-			animationPlayer?.Play("Interact");
+			playerAnimationPlayer?.Play("Interact");
 		}
 
 		private void StopInteraction()
@@ -479,7 +499,7 @@ namespace SpaceEngineer
 			}
 
 			SetState(PlayerState.Dash);
-			animationPlayer.Play("Tuck");
+			playerAnimationPlayer.Play("Tuck");
 			ballVisual.Show();
 
 			DropItem();
@@ -489,7 +509,7 @@ namespace SpaceEngineer
 		{
 			ballVisual.Hide();
 			playerVisual.Show();
-			animationPlayer.PlayBackwards("Tuck");
+			playerAnimationPlayer.PlayBackwards("Tuck");
 			SetState(PlayerState.Normal);
 		}
 
@@ -502,10 +522,10 @@ namespace SpaceEngineer
 			}
 
 			SetState(PlayerState.Knockback);
-			animationPlayer.Play("Tuck");
+			playerAnimationPlayer.Play("Tuck");
 			ballVisual.Show();
 
-			DropItem();	
+			DropItem();
 		}
 
 		public void DropItem()
