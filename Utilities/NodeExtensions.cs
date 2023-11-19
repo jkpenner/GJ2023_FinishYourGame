@@ -10,15 +10,15 @@ namespace SpaceEngineer
         public static bool TryGetGameManager(this Node node, out GameManager gameManager)
         {
             // gameManager = node.GetNode<GameManager>("%GameManager");
-            gameManager = node.GetNode<GameManager>("/root/GameManager");
-            if (gameManager is null)
-            {
+            // gameManager = node.GetNode<GameManager>("/root/GameManager");
+            // if (gameManager is null)
+            // {
                 gameManager = node.FindParentOfType<GameManager>();
                 if (gameManager is null)
                 {
                     GD.PrintErr($"[{node.GetType().Name})]: Failed to find a GameManager node. Ensure that a GameManager is at the root of the scene or that the Node is a child of a GameManager node.");
                 }
-            }
+            // }
             return gameManager is not null;
         }
 

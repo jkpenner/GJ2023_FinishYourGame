@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://UI/UIShipEnergyCell.cs" id="1_5drin"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ev087"]
-bg_color = Color(0, 0.662745, 0.839216, 1)
+bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_right = 50
@@ -13,4 +13,3 @@ corner_radius_bottom_left = 50
 custom_minimum_size = Vector2(30, 30)
 theme_override_styles/panel = SubResource("StyleBoxFlat_ev087")
 script = ExtResource("1_5drin")
-theme_override_styles/panel = SubResource("StyleBoxFlat_ev087")
