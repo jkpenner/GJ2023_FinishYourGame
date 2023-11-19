@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://ccru6kl27et5s"]
+[gd_scene load_steps=7 format=3 uid="uid://ccru6kl27et5s"]
 
 [ext_resource type="Script" path="res://UI/UIShipEnergy.cs" id="1_0cwfx"]
 [ext_resource type="PackedScene" uid="uid://5bbvtei1jv34" path="res://UI/UIShipEnergyCell.tscn" id="2_dmkbj"]
@@ -20,6 +20,9 @@ corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r46fr"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 0.898039)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -89,3 +92,15 @@ theme_override_constants/margin_bottom = 4
 [node name="GridContainer" type="GridContainer" parent="UIShipEnergy/MarginContainer"]
 layout_mode = 2
 columns = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="UIShipEnergy/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_r46fr")
+
+[node name="OverloadTimer" type="Label" parent="UIShipEnergy/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/line_spacing = -2
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7g7of")
+text = "30s till Overload"
+horizontal_alignment = 1

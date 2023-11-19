@@ -9,6 +9,7 @@ namespace SpaceEngineer
 
         private GameManager gameManager;
         private Control cellParent;
+        private Label overloadNotification;
 
         public override void _Ready()
         {
@@ -20,9 +21,23 @@ namespace SpaceEngineer
                 this.PrintMissingChildError("MarginContainer/GridContainer", nameof(Control));
             }
 
+            overloadNotification = GetNode<Label>("MarginContainer/PanelContainer/OverloadTimer");
+            if (overloadNotification is null)
+            {
+                this.PrintMissingChildError("MarginContainer/PanelContainer/OverloadTimer", nameof(Label));
+            }
+
             // Trigger initial value assignments
             SetupEnergyCells();
             UpdateEnergyCellStates();
+        }
+
+        public override void _Process(double delta)
+        {
+            if (gameManager.PlayerShip.OverloadState == ShipOverloadState.Overloading)
+            {
+                overloadNotification.Text = $"{(int)gameManager.PlayerShip.GetRemainingTimeTillOverload()}s till Overload!";
+            }
         }
 
         public override void _EnterTree()
@@ -63,6 +78,11 @@ namespace SpaceEngineer
 
         private void UpdateEnergyCellStates()
         {
+            if (overloadNotification.GetParent() is Control overloadParent)
+            {
+                overloadParent.Visible = gameManager.PlayerShip.OverloadState == ShipOverloadState.Overloading;
+            }
+
             for (int i = 0; i < cellParent.GetChildCount(); i++)
             {
                 var cell = cellParent.GetChild<UIShipEnergyCell>(i);
