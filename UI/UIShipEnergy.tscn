@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccru6kl27et5s"]
+
+[ext_resource type="Script" path="res://UI/UIShipEnergy.cs" id="1_0cwfx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i7yru"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="UIShipEnergy" type="PanelContainer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -48.0
+offset_right = 48.0
+offset_bottom = -10.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_i7yru")
+script = ExtResource("1_0cwfx")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+layout_mode = 2
+columns = 10
