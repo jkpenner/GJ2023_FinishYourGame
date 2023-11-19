@@ -191,6 +191,7 @@ namespace SpaceEngineer
 
         public void SpawnEnemy(EnemyData enemyData){
             GameEvents.EnemySpawned.Emit(enemyData);
+            GameEvents.EnemyDestroy.Emit(enemyData);
         }
 
         private void RegisterGlobalEvents()
