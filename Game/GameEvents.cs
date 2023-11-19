@@ -41,6 +41,22 @@ namespace SpaceEngineer
         /// Invoked when the total usable amount of energy for the player ship changes.
         /// </summary>
         public static readonly GameEvent<int> ShipEnergyCapacityChanged = new GameEvent<int>();
+        
+        /// <summary>
+        /// Ship Fires a Weapon
+        /// </summary>
+        public static readonly GameEvent<AmmoType> PlayerFired = new GameEvent<AmmoType>();
+        
+        /// <summary>
+        /// Enemy Fires a Weapon
+        /// </summary>
+        public static readonly GameEvent<AmmoType> EnemyFired = new GameEvent<AmmoType>();
+        
+        /// <summary>
+        /// Create Random an enemy
+        /// </summary>
+        public static readonly GameEvent<EnemyData> EnemySpawned = new GameEvent<EnemyData>();
+        public static readonly GameEvent<EnemyData> EnemyDestroy = new GameEvent<EnemyData>();
 
         public static readonly GameEvent<ShipSystemType> ShipSystemStateChanged = new GameEvent<ShipSystemType>();
         public static readonly GameEvent<ShipSystemType> SystemDestroyed = new GameEvent<ShipSystemType>();

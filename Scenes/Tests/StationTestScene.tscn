@@ -1,7 +1,8 @@
-[gd_scene load_steps=38 format=3 uid="uid://db37coqddej2r"]
+[gd_scene load_steps=39 format=3 uid="uid://db37coqddej2r"]
 
 [ext_resource type="Script" path="res://Game/GameManager.cs" id="1_0r0o3"]
 [ext_resource type="PackedScene" uid="uid://dma4yhapsggvq" path="res://Objects/Player/PlayerController.tscn" id="1_bvfca"]
+[ext_resource type="Resource" uid="uid://d3l6alp6ffntj" path="res://Assets/Enemy.tres" id="2_5rp1v"]
 [ext_resource type="PackedScene" uid="uid://w3n6ukr6g1vv" path="res://Objects/Player/Ship/PlayerShip.tscn" id="2_oes3a"]
 [ext_resource type="PackedScene" uid="uid://dn4nf3fcvgjg3" path="res://Objects/Stations/Variants/ScrapStationSM.tscn" id="2_p44os"]
 [ext_resource type="PackedScene" uid="uid://b5d5u1gteslnb" path="res://Objects/Player/PlayerCamera.tscn" id="2_rw2gm"]
@@ -40,6 +41,7 @@
 
 [node name="GameManager" type="Node3D" node_paths=PackedStringArray("playerShip")]
 script = ExtResource("1_0r0o3")
+enemyResource = ExtResource("2_5rp1v")
 playerShip = NodePath("PlayerShip")
 
 [node name="PlayerShip" parent="." instance=ExtResource("2_oes3a")]

@@ -16,6 +16,7 @@ namespace SpaceEngineer
 
     public partial class GameManager : Node
     {
+        [Export] Resource enemyResource;
         [Export] ShipController playerShip;
 
         [ExportGroup("Life Support")]
@@ -144,6 +145,10 @@ namespace SpaceEngineer
                     // Todo: Maybe do a count down or something in future, for now just start the game
                     SetGameState(GameState.Active);
                     break;
+                case GameState.Active:
+                    GD.Print(enemyResource);
+                    SpawnEnemy(enemyResource as EnemyData);
+                    break;
             }
         }
 
@@ -182,6 +187,10 @@ namespace SpaceEngineer
         public void Exit()
         {
             SetGameState(GameState.Exiting);
+        }
+
+        public void SpawnEnemy(EnemyData enemyData){
+            GameEvents.EnemySpawned.Emit(enemyData);
         }
 
         private void RegisterGlobalEvents()
