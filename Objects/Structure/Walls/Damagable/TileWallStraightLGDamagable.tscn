@@ -39,10 +39,14 @@ visible = false
 [node name="BreachedVisual" parent="." instance=ExtResource("4_7eqor")]
 visible = false
 
-[node name="Interactable" type="Area3D" parent="."]
+[node name="Interactable" type="Area3D" parent="." node_paths=PackedStringArray("promptLocation")]
 script = ExtResource("5_vnfr4")
 interactDuration = 1.0
+promptLocation = NodePath("../PromptPosition")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0217493, 0.522178, -1.50564)
 shape = SubResource("BoxShape3D_u5k1t")
+
+[node name="PromptPosition" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -1.5)

@@ -8,10 +8,8 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_wy4ti"]
 
-[node name="ConveyorEnd" type="StaticBody3D" node_paths=PackedStringArray("interactable", "visualParent")]
+[node name="ConveyorEnd" type="StaticBody3D"]
 script = ExtResource("1_430re")
-interactable = NodePath("Interactable")
-visualParent = NodePath("ItemVisualParent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -22,9 +20,13 @@ shape = SubResource("BoxShape3D_dlxq0")
 [node name="ItemVisualParent" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.849192, 0)
 
-[node name="Interactable" type="Area3D" parent="."]
+[node name="Interactable" type="Area3D" parent="." node_paths=PackedStringArray("promptLocation")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.80095, 0)
 script = ExtResource("2_y4s01")
+promptLocation = NodePath("../PromptPosition")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
 shape = SubResource("SphereShape3D_wy4ti")
+
+[node name="PromptPosition" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)

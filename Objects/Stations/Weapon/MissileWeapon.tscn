@@ -16,11 +16,9 @@ size = Vector3(0.8, 0.5, 0.8)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0uutk"]
 
-[node name="MissileWeapon" type="StaticBody3D" node_paths=PackedStringArray("interactable", "visualParent")]
+[node name="MissileWeapon" type="StaticBody3D"]
 script = ExtResource("1_pt0cn")
 ammoType = 2
-interactable = NodePath("Interactable")
-visualParent = NodePath("ItemVisualParent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -49,9 +47,13 @@ transform = Transform3D(1, 0, 0, 0, 0.642787, 0.766044, 0, -0.766044, 0.642787, 
 text = "Missile
 Weapon"
 
-[node name="Interactable" type="Area3D" parent="."]
+[node name="Interactable" type="Area3D" parent="." node_paths=PackedStringArray("promptLocation")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.868215, 0.404914)
 script = ExtResource("2_6ey3i")
+promptLocation = NodePath("../PromptPosition")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
 shape = SubResource("SphereShape3D_0uutk")
+
+[node name="PromptPosition" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
