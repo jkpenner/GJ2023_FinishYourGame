@@ -28,8 +28,9 @@
 [ext_resource type="PackedScene" uid="uid://yc0si5ygywqj" path="res://Objects/Stations/Treadmill/Treadmill.tscn" id="27_4wvtr"]
 [ext_resource type="PackedScene" uid="uid://bvcjnwns7wnyx" path="res://Scenes/UI.tscn" id="27_jou7u"]
 
-[node name="GameManager" type="Node" node_paths=PackedStringArray("playerShip")]
+[node name="GameManager" type="Node" node_paths=PackedStringArray("player", "playerShip")]
 script = ExtResource("1_xxbf2")
+player = NodePath("PlayerController")
 playerShip = NodePath("Ship")
 
 [node name="Ship" type="Node3D" parent="."]
