@@ -179,6 +179,17 @@ namespace SpaceEngineer
 			}
 		}
 
+		private void SetTargetInteractable(Interactable interactable)
+		{
+			if (targetInteractable == interactable)
+			{
+				return;
+			}
+
+			targetInteractable = interactable;
+			GameEvents.PlayerTargetChanged.Emit(targetInteractable);
+		}
+
 		public Interactable GetTargetInteractable()
 		{
 			Interactable target = null;
@@ -226,6 +237,8 @@ namespace SpaceEngineer
 
 		public override void _Process(double delta)
 		{
+			SetTargetInteractable(GetTargetInteractable());
+
 			switch (State)
 			{
 				case PlayerState.Normal:
@@ -242,14 +255,17 @@ namespace SpaceEngineer
 
 		private void ProcessNormalState(double delta)
 		{
-			if (Input.IsActionJustPressed(interactAction))
+			if (targetInteractable is not null)
 			{
-				StartInteraction();
-			}
+				if (Input.IsActionJustPressed(interactAction))
+				{
+					StartInteraction();
+				}
 
-			if (Input.IsActionJustReleased(interactAction))
-			{
-				StopInteraction();
+				if (Input.IsActionJustReleased(interactAction))
+				{
+					StopInteraction();
+				}
 			}
 
 			if (Input.IsActionJustPressed(dashAction))
@@ -475,7 +491,6 @@ namespace SpaceEngineer
 
 		private void StartInteraction()
 		{
-			targetInteractable = GetTargetInteractable();
 			targetInteractable?.StartInteract(this);
 
 			isInteracting = true;
@@ -486,8 +501,6 @@ namespace SpaceEngineer
 		{
 			targetInteractable?.StopInteract(this);
 			targetInteractable = null;
-
-			// isInteracting = false;
 		}
 
 		private void StartDash()

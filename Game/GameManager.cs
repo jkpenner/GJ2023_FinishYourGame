@@ -17,6 +17,7 @@ namespace SpaceEngineer
     public partial class GameManager : Node
     {
         [Export] Resource enemyResource;
+        [Export] PlayerController player;
         [Export] ShipController playerShip;
 
         [ExportGroup("Life Support")]
@@ -28,6 +29,8 @@ namespace SpaceEngineer
 
         public GameState State { get; private set; }
         public bool IsGameActive => State == GameState.Active;
+
+        public PlayerController Player => player;
         public ShipController PlayerShip => playerShip;
 
         /// <summary>

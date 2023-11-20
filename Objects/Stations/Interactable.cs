@@ -1,6 +1,4 @@
-using System;
 using Godot;
-using Microsoft.VisualBasic;
 
 namespace SpaceEngineer
 {
@@ -8,6 +6,7 @@ namespace SpaceEngineer
     {
         [Export] private bool isInteractable = true;
         [Export] private float interactDuration = 0f;
+        [Export] Node3D promptLocation;
 
         private float counter = 0f;
 
@@ -22,10 +21,22 @@ namespace SpaceEngineer
         public bool ActiveInteraction { get; private set; }
         public PlayerController Interactor { get; private set; }
 
+        public bool IsInstant => interactDuration <= 0f;
+
         public bool IsInteractable
         {
             get => isInteractable;
             set => isInteractable = value;
+        }
+
+        public Vector3 GetPromptPosition()
+        {
+            return promptLocation?.GlobalPosition ?? GlobalPosition;
+        }
+
+        public float GetInteractPercent()
+        {
+            return Mathf.Clamp(counter, 0f, interactDuration) / interactDuration;
         }
 
         public override void _Process(double delta)
@@ -89,6 +100,7 @@ namespace SpaceEngineer
 
             ActiveInteraction = false;
             Interactor = null;
+            counter = 0f;
 
             InteractionCanceled?.Invoke(interactor);
         }

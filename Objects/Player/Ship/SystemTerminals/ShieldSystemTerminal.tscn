@@ -86,29 +86,41 @@ mesh = SubResource("CylinderMesh_5xp2s")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_52bus")
 
-[node name="ToggleInteractable" type="Area3D" parent="."]
+[node name="ToggleInteractable" type="Area3D" parent="." node_paths=PackedStringArray("promptLocation")]
 script = ExtResource("1_xkeuy")
+promptLocation = NodePath("PromptPosition")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ToggleInteractable"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.361961, 0.520608)
 shape = SubResource("SphereShape3D_xq120")
 
-[node name="OverclockInteractable" type="Area3D" parent="."]
+[node name="PromptPosition" type="Node3D" parent="ToggleInteractable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="OverclockInteractable" type="Area3D" parent="." node_paths=PackedStringArray("promptLocation")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 script = ExtResource("1_xkeuy")
+promptLocation = NodePath("PromptPosition")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="OverclockInteractable"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.361961, 0.520608)
 shape = SubResource("SphereShape3D_xq120")
 
-[node name="RepairInteractable" type="Area3D" parent="."]
+[node name="PromptPosition" type="Node3D" parent="OverclockInteractable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="RepairInteractable" type="Area3D" parent="." node_paths=PackedStringArray("promptLocation")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.633066, 0.265759, -0.290557)
 script = ExtResource("1_xkeuy")
 interactDuration = 2.0
+promptLocation = NodePath("PromptPosition")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RepairInteractable"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.119392, 0.361961, 0.337323)
 shape = SubResource("BoxShape3D_01bmy")
+
+[node name="PromptPosition" type="Node3D" parent="RepairInteractable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 

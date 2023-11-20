@@ -64,5 +64,8 @@ namespace SpaceEngineer
 
         public static readonly GameEvent<ShipSystemType> ShipSystemStateChanged = new GameEvent<ShipSystemType>();
         public static readonly GameEvent<ShipSystemType> SystemDestroyed = new GameEvent<ShipSystemType>();
+
+        public static readonly GameEvent<Interactable> PlayerTargetChanged = new GameEvent<Interactable>();
+
     }
 }
