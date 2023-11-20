@@ -40,7 +40,6 @@ namespace SpaceEngineer
                 }
                 else
                 {
-                    GD.Print(target.GetInteractPercent());
                     progressBar.Value = target.GetInteractPercent();
                 }
             }
