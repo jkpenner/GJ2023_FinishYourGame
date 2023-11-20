@@ -38,9 +38,9 @@ namespace SpaceEngineer
 
         public override void _Process(double delta)
         {
-            if (gameManager.IsLifeSupportDepleting)
+            if (gameManager.PlayerShip.IsLifeSupportDepleting)
             {
-                info.Text = $"{(int)gameManager.LifeSupportRemainingTime}s Remaining";
+                info.Text = $"{(int)gameManager.PlayerShip.LifeSupportRemainingTime}s Remaining";
             }
 
             if (isFadingOut)

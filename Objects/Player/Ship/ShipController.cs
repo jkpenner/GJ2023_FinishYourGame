@@ -57,6 +57,9 @@ namespace SpaceEngineer
         [Export] float energyRegenMaxPlayerRate = 2f; // Multiplayer?
         [Export] float timeTillOverload = 15f;
 
+        [ExportGroup("Life Support")]
+        [Export] float lifeSupportDuration = 20f;
+
         [ExportGroup("Weapon System")]
         [Export] ShipSystemState initialWeaponState = ShipSystemState.Powered;
         [Export] int weaponNormalEnergy = 2;
@@ -80,7 +83,11 @@ namespace SpaceEngineer
         [Export] int sensorNormalEnergy = 2;
         [Export] int sensorOverclockEnergy = 4;
         [Export] float sensorOverclockDuration = 30f;
-        
+
+        [ExportGroup("Debug")]
+        [Export] bool debugSimulateHullBreach = false;
+        [Export] bool debugDisableLifeSupport = false;
+
 
         public ShipSystem WeaponSystem { get; private set; }
         public ShipSystem EngineSystem { get; private set; }
@@ -92,9 +99,26 @@ namespace SpaceEngineer
         public int EnergyUsage { get; private set; }
         public ShipOverloadState OverloadState { get; private set; }
 
+        /// <summary>
+        /// Check if the life support is currently failing and the timer is running.
+        /// </summary>
+        public bool IsLifeSupportDepleting { get; private set; }
+
+        /// <summary>
+        /// The maximum amount of time the life support can remain active.
+        /// </summary>
+        public float LifeSupportMaxDuration => lifeSupportDuration;
+
+        /// <summary>
+        /// The current remaining amount of time till life support is depleted and game over.
+        /// </summary>
+        public float LifeSupportRemainingTime => lifeSupportDuration - lifeSupportCounter;
+
+        private GameManager gameManager;
         private float overloadCounter;
         private float energyRegenCounter;
         private int energyRegenPlayerInput;
+        private float lifeSupportCounter;
 
         private List<Weapon> weapons;
         private List<Treadmill> treadmills;
@@ -108,6 +132,10 @@ namespace SpaceEngineer
         public event Action<int> EnergyUsageChanged;
         public event Action<int> EnergyCapacityChanged;
         public event Action<ShipSystemType> SystemStateChanged;
+
+        public event Action LifeSupportRestored;
+        public event Action LifeSupportDepleting;
+        public event Action LifeSupportDepleted;
 
         public ShipController()
         {
@@ -123,6 +151,8 @@ namespace SpaceEngineer
 
         public override void _Ready()
         {
+            this.TryGetGameManager(out gameManager);
+
             EnergyCapacity = initialEnergyCapacity;
 
             WeaponSystem.Setup(initialWeaponState, weaponNormalEnergy, weaponOverclockEnergy, weaponOverclockDuration);
@@ -146,6 +176,13 @@ namespace SpaceEngineer
 
         public override void _Process(double delta)
         {
+            if (!gameManager.IsGameActive)
+            {
+                return;
+            }
+
+            ProcessLifeSupport(delta);
+
             WeaponSystem.Process(delta);
             EngineSystem.Process(delta);
             ShieldSystem.Process(delta);
@@ -182,6 +219,48 @@ namespace SpaceEngineer
             energyRegenPlayerInput = 0;
         }
 
+        private void ProcessLifeSupport(double delta)
+        {
+            if (debugDisableLifeSupport)
+            {
+                if (IsLifeSupportDepleting)
+                {
+                    IsLifeSupportDepleting = false;
+                    lifeSupportCounter = 0f;
+                    LifeSupportRestored?.Invoke();
+                }
+
+                return;
+            }
+
+            // Life Support starts to deplete if there are any breaches in the ship's hull. When the
+            // ship's shields are overclocked the life support remains stable and does not deplete.
+            if ((CheckForHullBreach() && ShieldSystem.State != ShipSystemState.Overclocked) || debugSimulateHullBreach)
+            {
+                if (!IsLifeSupportDepleting)
+                {
+                    IsLifeSupportDepleting = true;
+                    LifeSupportDepleting?.Invoke();
+                }
+            }
+            else if (IsLifeSupportDepleting)
+            {
+                IsLifeSupportDepleting = false;
+                lifeSupportCounter = 0f;
+                LifeSupportRestored?.Invoke();
+            }
+
+            if (IsLifeSupportDepleting)
+            {
+                lifeSupportCounter += (float)delta;
+                if (lifeSupportCounter >= lifeSupportDuration)
+                {
+                    GD.Print("Life support ran out.");
+                    LifeSupportDepleted?.Invoke();
+                }
+            }
+        }
+
         /// <summary>
         /// Inform the ship that a player is generating energy.
         /// Method must be called each frame.
@@ -206,7 +285,7 @@ namespace SpaceEngineer
         /// </summary>
         public bool CheckForHullBreach()
         {
-            foreach(var hull in hulls)
+            foreach (var hull in hulls)
             {
                 if (hull.State == HullState.Breached)
                 {
