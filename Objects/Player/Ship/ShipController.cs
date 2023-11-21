@@ -317,7 +317,7 @@ namespace SpaceEngineer
             }
         }
 
-        public void Damage(AmmoType type)
+        public DamageType Damage(AmmoType type)
         {
             Random random = new Random();
 
@@ -332,7 +332,7 @@ namespace SpaceEngineer
             if (random.NextSingle() > hitChance)
             {
                 GD.Print("Damage Missed the ship");
-                return;
+                return DamageType.Missed;
             }
 
             if (shieldCharges > 0)
@@ -356,7 +356,7 @@ namespace SpaceEngineer
                 }
 
                 // Damage already applyed to shield, exit early.
-                return;
+                return DamageType.ShieldDamage;
             }
 
             int hullDamage = type switch
@@ -370,7 +370,7 @@ namespace SpaceEngineer
             if (hulls.Count == 0)
             {
                 GD.PrintErr("No Hulls assigned to the ship");
-                return;
+                return DamageType.Missed;
             }
 
             GD.Print($"Taking {hullDamage} hull damage");
@@ -394,6 +394,8 @@ namespace SpaceEngineer
                     break;
                 }
             }
+
+            return DamageType.HullDamage;
         }
 
         private void ProcessLifeSupport(double delta)
