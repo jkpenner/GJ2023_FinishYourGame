@@ -1,38 +1,65 @@
-[gd_scene load_steps=4 format=3 uid="uid://dig1s3mb3biym"]
+[gd_scene load_steps=5 format=3 uid="uid://dig1s3mb3biym"]
 
 [ext_resource type="Texture2D" uid="uid://b5qimlkj3vj43" path="res://Assets/Textures/CircleProgressBar.png" id="1_bwsl5"]
 [ext_resource type="Script" path="res://UI/UIInteractionPrompt.cs" id="1_cvfae"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_onfsr"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_liad0"]
 bg_color = Color(0.12549, 0.12549, 0.12549, 1)
-corner_radius_top_left = 1000
-corner_radius_top_right = 1000
-corner_radius_bottom_right = 1000
-corner_radius_bottom_left = 1000
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
 
 [node name="UIInteractionPrompt" type="Control"]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -576.0
-offset_top = -324.0
-offset_right = -576.0
-offset_bottom = -324.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_cvfae")
 
+[node name="ActionNamePanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -74.0
+offset_top = 19.0
+offset_right = 74.0
+offset_bottom = 51.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_onfsr")
+
+[node name="MarginContainer" type="MarginContainer" parent="ActionNamePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 4
+
+[node name="ActionName" type="Label" parent="ActionNamePanel/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Action Name Here"
+horizontal_alignment = 1
+
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
 layout_mode = 1
-offset_left = -24.0
-offset_top = -26.0
-offset_right = 488.0
-offset_bottom = 486.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.6
+offset_top = -25.6
+offset_right = 486.4
+offset_bottom = 486.4
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(0.1, 0.1)
 size_flags_stretch_ratio = 0.0
 max_value = 1.0
@@ -41,29 +68,27 @@ value = 1.0
 fill_mode = 4
 texture_progress = ExtResource("1_bwsl5")
 
-[node name="MarginContainer" type="MarginContainer" parent="TextureProgressBar"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -17.0
+offset_top = -17.0
+offset_right = 17.0
+offset_bottom = 17.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 60
-theme_override_constants/margin_top = 60
-theme_override_constants/margin_right = 60
-theme_override_constants/margin_bottom = 60
 
-[node name="Panel" type="Panel" parent="TextureProgressBar/MarginContainer"]
+[node name="Panel" type="Panel" parent="MarginContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_liad0")
 
-[node name="CenterContainer" type="CenterContainer" parent="TextureProgressBar/MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TextureProgressBar/MarginContainer/CenterContainer"]
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.772549, 0.772549, 0.772549, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 30
-theme_override_font_sizes/font_size = 240
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 22
 text = "E"

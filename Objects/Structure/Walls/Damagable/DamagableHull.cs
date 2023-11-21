@@ -96,11 +96,13 @@ namespace SpaceEngineer
         {
             if (CanBeScrapped() && interactor.HeldItem is null)
             {
+                interactable.SetActionText("Scrap Hull");
                 return true;
             }
 
             if (State != HullState.Armored && interactor.HeldItem == requiredItemToRepair)
             {
+                interactable.SetActionText("Repair Hull");
                 return true;
             }
 

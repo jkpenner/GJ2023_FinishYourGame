@@ -52,12 +52,28 @@ namespace SpaceEngineer
             if (interactable is not null)
             {
                 interactable.IsInteractable = true;
+                interactable.ValidateInteraction = OnValidateInteration;
                 interactable.Interacted += OnInteraction;
             }
             else
             {
                 this.PrintMissingChildError(INTERACTABLE_NODE_PATH, nameof(Interactable));
             }
+        }
+
+        private bool OnValidateInteration(PlayerController interactor)
+        {
+            if (HeldItem is null && interactor.HeldItem is not null && interactor.HeldItem.AmmoType == ammoType)
+            {
+                interactable.SetActionText("Load Ammo");
+                return true;
+            }
+            else if (HeldItem is not null && interactor.HeldItem is null)
+            {
+                interactable.SetActionText("Take Ammo");
+                return true;
+            }
+            return false;
         }
 
         public override void _ExitTree()

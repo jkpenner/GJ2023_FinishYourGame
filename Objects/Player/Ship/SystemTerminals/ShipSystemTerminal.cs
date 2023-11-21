@@ -29,9 +29,26 @@ namespace SpaceEngineer
             }
 
             toggle.Interacted += OnToggleInteraction;
+            toggle.ValidateInteraction = OnValidateToggle;
             overclock.Interacted += OnOverclockInteraction;
+            overclock.SetActionText($"Overclock {systemType}");
             repair.Interacted += OnRepairInteraction;
+            repair.SetActionText($"Repair {systemType}");
         }
+
+        private bool OnValidateToggle(PlayerController interator)
+        {
+            if (system.State == ShipSystemState.Powered)
+            {
+                toggle.SetActionText($"Power Off {systemType}");
+            }
+            else
+            {
+                toggle.SetActionText($"Power On {systemType}");
+            }
+            return true;
+        }
+
 
         public override void _ExitTree()
         {

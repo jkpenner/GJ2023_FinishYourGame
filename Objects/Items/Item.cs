@@ -5,6 +5,7 @@ namespace SpaceEngineer
     [GlobalClass]
     public partial class Item : Resource
     {
+        [Export] private string displayName;
         [Export] private AmmoType ammoType;
         [Export] private int shieldDamage;
         [Export] private int hullDamage;
@@ -19,6 +20,9 @@ namespace SpaceEngineer
         public int HullDamage => hullDamage;
         public float HitChance => hitChance;
         public float PeirceChance => peirceChance;
+
+        public string DisplayName => string.IsNullOrEmpty(displayName) ? this.ResourceName : displayName;
+
 
         public Node3D InstantiateVisual()
         {

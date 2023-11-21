@@ -18,6 +18,8 @@ namespace SpaceEngineer
             FetchAndValidateSceneNodes();
 
             TryPlaceObject(initialItem);
+
+            UpdateActionText();
         }
 
         private void FetchAndValidateSceneNodes()
@@ -26,6 +28,7 @@ namespace SpaceEngineer
             if (interactable is not null)
             {
                 interactable.IsInteractable = true;
+                interactable.ValidateInteraction = OnValidateInteration;
                 interactable.Interacted += OnInteraction;
             }
             else
@@ -34,12 +37,29 @@ namespace SpaceEngineer
             }
         }
 
+        private bool OnValidateInteration(PlayerController interactor)
+        {
+            UpdateActionText();
+
+            if (HeldItem is null && interactor.HeldItem is not null)
+            {
+                return true;
+            }
+            else if (HeldItem is not null && interactor.HeldItem is null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+
         private void OnInteraction(PlayerController interactor)
         {
             if (interactor.HeldItem is not null)
             {
                 if (TryPlaceObject(interactor.HeldItem))
                 {
+                    UpdateActionText();
                     interactor.SetHeldItem(null);
                 }
                 else
@@ -51,12 +71,25 @@ namespace SpaceEngineer
             {
                 if (TryTakeObject(out var item))
                 {
+                    UpdateActionText();
                     interactor.SetHeldItem(item);
                 }
                 else
                 {
                     GD.Print("Failed to take item");
                 }
+            }
+        }
+
+        private void UpdateActionText()
+        {
+            if (HeldItem is not null)
+            {
+                interactable.SetActionText($"Pick up {HeldItem.DisplayName}");
+            }
+            else
+            {
+                interactable.SetActionText($"Place item");
             }
         }
 

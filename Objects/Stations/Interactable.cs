@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 namespace SpaceEngineer
@@ -7,6 +8,7 @@ namespace SpaceEngineer
         [Export] private bool isInteractable = true;
         [Export] private float interactDuration = 0f;
         [Export] Node3D promptLocation;
+        [Export] private string actionText = "Interact";
 
         private float counter = 0f;
 
@@ -22,6 +24,9 @@ namespace SpaceEngineer
         public PlayerController Interactor { get; private set; }
 
         public bool IsInstant => interactDuration <= 0f;
+
+        public string ActionText { get; private set; }
+        public event Action<string> ActionTextChanged;
 
         public bool IsInteractable
         {
@@ -61,6 +66,17 @@ namespace SpaceEngineer
         public bool CanInteract(PlayerController interactor)
         {
             return IsInteractable && (ValidateInteraction?.Invoke(interactor) ?? true);
+        }
+
+        public void SetActionText(string text)
+        {
+            if (ActionText == text)
+            {
+                return;
+            }
+
+            ActionText = text;
+            ActionTextChanged?.Invoke(ActionText);
         }
 
         public bool StartInteract(PlayerController interactor)
