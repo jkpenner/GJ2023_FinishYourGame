@@ -78,6 +78,10 @@ namespace SpaceEngineer
         [Export] int shieldNormalEnergy = 2;
         [Export] int shieldOverclockEnergy = 4;
         [Export] float shieldOverclockDuration = 30f;
+        [Export] int shieldCharges = 3;
+        [Export] int shieldOverclockCharges = 2;
+        [Export] float shieldRechargeRate = 0.5f;
+        [Export] float shieldOverclockRechargeRate = 1f;
 
         [ExportGroup("Sensor System")]
         [Export] ShipSystemState initialSensorState = ShipSystemState.Powered;
@@ -88,6 +92,9 @@ namespace SpaceEngineer
         [ExportGroup("Debug")]
         [Export] bool debugSimulateHullBreach = false;
         [Export] bool debugDisableLifeSupport = false;
+        [Export] bool debugSimulateKineticDamage = false;
+        [Export] bool debugSimulateMissileDamage = false;
+        [Export] bool debugSimulateLaserDamage = false;
 
 
         public ShipSystem WeaponSystem { get; private set; }
@@ -99,6 +106,16 @@ namespace SpaceEngineer
         public int EnergyCapacity { get; private set; }
         public int EnergyUsage { get; private set; }
         public ShipOverloadState OverloadState { get; private set; }
+
+        /// <summary>
+        /// Number of shield charges currently active.
+        /// </summary>
+        public int ShieldCharges { get; private set; }
+
+        /// <summary>
+        /// The maximum number of shield charges the ship can have at once.
+        /// </summary>
+        public int MaxShieldCharges { get; private set; }
 
         /// <summary>
         /// Check if the life support is currently failing and the timer is running.
@@ -120,6 +137,7 @@ namespace SpaceEngineer
         private float energyRegenCounter;
         private int energyRegenPlayerInput;
         private float lifeSupportCounter;
+        private float shieldRechargeCounter;
 
         private List<Weapon> weapons;
         private List<Treadmill> treadmills;
@@ -137,6 +155,10 @@ namespace SpaceEngineer
         public event Action LifeSupportRestored;
         public event Action LifeSupportDepleting;
         public event Action LifeSupportDepleted;
+
+        public event Action ShieldBroken;
+        public event Action ShieldRestored;
+        public event Action ShieldChargesChanged;
 
         public ShipController()
         {
@@ -161,6 +183,8 @@ namespace SpaceEngineer
             ShieldSystem.Setup(initialShieldState, shieldNormalEnergy, shieldOverclockEnergy, shieldOverclockDuration);
             SensorSystem.Setup(initialSensorState, sensorNormalEnergy, sensorOverclockEnergy, sensorOverclockDuration);
 
+            ShieldSystem.StateChanged += OnShieldStateChange;
+
             WeaponSystem.EnergyUsageChanged += OnEnergyUsageChanged;
             EngineSystem.EnergyUsageChanged += OnEnergyUsageChanged;
             ShieldSystem.EnergyUsageChanged += OnEnergyUsageChanged;
@@ -183,6 +207,7 @@ namespace SpaceEngineer
             }
 
             ProcessLifeSupport(delta);
+            ProcessShields(delta);
 
             WeaponSystem.Process(delta);
             EngineSystem.Process(delta);
@@ -224,6 +249,151 @@ namespace SpaceEngineer
 
             // Reset amount of player input each frame.
             energyRegenPlayerInput = 0;
+
+            if (debugSimulateKineticDamage)
+            {
+                debugSimulateKineticDamage = false;
+                Damage(AmmoType.Kinetic);
+            }
+
+            if (debugSimulateMissileDamage)
+            {
+                debugSimulateMissileDamage = false;
+                Damage(AmmoType.Missile);
+            }
+
+            if (debugSimulateLaserDamage)
+            {
+                debugSimulateLaserDamage = false;
+                Damage(AmmoType.Laser);
+            }
+        }
+
+        private void OnShieldStateChange()
+        {
+            if (ShieldSystem.State == ShipSystemState.Overclocked)
+            {
+                MaxShieldCharges = shieldOverclockCharges + shieldCharges;
+                ShieldCharges += shieldOverclockCharges;
+            }
+            else
+            {
+                MaxShieldCharges = shieldCharges;
+                ShieldCharges = Mathf.Min(ShieldCharges, MaxShieldCharges);
+            }
+
+            if (ShieldCharges == MaxShieldCharges)
+            {
+                shieldRechargeCounter = 0f;
+            }
+
+            ShieldChargesChanged?.Invoke();
+        }
+
+        private void ProcessShields(double delta)
+        {
+            if (ShieldCharges < MaxShieldCharges)
+            {
+                if (ShieldSystem.State == ShipSystemState.Overclocked)
+                {
+                    shieldRechargeCounter += shieldOverclockRechargeRate * (float)delta;
+                }
+                else
+                {
+                    shieldRechargeCounter += shieldRechargeRate * (float)delta;
+                }
+
+                if (shieldRechargeCounter >= 1f)
+                {
+                    shieldRechargeCounter = 0f;
+                    ShieldCharges += 1;
+                    ShieldChargesChanged?.Invoke();
+
+                    if (ShieldCharges == 1)
+                    {
+                        ShieldRestored?.Invoke();
+                    }
+                }
+            }
+        }
+
+        public void Damage(AmmoType type)
+        {
+            Random random = new Random();
+
+            float hitChance = type switch
+            {
+                AmmoType.Kinetic => 0.8f,
+                AmmoType.Missile => 0.7f,
+                AmmoType.Laser => 0.9f,
+                _ => 0,
+            };
+
+            if (random.NextSingle() > hitChance)
+            {
+                GD.Print("Damage Missed the ship");
+                return;
+            }
+
+            if (shieldCharges > 0)
+            {
+                int shieldDamage = type switch
+                {
+                    AmmoType.Kinetic => 1,
+                    AmmoType.Missile => 2,
+                    AmmoType.Laser => 3,
+                    _ => 0,
+                };
+
+                GD.Print($"Taking {shieldDamage} damage to shields");
+
+                shieldCharges -= shieldDamage;
+                if (shieldCharges <= 0)
+                {
+                    shieldCharges = 0;
+                    ShieldChargesChanged?.Invoke();
+                    ShieldBroken?.Invoke();
+                }
+
+                // Damage already applyed to shield, exit early.
+                return;
+            }
+
+            int hullDamage = type switch
+            {
+                AmmoType.Kinetic => 2,
+                AmmoType.Missile => 3,
+                AmmoType.Laser => 1,
+                _ => 0,
+            };
+
+            if (hulls.Count == 0)
+            {
+                GD.PrintErr("No Hulls assigned to the ship");
+                return;
+            }
+
+            GD.Print($"Taking {hullDamage} hull damage");
+
+            // Find all hulls that can be damage
+            var targets = hulls.Where(h => h.CanBeDamaged()).ToList();
+
+            // Randomly target up to hull damage amount. Each hull
+            // can only be damaged once each time the ship takes damage.
+            for (int i = targets.Count - 1; i >= 0; i--)
+            {
+                int index = random.Next(targets.Count);
+                var hull = targets[index];
+                targets.RemoveAt(index);
+
+                hull.Damage();
+                hullDamage -= 1;
+
+                if (hullDamage <= 0)
+                {
+                    break;
+                }
+            }
         }
 
         private void ProcessLifeSupport(double delta)
@@ -485,7 +655,7 @@ namespace SpaceEngineer
 
         public float GetOverloadPercent()
         {
-            return Mathf.Clamp(overloadCounter / timeTillOverload, 0f, 1f);   
+            return Mathf.Clamp(overloadCounter / timeTillOverload, 0f, 1f);
         }
 
         public float GetEnergyRechargePercent()
