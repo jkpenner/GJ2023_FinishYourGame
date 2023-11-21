@@ -87,6 +87,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_qpv76")
 
 [node name="ToggleInteractable" type="Area3D" parent="." node_paths=PackedStringArray("promptLocation")]
 script = ExtResource("1_87s0l")
+interactDuration = 1.0
 promptLocation = NodePath("PromptPosition")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ToggleInteractable"]
@@ -99,6 +100,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 [node name="OverclockInteractable" type="Area3D" parent="." node_paths=PackedStringArray("promptLocation")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 script = ExtResource("1_87s0l")
+interactDuration = 1.0
 promptLocation = NodePath("PromptPosition")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="OverclockInteractable"]
