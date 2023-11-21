@@ -18,10 +18,25 @@ namespace SpaceEngineer
 		[Export] Color depleted = new Color("#990000");
 
 		private UIShipEnergyCellState state;
+		private TextureProgressBar fill;
 
-		public void SetState(UIShipEnergyCellState state)
+        public override void _Ready()
+        {
+			fill = GetNode<TextureProgressBar>("Fill");
+            fill.Modulate = active;
+			fill.Value = 0f;
+        }
+
+		public void SetRechargePercent(float percent)
 		{
-			Modulate = state switch
+			fill.Value = Mathf.Clamp(percent, 0f, 1f);
+		}
+
+        public void SetState(UIShipEnergyCellState state)
+		{
+			fill.Value = 0f;
+
+			SelfModulate = state switch
 			{
 				UIShipEnergyCellState.Active => active,
 				UIShipEnergyCellState.Enactive => enactive,

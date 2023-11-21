@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://5bbvtei1jv34"]
+[gd_scene load_steps=4 format=3 uid="uid://5bbvtei1jv34"]
 
 [ext_resource type="Script" path="res://UI/UIShipEnergyCell.cs" id="1_5drin"]
+[ext_resource type="Texture2D" uid="uid://b5qimlkj3vj43" path="res://Assets/Textures/CircleProgressBar.png" id="2_ca6h5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ev087"]
 bg_color = Color(1, 1, 1, 1)
@@ -13,3 +14,14 @@ corner_radius_bottom_left = 50
 custom_minimum_size = Vector2(30, 30)
 theme_override_styles/panel = SubResource("StyleBoxFlat_ev087")
 script = ExtResource("1_5drin")
+
+[node name="Fill" type="TextureProgressBar" parent="."]
+layout_mode = 1
+offset_right = 512.0
+offset_bottom = 512.0
+scale = Vector2(0.059, 0.059)
+max_value = 1.0
+step = 0.001
+value = 0.23
+fill_mode = 4
+texture_progress = ExtResource("2_ca6h5")

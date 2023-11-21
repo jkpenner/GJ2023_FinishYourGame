@@ -205,7 +205,7 @@ namespace SpaceEngineer
                 overloadCounter = Mathf.Max(overloadCounter, 0f);
             }
 
-            if (EnergyCapacity < MaximumEnergy)
+            if (EnergyCapacity < MaximumEnergy && OverloadState == ShipOverloadState.NotOverloaded)
             {
                 energyRegenCounter += GetEnergyRegenRate() * (float)delta;
 
@@ -279,7 +279,7 @@ namespace SpaceEngineer
 
         public float GetEnergyRegenRate()
         {
-            if (EnergyCapacity >= MaximumEnergy)
+            if (EnergyCapacity >= MaximumEnergy || OverloadState != ShipOverloadState.NotOverloaded)
             {
                 return 0f;
             }
@@ -488,5 +488,9 @@ namespace SpaceEngineer
             return Mathf.Clamp(overloadCounter / timeTillOverload, 0f, 1f);   
         }
 
+        public float GetEnergyRechargePercent()
+        {
+            return Mathf.Clamp(energyRegenCounter / energyRegenDuration, 0f, 1f);
+        }
     }
 }

@@ -52,6 +52,16 @@ namespace SpaceEngineer
             {
                 overloadNotification.Text = $"{(int)gameManager.PlayerShip.GetRemainingTimeTillOverload()}s till Overload!";
             }
+
+            if (gameManager.PlayerShip.EnergyCapacity < gameManager.PlayerShip.MaximumEnergy)
+            {
+                var childIndex = gameManager.PlayerShip.EnergyCapacity;
+                var child = cellParent.GetChild<UIShipEnergyCell>(childIndex);
+                if (child is not null)
+                {
+                    child.SetRechargePercent(gameManager.PlayerShip.GetEnergyRechargePercent());
+                }
+            }
         }
 
         public override void _EnterTree()
