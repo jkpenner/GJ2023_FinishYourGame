@@ -79,6 +79,9 @@ namespace SpaceEngineer
         [Export] int engineNormalEnergy = 2;
         [Export] int engineOverclockEnergy = 4;
         [Export] float engineOverclockDuration = 30f;
+        [Export] float engineDodgeChancePowered = 0.25f;
+        [Export] float engineDodgeChangeOverclocked = 0.4f;
+        [Export] float engineDodgeChangeDamaged = 0.1f;
 
         [ExportGroup("Shield System")]
         [Export] ShipSystemState initialShieldState = ShipSystemState.Powered;
@@ -331,7 +334,7 @@ namespace SpaceEngineer
                     {
                         combatTargetingCounter = 0f;
                         ActiveTarget.Damage(ActiveWeapon.AmmoType);
-                        
+
                         ActiveWeapon.Fire();
                         ActiveWeapon.DestroyItem();
 
@@ -439,6 +442,14 @@ namespace SpaceEngineer
                 _ => 0,
             };
 
+            float dodgeChange = EngineSystem.State switch
+            {
+                ShipSystemState.Powered => engineDodgeChancePowered,
+                ShipSystemState.Overclocked => engineDodgeChangeOverclocked,
+                ShipSystemState.Damaged => engineDodgeChangeDamaged,
+                _ => 0f
+            };
+
             if (random.NextSingle() > hitChance)
             {
                 GD.Print("Damage Missed the ship");
@@ -455,9 +466,18 @@ namespace SpaceEngineer
                     _ => 0,
                 };
 
-                GD.Print($"Taking {shieldDamage} damage to shields");
+                // Each damage has a chance to be dodge.
+                for (int i = 0; i < shieldDamage; i++)
+                {
+                    if (random.NextSingle() <= dodgeChange)
+                    {
+                        continue;
+                    }
 
-                shieldCharges -= shieldDamage;
+                    GD.Print($"Taking 1 damage to shields");
+                    shieldCharges -= 1;
+                }
+
                 if (shieldCharges <= 0)
                 {
                     shieldCharges = 0;
@@ -495,6 +515,12 @@ namespace SpaceEngineer
                 int index = random.Next(targets.Count);
                 var hull = targets[index];
                 targets.RemoveAt(index);
+
+                if (random.NextSingle() <= dodgeChange)
+                {
+                    GD.Print("Dodged part of the enemy attack");
+                    continue;
+                }
 
                 hull.Damage();
                 hullDamage -= 1;
