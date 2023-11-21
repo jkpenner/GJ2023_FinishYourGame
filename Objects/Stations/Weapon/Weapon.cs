@@ -12,6 +12,8 @@ namespace SpaceEngineer
         private ShipController ship;
         private Interactable interactable;
 
+        public AmmoType AmmoType => ammoType;
+
         public delegate void WeaponEvent(Weapon weapon);
 
         /// <summary>

@@ -16,6 +16,7 @@ public partial class EnemyCard : Control {
 		GD.Load<Texture>("res://Assets/Sprites/Weapons/Missile.png"),
 		GD.Load<Texture>("res://Assets/Sprites/Weapons/Laser.png")
 	};
+	EnemyController enemy;
 	EnemyData enemyData;
 	private TextureRect shipImage;
 	
@@ -40,8 +41,10 @@ public partial class EnemyCard : Control {
 		enemyData.SetEnemyShieldsAndWeapons(shields,weapons);
 	}
 	
-	public void SetEnemyData(EnemyData enemyData) {
-		this.enemyData = enemyData;
+	public void SetEnemy(EnemyController enemy) {
+		this.enemy = enemy;
+		this.enemyData = enemy.Data;
+		
 		shipImage = GetNode<TextureRect>("ShipImage");
 		shipImage.Texture = (Texture2D)enemyData.enemyIcon;
 		foreach (int ammoType in enemyData.enemyShields) {

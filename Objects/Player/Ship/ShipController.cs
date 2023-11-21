@@ -46,6 +46,13 @@ namespace SpaceEngineer
         Overloaded,
     }
 
+    public enum ShipCombatState
+    {
+        Idle,
+        Targeting,
+        Attacking,
+    }
+
     public partial class ShipController : Node3D
     {
         [Export] int initialEnergyCapacity = 10;
@@ -66,6 +73,7 @@ namespace SpaceEngineer
         [Export] int weaponNormalEnergy = 2;
         [Export] int weaponOverclockEnergy = 4;
         [Export] float weaponOverclockDuration = 30f;
+        [Export] float weaponTargetingDuration = 10f;
 
         [ExportGroup("Engine System")]
         [Export] ShipSystemState initialEngineState = ShipSystemState.Powered;
@@ -107,6 +115,10 @@ namespace SpaceEngineer
         public int EnergyUsage { get; private set; }
         public ShipOverloadState OverloadState { get; private set; }
 
+        public ShipCombatState CombatState { get; private set; }
+        public EnemyController ActiveTarget { get; private set; }
+        public Weapon ActiveWeapon { get; private set; }
+
         /// <summary>
         /// Number of shield charges currently active.
         /// </summary>
@@ -138,6 +150,7 @@ namespace SpaceEngineer
         private int energyRegenPlayerInput;
         private float lifeSupportCounter;
         private float shieldRechargeCounter;
+        private float combatTargetingCounter;
 
         private List<Weapon> weapons;
         private List<Treadmill> treadmills;
@@ -206,6 +219,7 @@ namespace SpaceEngineer
                 return;
             }
 
+            ProcessCombat(delta);
             ProcessLifeSupport(delta);
             ProcessShields(delta);
 
@@ -267,6 +281,96 @@ namespace SpaceEngineer
                 debugSimulateLaserDamage = false;
                 Damage(AmmoType.Laser);
             }
+        }
+
+        private void ProcessCombat(double delta)
+        {
+            switch (CombatState)
+            {
+                case ShipCombatState.Idle:
+                    var hasLaserReady = HasWeaponReady(AmmoType.Laser);
+                    var hasKineticReady = HasWeaponReady(AmmoType.Kinetic);
+                    var hasMissileReady = HasWeaponReady(AmmoType.Missile);
+
+                    /// Attack enemys in order from first to last
+                    foreach (var enemy in gameManager.Enemies)
+                    {
+                        if (enemy.IsDestroyed)
+                        {
+                            continue;
+                        }
+
+                        // Ship must always damage shields first before
+                        // it can damage the enemy hull.
+                        if (enemy.HasLaserShields)
+                        {
+                            if (!hasLaserReady)
+                            {
+                                continue;
+                            }
+
+                            AttackTarget(enemy, AmmoType.Laser);
+                            return;
+                        }
+
+                        // Can attack either kinetic or missile shields once
+                        // the laser shield is removed. Attack what ever the 
+                        // ship has ammo for.
+                        if (enemy.HasKineticShields && hasKineticReady)
+                        {
+                            AttackTarget(enemy, AmmoType.Kinetic);
+                        }
+                        else if (enemy.HasMissileShields && hasMissileReady)
+                        {
+                            AttackTarget(enemy, AmmoType.Missile);
+                        }
+                    }
+                    break;
+                case ShipCombatState.Targeting:
+                    combatTargetingCounter += (float)delta;
+                    if (combatTargetingCounter > weaponTargetingDuration)
+                    {
+                        combatTargetingCounter = 0f;
+                        ActiveTarget.Damage(ActiveWeapon.AmmoType);
+                    }
+                    break;
+            }
+        }
+
+        private void AttackTarget(EnemyController enemy, AmmoType ammoType)
+        {
+            CombatState = ShipCombatState.Targeting;
+            ActiveTarget = enemy;
+            ActiveWeapon = GetReadyWeapon(ammoType);
+            if (ActiveWeapon is not null)
+            {
+                ActiveWeapon.StartFiringProceedure();
+            }
+            combatTargetingCounter = 0f;
+        }
+
+        private bool HasWeaponReady(AmmoType ammoType)
+        {
+            foreach (var weapon in weapons)
+            {
+                if (weapon.IsReadyToFire() && weapon.AmmoType == ammoType)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private Weapon GetReadyWeapon(AmmoType ammoType)
+        {
+            foreach (var weapon in weapons)
+            {
+                if (weapon.IsReadyToFire() && weapon.AmmoType == ammoType)
+                {
+                    return weapon;
+                }
+            }
+            return null;
         }
 
         private void OnShieldStateChange()

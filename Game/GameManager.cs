@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Godot;
 
 namespace SpaceEngineer
@@ -26,6 +28,8 @@ namespace SpaceEngineer
 
         public PlayerController Player => player;
         public ShipController PlayerShip => playerShip;
+
+        public List<EnemyController> Enemies { get; private set; } = new List<EnemyController>();
 
 
         public GameManager()
@@ -58,7 +62,39 @@ namespace SpaceEngineer
 
         private void ActiveStateProcess(double delta)
         {
-            
+            // Process all non destroyed enemies.
+            foreach (var enemy in Enemies)
+            {
+                if (!enemy.IsDestroyed)
+                {
+                    enemy.Process(delta);
+                }
+            }
+
+            // Remove all destroyed enemies.
+            for (int i = Enemies.Count - 1; i >= 0; i--)
+            {
+                if (Enemies[i].IsDestroyed)
+                {
+                    Enemies[i].OnDestroyed();
+                    GameEvents.EnemyDestroy.Emit(Enemies[i]);
+                    Enemies.RemoveAt(i);
+                }
+            }
+
+            // Check if all enemies in the encounter are destroyed.
+            // if (AllEnemiesAreDestroyed())
+            // {
+            //     TriggerVictory();
+            // }
+        }
+
+        public void SpawnEnemy(EnemyData enemyData)
+        {
+            var enemy = new EnemyController(enemyData);
+            Enemies.Add(enemy);
+            enemy.OnSpawned();
+            GameEvents.EnemySpawned.Emit(enemy);
         }
 
         private void SetGameState(GameState state)
@@ -127,10 +163,7 @@ namespace SpaceEngineer
             SetGameState(GameState.Exiting);
         }
 
-        public void SpawnEnemy(EnemyData enemyData){
-            GameEvents.EnemySpawned.Emit(enemyData);
-            GameEvents.EnemyDestroy.Emit(enemyData);
-        }
+
 
         private void RegisterGlobalEvents()
         {

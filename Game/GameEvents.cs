@@ -59,8 +59,8 @@ namespace SpaceEngineer
         /// <summary>
         /// Create Random an enemy
         /// </summary>
-        public static readonly GameEvent<EnemyData> EnemySpawned = new GameEvent<EnemyData>();
-        public static readonly GameEvent<EnemyData> EnemyDestroy = new GameEvent<EnemyData>();
+        public static readonly GameEvent<EnemyController> EnemySpawned = new GameEvent<EnemyController>();
+        public static readonly GameEvent<EnemyController> EnemyDestroy = new GameEvent<EnemyController>();
 
         public static readonly GameEvent<ShipSystemType> ShipSystemStateChanged = new GameEvent<ShipSystemType>();
         public static readonly GameEvent<ShipSystemType> SystemDestroyed = new GameEvent<ShipSystemType>();
