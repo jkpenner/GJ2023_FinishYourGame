@@ -56,6 +56,7 @@ namespace SpaceEngineer
         [Export] float energyRegenPerPlayerRate = 1f;
         [Export] float energyRegenMaxPlayerRate = 2f; // Multiplayer?
         [Export] float timeTillOverload = 15f;
+        [Export] float overloadCooldownRate = 0.2f;
 
         [ExportGroup("Life Support")]
         [Export] float lifeSupportDuration = 20f;
@@ -197,6 +198,12 @@ namespace SpaceEngineer
                     OnOverloadEvent();
                 }
             }
+            else if (OverloadState == ShipOverloadState.NotOverloaded)
+            {
+                // overload is cooling down at have rate.
+                overloadCounter -= (float)delta * overloadCooldownRate;
+                overloadCounter = Mathf.Max(overloadCounter, 0f);
+            }
 
             if (EnergyCapacity < MaximumEnergy)
             {
@@ -326,22 +333,19 @@ namespace SpaceEngineer
             {
                 GD.Print($"Ship energy is overloading ({timeTillOverload} seconds)");
                 OverloadState = ShipOverloadState.Overloading;
-                overloadCounter = 0f;
-
                 Overloading?.Invoke();
             }
             else if (EnergyUsage <= EnergyCapacity && OverloadState == ShipOverloadState.Overloading)
             {
-                GD.Print("Ship energy returned to normal");
+                GD.Print("Ship energy returned to normal, cooling down.");
                 OverloadState = ShipOverloadState.NotOverloaded;
-                overloadCounter = 0f;
-
                 EnergyNormalized?.Invoke();
             }
         }
 
         private void OnOverloadEvent()
         {
+            overloadCounter = 0f;
             OverloadEventStarted?.Invoke();
 
             DestroyAllOverclockedSystems();
@@ -478,5 +482,11 @@ namespace SpaceEngineer
 
             weapons.Remove(weapon);
         }
+
+        public float GetOverloadPercent()
+        {
+            return Mathf.Clamp(overloadCounter / timeTillOverload, 0f, 1f);   
+        }
+
     }
 }

@@ -5,26 +5,38 @@ namespace SpaceEngineer
 {
     public partial class UIShipEnergy : Control
     {
+        private const string CELL_PARENT_PATH = "Energy/MarginContainer/Container/Margins/GridContainer";
+        private const string OVERLOAD_TIMER_PATH = "Energy/MarginContainer/Container/Margins/PanelContainer/OverloadTimer";
+        private const string OVERLOAD_PROGRESS_PATH = "Energy/OverloadProgress";
+
+
         [Export] PackedScene cellScene;
 
         private GameManager gameManager;
         private Control cellParent;
         private Label overloadNotification;
+        private ProgressBar overloadProgress;
 
         public override void _Ready()
         {
             this.TryGetGameManager(out gameManager);
 
-            cellParent = GetNode<Control>("MarginContainer/GridContainer");
+            cellParent = GetNode<Control>(CELL_PARENT_PATH);
             if (cellParent is null)
             {
-                this.PrintMissingChildError("MarginContainer/GridContainer", nameof(Control));
+                this.PrintMissingChildError(CELL_PARENT_PATH, nameof(Control));
             }
 
-            overloadNotification = GetNode<Label>("MarginContainer/PanelContainer/OverloadTimer");
+            overloadNotification = GetNode<Label>(OVERLOAD_TIMER_PATH);
             if (overloadNotification is null)
             {
-                this.PrintMissingChildError("MarginContainer/PanelContainer/OverloadTimer", nameof(Label));
+                this.PrintMissingChildError(OVERLOAD_TIMER_PATH, nameof(Label));
+            }
+
+            overloadProgress = GetNode<ProgressBar>(OVERLOAD_PROGRESS_PATH);
+            if (overloadProgress is null)
+            {
+                this.PrintMissingChildError(OVERLOAD_PROGRESS_PATH, nameof(ProgressBar));
             }
 
             // Trigger initial value assignments
@@ -34,6 +46,8 @@ namespace SpaceEngineer
 
         public override void _Process(double delta)
         {
+            overloadProgress.Value = gameManager.PlayerShip.GetOverloadPercent();
+
             if (gameManager.PlayerShip.OverloadState == ShipOverloadState.Overloading)
             {
                 overloadNotification.Text = $"{(int)gameManager.PlayerShip.GetRemainingTimeTillOverload()}s till Overload!";

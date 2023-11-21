@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ccru6kl27et5s"]
+[gd_scene load_steps=9 format=3 uid="uid://ccru6kl27et5s"]
 
 [ext_resource type="Script" path="res://UI/UIShipEnergy.cs" id="1_0cwfx"]
 [ext_resource type="PackedScene" uid="uid://5bbvtei1jv34" path="res://UI/UIShipEnergyCell.tscn" id="2_dmkbj"]
@@ -13,6 +13,20 @@ corner_radius_bottom_left = 2
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7g7of"]
 content_margin_left = 40.0
 content_margin_right = 40.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hyvc4"]
+bg_color = Color(0.0705882, 0.0705882, 0.0705882, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gb6ji"]
+bg_color = Color(1, 0.384314, 0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i7yru"]
 bg_color = Color(0.12549, 0.12549, 0.12549, 1)
@@ -36,8 +50,10 @@ offset_top = -38.0
 offset_right = 61.5
 grow_horizontal = 2
 grow_vertical = 0
+script = ExtResource("1_0cwfx")
+cellScene = ExtResource("2_dmkbj")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Title" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -45,14 +61,14 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -102.5
-offset_top = -62.0
+offset_top = -67.0
 offset_right = 102.5
-offset_bottom = -22.0
+offset_bottom = -27.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_mjuhe")
 
-[node name="Label" type="Label" parent="Panel"]
+[node name="Label" type="Label" parent="Title"]
 layout_mode = 2
 offset_left = 9.0
 offset_top = -1.0
@@ -65,39 +81,58 @@ text = "Energy Capacity"
 horizontal_alignment = 1
 uppercase = true
 
-[node name="UIShipEnergy" type="PanelContainer" parent="."]
+[node name="Energy" type="PanelContainer" parent="."]
+clip_contents = true
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -19.0
+offset_left = -95.0
 offset_top = -46.0
-offset_right = 19.0
-offset_bottom = -8.0
+offset_right = 95.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_i7yru")
-script = ExtResource("1_0cwfx")
-cellScene = ExtResource("2_dmkbj")
+theme_override_styles/panel = SubResource("StyleBoxFlat_hyvc4")
 
-[node name="MarginContainer" type="MarginContainer" parent="UIShipEnergy"]
+[node name="OverloadProgress" type="ProgressBar" parent="Energy"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/fill = SubResource("StyleBoxFlat_gb6ji")
+max_value = 1.0
+step = 0.001
+value = 0.48
+show_percentage = false
+
+[node name="MarginContainer" type="MarginContainer" parent="Energy"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="GridContainer" type="GridContainer" parent="UIShipEnergy/MarginContainer"]
+[node name="Container" type="PanelContainer" parent="Energy/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i7yru")
+
+[node name="Margins" type="MarginContainer" parent="Energy/MarginContainer/Container"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="GridContainer" type="GridContainer" parent="Energy/MarginContainer/Container/Margins"]
 layout_mode = 2
 columns = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="UIShipEnergy/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Energy/MarginContainer/Container/Margins"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_r46fr")
 
-[node name="OverloadTimer" type="Label" parent="UIShipEnergy/MarginContainer/PanelContainer"]
+[node name="OverloadTimer" type="Label" parent="Energy/MarginContainer/Container/Margins/PanelContainer"]
 layout_mode = 2
 theme_override_constants/line_spacing = -2
 theme_override_font_sizes/font_size = 12
