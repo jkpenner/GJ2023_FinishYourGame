@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://brv5sb3yx1tt"]
+
+[ext_resource type="Script" path="res://UI/EnemyCards/UIEnemyCardController.cs" id="1_iyo1j"]
+[ext_resource type="PackedScene" uid="uid://d2em08v3qwb32" path="res://UI/EnemyCards/UIEnemyCard.tscn" id="2_ke3sx"]
+
+[node name="UIEnemyCardController" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_iyo1j")
+enemyCardScene = ExtResource("2_ke3sx")
+
+[node name="EnemyCardContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -575.5
+offset_top = 10.0
+offset_right = 575.5
+offset_bottom = 138.0
+grow_horizontal = 2
+theme_override_constants/separation = 10
+alignment = 1

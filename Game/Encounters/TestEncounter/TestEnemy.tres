@@ -1,11 +1,19 @@
-[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3 uid="uid://dsg8day7e7ll8"]
+[gd_resource type="Resource" script_class="EnemyData" load_steps=2 format=3 uid="uid://dsg8day7e7ll8"]
 
-[ext_resource type="Texture2D" uid="uid://d0u8hkx8jy8qg" path="res://Assets/Sprites/Ships/DieFighter.png" id="1_dsorm"]
-[ext_resource type="Script" path="res://UIScripts/EnemyData.cs" id="1_ibqrt"]
+[ext_resource type="Script" path="res://Objects/Enemy/EnemyData.cs" id="1_smi3j"]
 
 [resource]
-script = ExtResource("1_ibqrt")
-enemyName = "Test"
-enemyIcon = ExtResource("1_dsorm")
-enemyShields = PackedInt32Array(1, 2, 0)
-enemyWeapon = 1
+script = ExtResource("1_smi3j")
+displayName = ""
+laserShields = 3
+kineticShields = 2
+missileShields = 0
+hasKineticWeapon = true
+kineticWeaponFireRate = 5.0
+kineticWeaponImpactDelay = 5.0
+hasLaserWeapon = true
+laserWeaponFireRate = 10.0
+laserWeaponImpactDelay = 2.0
+hasMissileWeapon = true
+missileWeaponFireRate = 15.0
+missileWeaponImpactDelay = 10.0

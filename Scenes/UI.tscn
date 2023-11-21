@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://bvcjnwns7wnyx"]
 
-[ext_resource type="PackedScene" uid="uid://chuectjwxwnvh" path="res://Scenes/CardUI.tscn" id="1_beiqm"]
+[ext_resource type="PackedScene" uid="uid://brv5sb3yx1tt" path="res://UI/EnemyCards/UIEnemyCardController.tscn" id="1_beiqm"]
 [ext_resource type="Script" path="res://UI/UIShipStats.cs" id="2_f015j"]
-[ext_resource type="PackedScene" path="res://UI/UIHullBreachNotification.tscn" id="3_sj372"]
+[ext_resource type="PackedScene" uid="uid://bt4so6txrls2p" path="res://UI/UIHullBreachNotification.tscn" id="3_sj372"]
 [ext_resource type="PackedScene" uid="uid://ccru6kl27et5s" path="res://UI/UIShipEnergy.tscn" id="4_aefyu"]
 [ext_resource type="PackedScene" uid="uid://6ggaalyjavuq" path="res://UI/Notifications/UIGameNotifications.tscn" id="5_j3slu"]
 [ext_resource type="PackedScene" uid="uid://dig1s3mb3biym" path="res://UI/UIInteractionPrompt.tscn" id="6_w0x32"]
@@ -15,7 +15,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CardUI" parent="." instance=ExtResource("1_beiqm")]
+[node name="UIEnemyCardController" parent="." instance=ExtResource("1_beiqm")]
 layout_mode = 1
 
 [node name="ShipStats" type="Label" parent="."]

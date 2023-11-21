@@ -1,0 +1,103 @@
+[gd_scene load_steps=7 format=3 uid="uid://tcfs5f6oaj81"]
+
+[ext_resource type="Texture2D" uid="uid://xxe0jiy5lrho" path="res://Assets/Sprites/Weapons/Laser.png" id="1_donio"]
+[ext_resource type="Script" path="res://UI/EnemyCards/UIEnemyWeapon.cs" id="1_vnyud"]
+[ext_resource type="Texture2D" uid="uid://dw75hlt1s5s44" path="res://Assets/Sprites/Weapons/Bullet.png" id="2_cvo7r"]
+[ext_resource type="Texture2D" uid="uid://crx257h5rfxse" path="res://Assets/Sprites/Weapons/Missile.png" id="3_l2b7l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v2arw"]
+bg_color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6cxqm"]
+bg_color = Color(1, 0, 0.0156863, 1)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="UIEnemyWeapon" type="Panel"]
+custom_minimum_size = Vector2(32, 32)
+theme_override_styles/panel = SubResource("StyleBoxFlat_v2arw")
+script = ExtResource("1_vnyud")
+
+[node name="LaserAmmo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -13.0
+offset_top = -13.0
+offset_right = 13.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_donio")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="KineticAmmo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -14.0
+offset_top = -14.0
+offset_right = 14.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_cvo7r")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="MissleAmmo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -14.0
+offset_top = -14.0
+offset_right = 14.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_l2b7l")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="ActiveBorder" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6cxqm")
+
+[node name="FireTime" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 16
+text = "90s"
+horizontal_alignment = 1
+vertical_alignment = 2

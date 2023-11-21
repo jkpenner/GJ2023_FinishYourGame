@@ -115,7 +115,7 @@ namespace SpaceEngineer
 
         public void SpawnEnemy(EnemyData enemyData)
         {
-            var enemy = new EnemyController(enemyData);
+            var enemy = new EnemyController(enemyData, PlayerShip);
             Enemies.Add(enemy);
             enemy.OnSpawned();
             GameEvents.EnemySpawned.Emit(enemy);
