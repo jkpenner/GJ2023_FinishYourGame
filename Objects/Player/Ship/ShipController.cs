@@ -49,8 +49,7 @@ namespace SpaceEngineer
     public enum ShipCombatState
     {
         Idle,
-        Targeting,
-        Attacking,
+        Targeting
     }
 
     public partial class ShipController : Node3D
@@ -332,6 +331,13 @@ namespace SpaceEngineer
                     {
                         combatTargetingCounter = 0f;
                         ActiveTarget.Damage(ActiveWeapon.AmmoType);
+                        
+                        ActiveWeapon.Fire();
+                        ActiveWeapon.DestroyItem();
+
+                        ActiveWeapon = null;
+                        ActiveTarget = null;
+                        CombatState = ShipCombatState.Idle;
                     }
                     break;
             }

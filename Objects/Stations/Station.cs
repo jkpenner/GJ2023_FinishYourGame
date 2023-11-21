@@ -171,7 +171,7 @@ namespace SpaceEngineer
             other.ItemPlaced?.Invoke(item);
         }
 
-        protected void DestroyItem()
+        public void DestroyItem()
         {
             HeldItem = null;
             if (ItemVisual is not null)
@@ -182,7 +182,7 @@ namespace SpaceEngineer
             ItemVisual = null;
         }
 
-        protected void SpawnItem(Item item)
+        public void SpawnItem(Item item)
         {
             HeldItem = item;
             if (item is not null)
