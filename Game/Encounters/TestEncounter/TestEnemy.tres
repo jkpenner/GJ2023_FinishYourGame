@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3 uid="uid://dsg8day7e7ll8"]
+
+[ext_resource type="Texture2D" uid="uid://d0u8hkx8jy8qg" path="res://Assets/Sprites/Ships/DieFighter.png" id="1_dsorm"]
+[ext_resource type="Script" path="res://UIScripts/EnemyData.cs" id="1_ibqrt"]
+
+[resource]
+script = ExtResource("1_ibqrt")
+enemyName = "Test"
+enemyIcon = ExtResource("1_dsorm")
+enemyShields = PackedInt32Array(1, 2, 0)
+enemyWeapon = 1

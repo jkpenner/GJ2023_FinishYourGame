@@ -23,6 +23,22 @@ namespace SpaceEngineer
         {
             Data = data;
 
+            foreach(var shield in data.enemyShields)
+            {
+                if ((AmmoType)shield == AmmoType.Kinetic)
+                {
+                    KineticShields += 1;
+                }
+                if ((AmmoType)shield == AmmoType.Missile)
+                {
+                    MissileShields += 1;
+                }
+                if ((AmmoType)shield == AmmoType.Laser)
+                {   
+                    LaserShields += 1;
+                }   
+            }
+
             // Initialize Enemy shields here...
         }
 

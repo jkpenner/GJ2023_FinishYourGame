@@ -18,9 +18,9 @@ namespace SpaceEngineer
 
     public partial class GameManager : Node
     {
-        [Export] Resource enemyResource;
         [Export] PlayerController player;
         [Export] ShipController playerShip;
+        [Export] GameEncounter encoutner;
 
 
         public GameState State { get; private set; }
@@ -30,6 +30,10 @@ namespace SpaceEngineer
         public ShipController PlayerShip => playerShip;
 
         public List<EnemyController> Enemies { get; private set; } = new List<EnemyController>();
+
+        public int SpawnInfoIndex { get; private set; }
+        public EnemySpawnInfo SpawnInfo { get; private set; }
+        public float SpawnCounter { get; private set; }
 
 
         public GameManager()
@@ -62,6 +66,26 @@ namespace SpaceEngineer
 
         private void ActiveStateProcess(double delta)
         {
+            // Get the next enemy to spawn
+            if (SpawnInfo is null && SpawnInfoIndex < encoutner.EnemySpawns.Count)
+            {
+                SpawnInfo = encoutner.EnemySpawns[SpawnInfoIndex];
+                SpawnCounter = 0f;
+                SpawnInfoIndex += 1;
+            }
+
+            // Wait for the spawn delay then spawn the enemy
+            if (SpawnInfo is not null)
+            {
+                SpawnCounter += (float)delta;
+                if (SpawnCounter >= SpawnInfo.SpawnDelay)
+                {
+                    SpawnEnemy(SpawnInfo.Data);
+                    SpawnInfo = null;
+                    SpawnCounter = 0f;
+                }
+            }
+
             // Process all non destroyed enemies.
             foreach (var enemy in Enemies)
             {
@@ -83,10 +107,10 @@ namespace SpaceEngineer
             }
 
             // Check if all enemies in the encounter are destroyed.
-            // if (AllEnemiesAreDestroyed())
-            // {
-            //     TriggerVictory();
-            // }
+            if (Enemies.Count == 0 && SpawnInfoIndex == encoutner.EnemySpawns.Count && SpawnInfo is null)
+            {
+                TriggerVictory();
+            }
         }
 
         public void SpawnEnemy(EnemyData enemyData)
@@ -118,10 +142,6 @@ namespace SpaceEngineer
                 case GameState.Starting:
                     // Todo: Maybe do a count down or something in future, for now just start the game
                     SetGameState(GameState.Active);
-                    break;
-                case GameState.Active:
-                    GD.Print(enemyResource);
-                    SpawnEnemy(enemyResource as EnemyData);
                     break;
             }
         }

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="GameEncounter" load_steps=7 format=3 uid="uid://k5vdxex2jteo"]
+
+[ext_resource type="Resource" uid="uid://dsg8day7e7ll8" path="res://Game/Encounters/TestEncounter/TestEnemy.tres" id="1_4aio8"]
+[ext_resource type="Script" path="res://Game/GameEncounter.cs" id="1_bmvt4"]
+[ext_resource type="Script" path="res://Objects/Enemy/EnemySpawnInfo.cs" id="2_e67bk"]
+
+[sub_resource type="Resource" id="Resource_3c6i5"]
+script = ExtResource("2_e67bk")
+SpawnDelay = 5.0
+Data = ExtResource("1_4aio8")
+
+[sub_resource type="Resource" id="Resource_7g7f4"]
+script = ExtResource("2_e67bk")
+SpawnDelay = 15.0
+Data = ExtResource("1_4aio8")
+
+[sub_resource type="Resource" id="Resource_7auhr"]
+script = ExtResource("2_e67bk")
+SpawnDelay = 15.0
+Data = ExtResource("1_4aio8")
+
+[resource]
+script = ExtResource("1_bmvt4")
+enemySpawns = Array[Resource]([SubResource("Resource_3c6i5"), SubResource("Resource_7g7f4"), SubResource("Resource_7auhr")])
+initialItems = Array[Object]([])

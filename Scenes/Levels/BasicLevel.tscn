@@ -1,6 +1,7 @@
-[gd_scene load_steps=28 format=3 uid="uid://4ud5jfu3ytfp"]
+[gd_scene load_steps=29 format=3 uid="uid://4ud5jfu3ytfp"]
 
 [ext_resource type="Script" path="res://Game/GameManager.cs" id="1_xxbf2"]
+[ext_resource type="Resource" uid="uid://k5vdxex2jteo" path="res://Game/Encounters/TestEncounter/TestEncounter.tres" id="2_6loqw"]
 [ext_resource type="Script" path="res://Objects/Player/Ship/ShipController.cs" id="2_toswr"]
 [ext_resource type="PackedScene" uid="uid://cr0jw2re5fmo6" path="res://Objects/Structure/Walls/TileWallStraightLG.tscn" id="3_ap3km"]
 [ext_resource type="PackedScene" uid="uid://nx35t6j75l7k" path="res://Objects/Structure/Walls/TileWallCornerInnerRounded.tscn" id="4_1l57m"]
@@ -32,6 +33,7 @@
 script = ExtResource("1_xxbf2")
 player = NodePath("PlayerController")
 playerShip = NodePath("Ship")
+encoutner = ExtResource("2_6loqw")
 
 [node name="Ship" type="Node3D" parent="."]
 script = ExtResource("2_toswr")
