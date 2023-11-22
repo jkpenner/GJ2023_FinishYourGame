@@ -18,7 +18,7 @@ size = Vector3(0.8, 0.5, 0.8)
 
 [node name="MissileWeapon" type="StaticBody3D"]
 script = ExtResource("1_pt0cn")
-ammoType = 2
+ammoType = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

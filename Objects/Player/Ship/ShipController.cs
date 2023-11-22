@@ -336,6 +336,7 @@ namespace SpaceEngineer
                     combatTargetingCounter += (float)delta;
                     if (combatTargetingCounter > weaponTargetingDuration)
                     {
+                        GD.Print("Damaging Target");
                         combatTargetingCounter = 0f;
                         ActiveTarget.Damage(ActiveWeapon.AmmoType);
 
@@ -352,13 +353,11 @@ namespace SpaceEngineer
 
         private void AttackTarget(EnemyController enemy, AmmoType ammoType)
         {
+            GD.Print($"Attacking target");
             CombatState = ShipCombatState.Targeting;
             ActiveTarget = enemy;
             ActiveWeapon = GetReadyWeapon(ammoType);
-            if (ActiveWeapon is not null)
-            {
-                ActiveWeapon.StartFiringProceedure();
-            }
+            ActiveWeapon.StartFiringProceedure();
             combatTargetingCounter = 0f;
         }
 
