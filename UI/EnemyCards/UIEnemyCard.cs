@@ -176,7 +176,7 @@ namespace SpaceEngineer
                     return;
                 }
 
-                laserShields.Add(instance);
+                kineticShields.Add(instance);
                 shieldParent.AddChild(instance);
                 instance.SetShieldType(AmmoType.Laser);
             }
@@ -190,7 +190,7 @@ namespace SpaceEngineer
                     return;
                 }
 
-                laserShields.Add(instance);
+                missileShields.Add(instance);
                 shieldParent.AddChild(instance);
                 instance.SetShieldType(AmmoType.Laser);
             }
