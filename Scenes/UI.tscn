@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://bvcjnwns7wnyx"]
+[gd_scene load_steps=9 format=3 uid="uid://bvcjnwns7wnyx"]
 
 [ext_resource type="PackedScene" uid="uid://brv5sb3yx1tt" path="res://UI/EnemyCards/UIEnemyCardController.tscn" id="1_beiqm"]
-[ext_resource type="Script" path="res://UI/UIShipStats.cs" id="2_f015j"]
 [ext_resource type="PackedScene" uid="uid://bt4so6txrls2p" path="res://UI/UIHullBreachNotification.tscn" id="3_sj372"]
 [ext_resource type="PackedScene" uid="uid://ccru6kl27et5s" path="res://UI/UIShipEnergy.tscn" id="4_aefyu"]
 [ext_resource type="PackedScene" uid="uid://6ggaalyjavuq" path="res://UI/Notifications/UIGameNotifications.tscn" id="5_j3slu"]
@@ -20,19 +19,6 @@ grow_vertical = 2
 
 [node name="UIEnemyCardController" parent="." instance=ExtResource("1_beiqm")]
 layout_mode = 1
-
-[node name="ShipStats" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 17.0
-offset_top = -36.0
-offset_right = 57.0
-offset_bottom = -10.0
-grow_vertical = 0
-text = "Hello"
-script = ExtResource("2_f015j")
 
 [node name="UIHullBreachNotification" parent="." instance=ExtResource("3_sj372")]
 layout_mode = 1
