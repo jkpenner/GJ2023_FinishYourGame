@@ -88,7 +88,7 @@ namespace SpaceEngineer
         [Export] int shieldNormalEnergy = 2;
         [Export] int shieldOverclockEnergy = 4;
         [Export] float shieldOverclockDuration = 30f;
-        [Export] int shieldCharges = 3;
+        [Export] int baseShieldCharges = 3;
         [Export] int shieldOverclockCharges = 2;
         [Export] float shieldRechargeRate = 0.5f;
         [Export] float shieldOverclockRechargeRate = 1f;
@@ -154,6 +154,8 @@ namespace SpaceEngineer
         private float shieldRechargeCounter;
         private float combatTargetingCounter;
 
+        public float ShieldRechargePercent => Mathf.Clamp(shieldRechargeCounter / 1f, 0f, 1f);
+
         private List<Weapon> weapons;
         private List<Treadmill> treadmills;
         private List<DamagableHull> hulls;
@@ -192,6 +194,8 @@ namespace SpaceEngineer
             this.TryGetGameManager(out gameManager);
 
             EnergyCapacity = initialEnergyCapacity;
+            MaxShieldCharges = baseShieldCharges;
+            ShieldCharges = baseShieldCharges;
 
             WeaponSystem.Setup(initialWeaponState, weaponNormalEnergy, weaponOverclockEnergy, weaponOverclockDuration);
             EngineSystem.Setup(initialEngineState, engineNormalEnergy, engineOverclockEnergy, engineOverclockDuration);
@@ -386,12 +390,12 @@ namespace SpaceEngineer
         {
             if (ShieldSystem.State == ShipSystemState.Overclocked)
             {
-                MaxShieldCharges = shieldOverclockCharges + shieldCharges;
+                MaxShieldCharges = shieldOverclockCharges + baseShieldCharges;
                 ShieldCharges += shieldOverclockCharges;
             }
             else
             {
-                MaxShieldCharges = shieldCharges;
+                MaxShieldCharges = baseShieldCharges;
                 ShieldCharges = Mathf.Min(ShieldCharges, MaxShieldCharges);
             }
 
@@ -456,7 +460,7 @@ namespace SpaceEngineer
                 return DamageType.Missed;
             }
 
-            if (shieldCharges > 0)
+            if (ShieldCharges > 0)
             {
                 int shieldDamage = type switch
                 {
@@ -475,13 +479,14 @@ namespace SpaceEngineer
                     }
 
                     GD.Print($"Taking 1 damage to shields");
-                    shieldCharges -= 1;
+                    ShieldCharges -= 1;
                 }
 
-                if (shieldCharges <= 0)
+                ShieldChargesChanged?.Invoke();
+
+                if (ShieldCharges <= 0)
                 {
-                    shieldCharges = 0;
-                    ShieldChargesChanged?.Invoke();
+                    ShieldCharges = 0;
                     ShieldBroken?.Invoke();
                 }
 

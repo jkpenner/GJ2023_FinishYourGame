@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bvcjnwns7wnyx"]
+[gd_scene load_steps=10 format=3 uid="uid://bvcjnwns7wnyx"]
 
 [ext_resource type="PackedScene" uid="uid://brv5sb3yx1tt" path="res://UI/EnemyCards/UIEnemyCardController.tscn" id="1_beiqm"]
 [ext_resource type="PackedScene" uid="uid://bt4so6txrls2p" path="res://UI/UIHullBreachNotification.tscn" id="3_sj372"]
 [ext_resource type="PackedScene" uid="uid://ccru6kl27et5s" path="res://UI/UIShipEnergy.tscn" id="4_aefyu"]
 [ext_resource type="PackedScene" uid="uid://6ggaalyjavuq" path="res://UI/Notifications/UIGameNotifications.tscn" id="5_j3slu"]
+[ext_resource type="PackedScene" uid="uid://dqrpdhtboquqw" path="res://UI/UIShipShields.tscn" id="6_vnfd2"]
 [ext_resource type="PackedScene" uid="uid://dig1s3mb3biym" path="res://UI/UIInteractionPrompt.tscn" id="6_w0x32"]
 [ext_resource type="PackedScene" uid="uid://cmpsetgo87n82" path="res://UI/Systems/UISystemStatus.tscn" id="7_f505c"]
 [ext_resource type="PackedScene" uid="uid://d1a4m6lsivhwn" path="res://UI/Screens/UIGameOverScreen.tscn" id="8_xmwj4"]
@@ -28,9 +29,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -250.5
-offset_top = -216.0
+offset_top = -337.0
 offset_right = 250.5
-offset_bottom = -142.0
+offset_bottom = -263.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -42,6 +43,18 @@ layout_mode = 1
 
 [node name="UIInteractionPrompt" parent="." instance=ExtResource("6_w0x32")]
 layout_mode = 1
+
+[node name="UIShipShields" parent="." instance=ExtResource("6_vnfd2")]
+layout_mode = 1
+anchors_preset = 7
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = -124.0
+offset_right = 0.0
+offset_bottom = -124.0
+grow_vertical = 0
+alignment = 1
 
 [node name="UISystems" type="VBoxContainer" parent="."]
 layout_mode = 1
