@@ -1,0 +1,108 @@
+[gd_scene load_steps=6 format=3 uid="uid://d2f4bkil0sen0"]
+
+[ext_resource type="Script" path="res://UI/Systems/UISystemStatus.cs" id="1_tm2kp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f3pqn"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t7sjj"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3e1jv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rauwf"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="UISystemStatus" type="HBoxContainer"]
+offset_right = 200.0
+offset_bottom = 41.0
+script = ExtResource("1_tm2kp")
+
+[node name="Status" type="PanelContainer" parent="."]
+self_modulate = Color(1, 0.317647, 0, 1)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_f3pqn")
+
+[node name="MarginContainer" type="MarginContainer" parent="Status"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Status/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Status" type="Label" parent="Status/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Overclocked"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="WeaponState" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_t7sjj")
+
+[node name="MarginContainer" type="MarginContainer" parent="WeaponState"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="WeaponState/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="WeaponName" type="Label" parent="WeaponState/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Engines"
+vertical_alignment = 1
+uppercase = true
+
+[node name="VSeparator" type="VSeparator" parent="WeaponState/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_3e1jv")
+
+[node name="PanelContainer" type="PanelContainer" parent="WeaponState/MarginContainer/HBoxContainer"]
+self_modulate = Color(0, 1, 0, 1)
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rauwf")
+
+[node name="MarginContainer" type="MarginContainer" parent="WeaponState/MarginContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 2
+
+[node name="WeapnState" type="Label" parent="WeaponState/MarginContainer/HBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "OFF"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true

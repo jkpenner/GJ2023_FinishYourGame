@@ -20,15 +20,28 @@ namespace SpaceEngineer
         public const string ITEM_VISUAL_PARENT_NODE_PATH = "ItemVisualParent";
 
         public StationState State { get; private set; }
-        public Item HeldItem { get; private set; }
+        public Item HeldItem
+        {
+            get => heldItem;
+            set
+            {
+                if (heldItem != value)
+                {
+                    heldItem = value;
+                    ItemChanged?.Invoke(heldItem);
+                }
+            }
+        }
         protected Node3D ItemVisual { get; private set; }
 
         private ItemMoveMode moveMode;
+        private Item heldItem;
         private Node3D itemVisualParent;
 
         public delegate void ItemEvent(Item item);
         public event ItemEvent ItemPlaced;
         public event ItemEvent ItemTaken;
+        public event ItemEvent ItemChanged;
 
         public override void _Ready()
         {

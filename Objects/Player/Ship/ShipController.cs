@@ -120,6 +120,7 @@ namespace SpaceEngineer
         public ShipCombatState CombatState { get; private set; }
         public EnemyController ActiveTarget { get; private set; }
         public Weapon ActiveWeapon { get; private set; }
+        public IReadOnlyList<Weapon> Weapons => weapons;
 
         /// <summary>
         /// Number of shield charges currently active.
@@ -176,6 +177,11 @@ namespace SpaceEngineer
         public event Action ShieldBroken;
         public event Action ShieldRestored;
         public event Action ShieldChargesChanged;
+
+        public event Action<Weapon> WeaponRegistered;
+        public event Action<Weapon> WeaponUnegistered;
+        public event Action<Weapon> WeaponLoading;
+        public event Action<Weapon> WeaponFired;
 
         public ShipController()
         {
@@ -343,6 +349,8 @@ namespace SpaceEngineer
                         ActiveWeapon.Fire();
                         ActiveWeapon.DestroyItem();
 
+                        WeaponFired?.Invoke(ActiveWeapon);
+
                         ActiveWeapon = null;
                         ActiveTarget = null;
                         CombatState = ShipCombatState.Idle;
@@ -359,6 +367,8 @@ namespace SpaceEngineer
             ActiveWeapon = GetReadyWeapon(ammoType);
             ActiveWeapon.StartFiringProceedure();
             combatTargetingCounter = 0f;
+
+            WeaponLoading?.Invoke(ActiveWeapon);
         }
 
         private bool HasWeaponReady(AmmoType ammoType)
@@ -775,7 +785,7 @@ namespace SpaceEngineer
             hulls.Remove(damagableHull);
         }
 
-        internal void RegisterWeapon(Weapon weapon)
+        public void RegisterWeapon(Weapon weapon)
         {
             if (weapon is null)
             {
@@ -783,9 +793,10 @@ namespace SpaceEngineer
             }
 
             weapons.Add(weapon);
+            WeaponRegistered?.Invoke(weapon);
         }
 
-        internal void UnregisterWeapon(Weapon weapon)
+        public void UnregisterWeapon(Weapon weapon)
         {
             if (weapon is null)
             {
@@ -793,6 +804,7 @@ namespace SpaceEngineer
             }
 
             weapons.Remove(weapon);
+            WeaponUnegistered?.Invoke(weapon);
         }
 
         public float GetOverloadPercent()
