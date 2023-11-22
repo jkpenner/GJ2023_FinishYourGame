@@ -9,21 +9,17 @@ namespace SpaceEngineer
         private const string KINETIC_ICON_PATH = "KineticAmmo";
         private const string MISSILE_ICON_PATH = "MissleAmmo";
         private const string ACTIVE_INDICATOR_PATH = "ActiveBorder";
-        private const string FIRE_TIMER_PATH = "FireTime";
 
         private Control activeIndicator;
         private Control laserIcon;
         private Control kineticIcon;
         private Control missileIcon;
-        private Label fireTimer;
-
         public override void _Ready()
         {
             activeIndicator = GetNode<Control>(ACTIVE_INDICATOR_PATH);
             laserIcon = GetNode<Control>(LASER_ICON_PATH);
             kineticIcon = GetNode<Control>(KINETIC_ICON_PATH);
             missileIcon = GetNode<Control>(MISSILE_ICON_PATH);
-            fireTimer = GetNode<Label>(FIRE_TIMER_PATH);
         }
 
         public void SetWeaponType(AmmoType ammoType)
@@ -36,12 +32,6 @@ namespace SpaceEngineer
         public void SetActive(bool isActive)
         {
             activeIndicator.Visible = isActive;
-            fireTimer.Visible = isActive;
-        }
-
-        public void SetTimeTillFire(float seconds)
-        {
-            fireTimer.Text = $"{(int)seconds}s";
         }
     }
 }

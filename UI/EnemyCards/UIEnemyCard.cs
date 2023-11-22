@@ -9,10 +9,13 @@ namespace SpaceEngineer
         private const string ENEMY_WEAPON_SCENE_PATH = "res://UI/EnemyCards/UIEnemyWeapon.tscn";
         private const string ENEMY_SHIELD_SCENE_PATH = "res://UI/EnemyCards/UIEnemyShield.tscn";
 
-        private const string SHIP_NAME_NODE_PATH = "MarginContainer/VBoxContainer/ShipName";
-        private const string SHIP_ICON_NODE_PATH = "MarginContainer/VBoxContainer/ShipAndWeapons/ShipIcon/ShipImage";
-        private const string WEAPON_PARENT_NODE_PATH = "MarginContainer/VBoxContainer/ShipAndWeapons";
-        private const string SHIELD_PARENT_NODE_PATH = "MarginContainer/VBoxContainer/Shields";
+        private const string SHIP_NAME_NODE_PATH = "Card/MarginContainer/VBoxContainer/ShipName";
+        private const string SHIP_ICON_NODE_PATH = "Card/MarginContainer/VBoxContainer/ShipAndWeapons/ShipIcon/ShipImage";
+        private const string WEAPON_PARENT_NODE_PATH = "Card/MarginContainer/VBoxContainer/ShipAndWeapons";
+        private const string SHIELD_PARENT_NODE_PATH = "Card/MarginContainer/VBoxContainer/Shields";
+
+        private const string PROGRESS_BAR_NODE_PATH = "Progress/MarginContainer/ProgressBar";
+        private const string PROGRESS_TEXT_NODE_PATH = "Progress/MarginContainer/ProgressBar/ProgressLabel";
 
         private PackedScene enemyWeaponScene;
         private PackedScene enemyShieldScene;
@@ -22,6 +25,8 @@ namespace SpaceEngineer
 
         private Control weaponParent;
         private Control shieldParent;
+        private ProgressBar progressBar;
+        private Label progressLabel;
 
         private EnemyController enemy;
         private UIEnemyWeapon laserWeapon;
@@ -40,6 +45,9 @@ namespace SpaceEngineer
             shipIcon = GetNode<TextureRect>(SHIP_ICON_NODE_PATH);
             weaponParent = GetNode<Control>(WEAPON_PARENT_NODE_PATH);
             shieldParent = GetNode<Control>(SHIELD_PARENT_NODE_PATH);
+
+            progressBar = GetNode<ProgressBar>(PROGRESS_BAR_NODE_PATH);
+            progressLabel = GetNode<Label>(PROGRESS_TEXT_NODE_PATH);
         }
 
         public override void _Process(double delta)
@@ -48,20 +56,48 @@ namespace SpaceEngineer
 
             if (enemy.State == EnemyState.Firing)
             {
+                progressBar.SelfModulate = new Color("#ff5500");
+                progressBar.FillMode = (int)ProgressBar.FillModeEnum.BeginToEnd;
 
                 if (enemy.ActiveWeaponType == AmmoType.Kinetic)
                 {
-                    kineticWeapon.SetTimeTillFire(enemy.Data.GetWeaponFireRate(AmmoType.Kinetic) - enemy.WeaponFireCounter);
+                    progressBar.Value = Mathf.Clamp(enemy.WeaponFireCounter / enemy.Data.GetWeaponFireRate(AmmoType.Kinetic), 0f, 1f);
+                    progressLabel.Text = $"Firing in {(int)(enemy.Data.GetWeaponFireRate(AmmoType.Kinetic) - enemy.WeaponFireCounter)}";
                 }
 
                 if (enemy.ActiveWeaponType == AmmoType.Laser)
                 {
-                    kineticWeapon.SetTimeTillFire(enemy.Data.GetWeaponFireRate(AmmoType.Laser) - enemy.WeaponFireCounter);
+                    progressBar.Value = Mathf.Clamp(enemy.WeaponFireCounter / enemy.Data.GetWeaponFireRate(AmmoType.Laser), 0f, 1f);
+                    progressLabel.Text = $"Firing in {(int)(enemy.Data.GetWeaponFireRate(AmmoType.Laser) - enemy.WeaponFireCounter)}";
                 }
 
                 if (enemy.ActiveWeaponType == AmmoType.Missile)
                 {
-                    missileWeapon.SetTimeTillFire(enemy.Data.GetWeaponFireRate(AmmoType.Missile) - enemy.WeaponFireCounter);
+                    progressBar.Value = Mathf.Clamp(enemy.WeaponFireCounter / enemy.Data.GetWeaponFireRate(AmmoType.Missile), 0f, 1f);
+                    progressLabel.Text = $"Firing in {(int)(enemy.Data.GetWeaponFireRate(AmmoType.Missile) - enemy.WeaponFireCounter)}";
+                }
+            }
+            else if (enemy.State == EnemyState.WaitingForImpact)
+            {
+                progressBar.SelfModulate = new Color("#ff0000");
+                progressBar.FillMode = (int)ProgressBar.FillModeEnum.EndToBegin;
+
+                if (enemy.ActiveWeaponType == AmmoType.Kinetic)
+                {
+                    progressBar.Value = 1f - Mathf.Clamp(enemy.WeaponImpactCounter / enemy.Data.GetWeaponFireRate(AmmoType.Kinetic), 0f, 1f);
+                    progressLabel.Text = $"Impact in {(int)(enemy.Data.GetWeaponImpactDelay(AmmoType.Kinetic) - enemy.WeaponImpactCounter)}";
+                }
+
+                if (enemy.ActiveWeaponType == AmmoType.Laser)
+                {
+                    progressBar.Value = 1f - Mathf.Clamp(enemy.WeaponImpactCounter / enemy.Data.GetWeaponFireRate(AmmoType.Laser), 0f, 1f);
+                    progressLabel.Text = $"Impact in {(int)(enemy.Data.GetWeaponImpactDelay(AmmoType.Laser) - enemy.WeaponImpactCounter)}";
+                }
+
+                if (enemy.ActiveWeaponType == AmmoType.Missile)
+                {
+                    progressBar.Value = 1f - Mathf.Clamp(enemy.WeaponImpactCounter / enemy.Data.GetWeaponFireRate(AmmoType.Missile), 0f, 1f);
+                    progressLabel.Text = $"Impact in {(int)(enemy.Data.GetWeaponImpactDelay(AmmoType.Missile) - enemy.WeaponImpactCounter)}";
                 }
             }
         }
@@ -88,7 +124,6 @@ namespace SpaceEngineer
             {
                 GD.Print("Assigning null enemy to ui enemy card");
             }
-
         }
 
         private void OnShieldValuesChanged()
