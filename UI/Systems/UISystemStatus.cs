@@ -1,6 +1,7 @@
 using Godot;
 using SpaceEngineer;
 using System;
+using System.Threading;
 
 public partial class UISystemStatus : Control
 {
@@ -126,12 +127,18 @@ public partial class UISystemStatus : Control
 				statusContainer.Visible = false;
 				break;
 			case ShipSystemState.Damaged:
+				statusContainer.Visible = true;
+				statusContainer.SelfModulate = damaged;
+				status.Text = system.State.ToString();
+				break;
 			case ShipSystemState.Destroyed:
 				statusContainer.Visible = true;
+				statusContainer.SelfModulate = destroyed;
 				status.Text = system.State.ToString();
 				break;
 			case ShipSystemState.Overclocked:
 				statusContainer.Visible = true;
+				statusContainer.SelfModulate = overclocked;
 				status.Text = $"{system.State} {(int)system.OverclockRemainder}";
 				break;
 		}
