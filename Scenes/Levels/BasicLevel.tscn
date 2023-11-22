@@ -37,6 +37,8 @@ encoutner = ExtResource("2_6loqw")
 
 [node name="Ship" type="Node3D" parent="."]
 script = ExtResource("2_toswr")
+shieldRechargeRate = 0.1
+shieldOverclockRechargeRate = 0.25
 
 [node name="Tiles" type="Node3D" parent="Ship"]
 
@@ -222,8 +224,9 @@ moveTarget = NodePath("../ConveyorA3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 8)
 moveTarget = NodePath("../ConveyorA2")
 
-[node name="AirLock" parent="Ship/Stations" instance=ExtResource("20_qiaqx")]
+[node name="AirLock" parent="Ship/Stations" node_paths=PackedStringArray("outputStations") instance=ExtResource("20_qiaqx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.498312, 0, 7.87352)
+outputStations = [NodePath("../ConveyorB1_AirlockOutput"), NodePath("../ConveyorA1_AirlockOutput")]
 debugInfinteOutput = true
 
 [node name="Weapons" type="Node3D" parent="Ship"]
