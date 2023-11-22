@@ -1,0 +1,152 @@
+[gd_scene load_steps=7 format=3 uid="uid://cmpsetgo87n82"]
+
+[ext_resource type="Script" path="res://UI/Systems/UISystemStatus.cs" id="1_p0w7y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t7sjj"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3e1jv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rauwf"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v6ard"]
+bg_color = Color(0, 1, 0.882353, 1)
+border_color = Color(0.12549, 0.12549, 0.12549, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f3pqn"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="UISystemStatus" type="HBoxContainer"]
+offset_right = 200.0
+offset_bottom = 41.0
+script = ExtResource("1_p0w7y")
+
+[node name="SystemPower" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_t7sjj")
+
+[node name="MarginContainer" type="MarginContainer" parent="SystemPower"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SystemPower/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="SystemName" type="Label" parent="SystemPower/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Engines"
+vertical_alignment = 1
+uppercase = true
+
+[node name="VSeparator" type="VSeparator" parent="SystemPower/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_3e1jv")
+
+[node name="PanelContainer" type="PanelContainer" parent="SystemPower/MarginContainer/HBoxContainer"]
+self_modulate = Color(0, 1, 0, 1)
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rauwf")
+
+[node name="MarginContainer" type="MarginContainer" parent="SystemPower/MarginContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 2
+
+[node name="PowerState" type="Label" parent="SystemPower/MarginContainer/HBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "OFF"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="EnergyAmount" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_t7sjj")
+
+[node name="MarginContainer" type="MarginContainer" parent="EnergyAmount"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EnergyAmount/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 3
+alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="EnergyAmount/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="EnergyAmount/MarginContainer/HBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_v6ard")
+
+[node name="EmergyAmount" type="Label" parent="EnergyAmount/MarginContainer/HBoxContainer/CenterContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Status" type="PanelContainer" parent="."]
+self_modulate = Color(1, 0.317647, 0, 1)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_f3pqn")
+
+[node name="MarginContainer" type="MarginContainer" parent="Status"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Status/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Status" type="Label" parent="Status/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Overclocked"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true

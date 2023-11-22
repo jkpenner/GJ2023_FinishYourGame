@@ -18,10 +18,14 @@ namespace SpaceEngineer
             _ => 0
         };
 
+        public float OverclockRemainder => Mathf.Max(OverclockDuration - overclockCounter, 0f);
+
         public event Action StateChanged;
         public event Action EnergyUsageChanged;
 
         private float overclockCounter;
+
+
 
         public ShipSystem()
         {
