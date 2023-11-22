@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bvcjnwns7wnyx"]
+[gd_scene load_steps=10 format=3 uid="uid://bvcjnwns7wnyx"]
 
 [ext_resource type="PackedScene" uid="uid://brv5sb3yx1tt" path="res://UI/EnemyCards/UIEnemyCardController.tscn" id="1_beiqm"]
 [ext_resource type="Script" path="res://UI/UIShipStats.cs" id="2_f015j"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://6ggaalyjavuq" path="res://UI/Notifications/UIGameNotifications.tscn" id="5_j3slu"]
 [ext_resource type="PackedScene" uid="uid://dig1s3mb3biym" path="res://UI/UIInteractionPrompt.tscn" id="6_w0x32"]
 [ext_resource type="PackedScene" uid="uid://cmpsetgo87n82" path="res://UI/Systems/UISystemStatus.tscn" id="7_f505c"]
+[ext_resource type="PackedScene" uid="uid://d1a4m6lsivhwn" path="res://UI/Screens/UIGameOverScreen.tscn" id="8_xmwj4"]
+[ext_resource type="PackedScene" uid="uid://bfhfxtptg5ogg" path="res://UI/Screens/UIVictoryScreen.tscn" id="9_1gwmy"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -80,3 +82,9 @@ systemType = 2
 [node name="UISystemStatus4" parent="UISystems" instance=ExtResource("7_f505c")]
 layout_mode = 2
 systemType = 1
+
+[node name="UIGameOverScreen" parent="." instance=ExtResource("8_xmwj4")]
+layout_mode = 1
+
+[node name="UIVictoryScreen" parent="." instance=ExtResource("9_1gwmy")]
+layout_mode = 1
