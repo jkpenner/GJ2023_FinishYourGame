@@ -11,7 +11,7 @@ corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 
 [node name="EnergyCell" type="Panel"]
-custom_minimum_size = Vector2(30, 30)
+custom_minimum_size = Vector2(50, 50)
 theme_override_styles/panel = SubResource("StyleBoxFlat_ev087")
 script = ExtResource("1_5drin")
 
@@ -19,7 +19,7 @@ script = ExtResource("1_5drin")
 layout_mode = 1
 offset_right = 512.0
 offset_bottom = 512.0
-scale = Vector2(0.059, 0.059)
+scale = Vector2(0.098, 0.098)
 max_value = 1.0
 step = 0.001
 value = 0.23

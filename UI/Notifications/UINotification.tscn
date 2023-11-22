@@ -16,5 +16,6 @@ script = ExtResource("1_eycfm")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
+theme_override_font_sizes/font_size = 22
 text = "Notification here"
 horizontal_alignment = 1

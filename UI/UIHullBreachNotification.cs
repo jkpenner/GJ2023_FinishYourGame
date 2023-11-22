@@ -5,12 +5,10 @@ namespace SpaceEngineer
 {
     public partial class UIHullBreachNotification : Control
     {
-        private const string NOTIFICATION_NODE_PATH = "Background";
-        private const string TITLE_NODE_PATH = "Background/Title";
-        private const string INFO_NODE_PATH = "Background/Information";
+        private const string TITLE_NODE_PATH = "MarginContainer/VBoxContainer/Title";
+        private const string INFO_NODE_PATH = "MarginContainer/VBoxContainer/Information";
 
         private GameManager gameManager;
-        private Control notification;
         private Label title;
         private Label info;
 
@@ -21,7 +19,7 @@ namespace SpaceEngineer
             this.TryGetGameManager(out gameManager);
             FetchAndValidateSceneNodes();
 
-            notification.Hide();
+            Hide();
         }
 
         public override void _EnterTree()
@@ -45,26 +43,20 @@ namespace SpaceEngineer
 
             if (isFadingOut)
             {
-                var color = notification.Modulate;
+                var color = Modulate;
                 color.A = Mathf.Max(color.A - (float)delta, 0f);
-                notification.Modulate = color;
+                Modulate = color;
 
                 if (color.A <= 0f)
                 {
                     isFadingOut = false;
-                    notification.Hide();
+                    Hide();
                 }
             }
         }
 
         private void FetchAndValidateSceneNodes()
         {
-            notification = GetNode<Control>(NOTIFICATION_NODE_PATH);
-            if (notification is null)
-            {
-                this.PrintMissingChildError(NOTIFICATION_NODE_PATH, nameof(Label));
-            }
-
             title = GetNode<Label>(TITLE_NODE_PATH);
             if (title is null)
             {
@@ -80,8 +72,8 @@ namespace SpaceEngineer
 
         private void OnLifeSupportDepleting()
         {
-            notification.Show();
-            notification.Modulate = new Color("#FFFFFFFF");
+            Show();
+            Modulate = new Color("#FFFFFFFF");
             isFadingOut = false;
 
             title.Text = "Life Support Depleting";
@@ -89,8 +81,8 @@ namespace SpaceEngineer
 
         private void OnLifeSupportRestored()
         {
-            notification.Show();
-            notification.Modulate = new Color("#FFFFFFFF");
+            Show();
+            Modulate = new Color("#FFFFFFFF");
             isFadingOut = true;
 
             title.Text = "Life Support Restore";

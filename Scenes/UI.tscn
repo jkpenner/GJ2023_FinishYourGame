@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bvcjnwns7wnyx"]
+[gd_scene load_steps=8 format=3 uid="uid://bvcjnwns7wnyx"]
 
 [ext_resource type="PackedScene" uid="uid://brv5sb3yx1tt" path="res://UI/EnemyCards/UIEnemyCardController.tscn" id="1_beiqm"]
 [ext_resource type="Script" path="res://UI/UIShipStats.cs" id="2_f015j"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ccru6kl27et5s" path="res://UI/UIShipEnergy.tscn" id="4_aefyu"]
 [ext_resource type="PackedScene" uid="uid://6ggaalyjavuq" path="res://UI/Notifications/UIGameNotifications.tscn" id="5_j3slu"]
 [ext_resource type="PackedScene" uid="uid://dig1s3mb3biym" path="res://UI/UIInteractionPrompt.tscn" id="6_w0x32"]
+[ext_resource type="PackedScene" uid="uid://cmpsetgo87n82" path="res://UI/Systems/UISystemStatus.tscn" id="7_f505c"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -33,6 +34,17 @@ script = ExtResource("2_f015j")
 
 [node name="UIHullBreachNotification" parent="." instance=ExtResource("3_sj372")]
 layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.5
+offset_top = -216.0
+offset_right = 250.5
+offset_bottom = -142.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="UIShipEnergy" parent="." instance=ExtResource("4_aefyu")]
 layout_mode = 1
@@ -42,3 +54,29 @@ layout_mode = 1
 
 [node name="UIInteractionPrompt" parent="." instance=ExtResource("6_w0x32")]
 layout_mode = 1
+
+[node name="UISystems" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -192.0
+offset_right = 401.0
+offset_bottom = -16.0
+grow_vertical = 0
+
+[node name="UISystemStatus" parent="UISystems" instance=ExtResource("7_f505c")]
+layout_mode = 2
+
+[node name="UISystemStatus2" parent="UISystems" instance=ExtResource("7_f505c")]
+layout_mode = 2
+systemType = 3
+
+[node name="UISystemStatus3" parent="UISystems" instance=ExtResource("7_f505c")]
+layout_mode = 2
+systemType = 2
+
+[node name="UISystemStatus4" parent="UISystems" instance=ExtResource("7_f505c")]
+layout_mode = 2
+systemType = 1

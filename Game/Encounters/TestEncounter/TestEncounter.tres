@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GameEncounter" load_steps=7 format=3 uid="uid://k5vdxex2jteo"]
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://k5vdxex2jteo"]
 
 [ext_resource type="Resource" uid="uid://dsg8day7e7ll8" path="res://Game/Encounters/TestEncounter/TestEnemy.tres" id="1_4aio8"]
 [ext_resource type="Script" path="res://Game/GameEncounter.cs" id="1_bmvt4"]

@@ -222,9 +222,8 @@ moveTarget = NodePath("../ConveyorA3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 8)
 moveTarget = NodePath("../ConveyorA2")
 
-[node name="AirLock" parent="Ship/Stations" node_paths=PackedStringArray("outputStations") instance=ExtResource("20_qiaqx")]
+[node name="AirLock" parent="Ship/Stations" instance=ExtResource("20_qiaqx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.498312, 0, 7.87352)
-outputStations = [NodePath("../ConveyorA1_AirlockOutput"), NodePath("../ConveyorB1_AirlockOutput")]
 debugInfinteOutput = true
 
 [node name="Weapons" type="Node3D" parent="Ship"]
