@@ -30,7 +30,7 @@ public partial class MainMenu : Node
 
     private void OnFadeOutComplete()
     {
-        GetTree().ChangeSceneToFile("res://Scenes/Levels/BasicLevel.tscn");
+        GetTree().ChangeSceneToFile("res://Scenes/Levels/ShipLevel.tscn");
     }
 
 
