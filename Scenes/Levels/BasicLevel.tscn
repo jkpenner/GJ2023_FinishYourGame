@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://4ud5jfu3ytfp"]
+[gd_scene load_steps=31 format=3 uid="uid://4ud5jfu3ytfp"]
 
 [ext_resource type="Script" path="res://Game/GameManager.cs" id="1_xxbf2"]
 [ext_resource type="Resource" uid="uid://k5vdxex2jteo" path="res://Game/Encounters/TestEncounter/TestEncounter.tres" id="2_6loqw"]
@@ -29,6 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://yc0si5ygywqj" path="res://Objects/Stations/Treadmill/Treadmill.tscn" id="27_4wvtr"]
 [ext_resource type="PackedScene" uid="uid://bvcjnwns7wnyx" path="res://Scenes/UI.tscn" id="27_jou7u"]
 [ext_resource type="PackedScene" uid="uid://ds2o87mjamrj4" path="res://UI/Utility/UIFade.tscn" id="29_jtjyq"]
+[ext_resource type="PackedScene" uid="uid://cagppurjr5thl" path="res://Scenes/space_particles.tscn" id="30_r8wr1"]
 
 [node name="GameManager" type="Node" node_paths=PackedStringArray("player", "playerShip")]
 script = ExtResource("1_xxbf2")
@@ -254,3 +255,5 @@ transform = Transform3D(1, 0, 0, 0, 0.55083, 0.834617, 0, -0.834617, 0.55083, 0.
 [node name="UI" parent="." instance=ExtResource("27_jou7u")]
 
 [node name="UIFade" parent="." instance=ExtResource("29_jtjyq")]
+
+[node name="SpaceParticles" parent="." instance=ExtResource("30_r8wr1")]

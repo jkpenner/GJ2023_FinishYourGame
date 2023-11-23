@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://cagppurjr5thl"]
+
+[sub_resource type="Gradient" id="Gradient_yioc0"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fk5l7"]
+gradient = SubResource("Gradient_yioc0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wad4t"]
+emission_shape = 3
+emission_box_extents = Vector3(50, 1, 1)
+direction = Vector3(0, 0, 5)
+spread = 10.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 15.0
+scale_min = 0.1
+scale_max = 0.3
+color = Color(0.0313726, 0, 1, 1)
+color_initial_ramp = SubResource("GradientTexture1D_fk5l7")
+turbulence_noise_strength = 8.64
+turbulence_noise_scale = 1.54
+
+[sub_resource type="SphereMesh" id="SphereMesh_3pvo6"]
+
+[node name="SpaceParticles" type="GPUParticles3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.184131, -17.7898, -72.9727)
+amount = 200
+lifetime = 10.0
+preprocess = 10.0
+visibility_aabb = AABB(-27.995, -4, -4, 81.491, 7.41, 138.035)
+trail_lifetime = 0.01
+process_material = SubResource("ParticleProcessMaterial_wad4t")
+draw_pass_1 = SubResource("SphereMesh_3pvo6")
