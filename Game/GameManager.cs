@@ -14,10 +14,15 @@ namespace SpaceEngineer
         Victory,
         GameOver,
         Exiting,
+        Restarting,
+
     }
 
     public partial class GameManager : Node
     {
+        private const string MAIN_MENU_SCENE = "res://Scenes/Main.tscn";
+
+        [Export] UIFade fade;
         [Export] PlayerController player;
         [Export] ShipController playerShip;
         [Export] GameEncounter encoutner;
@@ -47,7 +52,29 @@ namespace SpaceEngineer
 
             // Inform game that everything is setup and ready to go.
             SetGameState(GameState.Starting);
+
+            fade.FadeInCompleted += OnFadeInCompleted;
+            fade.FadeOutCompleted += OnFadeOutCompleted;
         }
+
+        private void OnFadeInCompleted()
+        {
+            SetGameState(GameState.Active);
+        }
+
+
+        private void OnFadeOutCompleted()
+        {
+            if (State == GameState.Exiting)
+            {
+                GetTree().ChangeSceneToFile(MAIN_MENU_SCENE);
+            }
+            else if (State == GameState.Restarting)
+            {
+                GetTree().ReloadCurrentScene();
+            }
+        }
+
 
         public override void _ExitTree()
         {
@@ -130,20 +157,7 @@ namespace SpaceEngineer
 
             GameEvents.GameStateExited.Emit(State);
             State = state;
-            GD.Print($"Entering Game State: {State}");
             GameEvents.GameStateEntered.Emit(State);
-            OnGameStateEntered();
-        }
-
-        private void OnGameStateEntered()
-        {
-            switch (State)
-            {
-                case GameState.Starting:
-                    // Todo: Maybe do a count down or something in future, for now just start the game
-                    SetGameState(GameState.Active);
-                    break;
-            }
         }
 
         public void TogglePause()
@@ -181,9 +195,14 @@ namespace SpaceEngineer
         public void Exit()
         {
             SetGameState(GameState.Exiting);
+            fade.FadeOut();
         }
 
-
+        public void Restart()
+        {
+            SetGameState(GameState.Restarting);
+            fade.FadeOut();
+        }
 
         private void RegisterGlobalEvents()
         {

@@ -5,7 +5,7 @@ namespace SpaceEngineer
 {
     public partial class UIGameOverScreen : Control
     {
-        private const string MAIN_MENU_SCENE = "res://Scenes/Main.tscn";
+        
         private const string MAIN_MENU_BUTTON_PATH = "PanelContainer/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer/MainMenu";
         private const string RETRY_BUTTON_PATH = "PanelContainer/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer/Retry";
 
@@ -23,6 +23,8 @@ namespace SpaceEngineer
             retryButton = GetNode<Button>(RETRY_BUTTON_PATH);
             retryButton.Pressed += OnRetryPressed;
 
+            Visible = false;
+
             OnGameStateEntered(gameManager.State);
         }
 
@@ -38,17 +40,20 @@ namespace SpaceEngineer
 
         private void OnGameStateEntered(GameState state)
         {
-            Visible = state == GameState.GameOver;
+            if (state == GameState.GameOver)
+            {
+                Visible = true;
+            }
         }
 
         private void OnMainMenuPressed()
         {
-            GetTree().ChangeSceneToFile(MAIN_MENU_SCENE);
+            gameManager.Exit();
         }
 
         private void OnRetryPressed()
         {
-            GetTree().ReloadCurrentScene();
+            gameManager.Restart();
         }
     }
 }

@@ -5,7 +5,6 @@ namespace SpaceEngineer
 {
     public partial class UIVictoryScreen : Control
     {
-        private const string MAIN_MENU_SCENE = "res://Scenes/Main.tscn";
         private const string MAIN_MENU_BUTTON_PATH = "PanelContainer/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer/MainMenu";
         private const string REPLAY_BUTTON_PATH = "PanelContainer/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer/Replay";
 
@@ -15,6 +14,7 @@ namespace SpaceEngineer
 
         public override void _Ready()
         {
+
             this.TryGetGameManager(out gameManager);
 
             mainMenuButton = GetNode<Button>(MAIN_MENU_BUTTON_PATH);
@@ -22,6 +22,8 @@ namespace SpaceEngineer
 
             replayButton = GetNode<Button>(REPLAY_BUTTON_PATH);
             replayButton.Pressed += OnReplayPressed;
+            
+            Visible = false;
 
             OnGameStateEntered(gameManager.State);
         }
@@ -38,17 +40,20 @@ namespace SpaceEngineer
 
         private void OnGameStateEntered(GameState state)
         {
-            Visible = state == GameState.Victory;
+            if (state == GameState.Victory)
+            {
+                Visible = true;
+            }
         }
 
         private void OnMainMenuPressed()
         {
-            GetTree().ChangeSceneToFile(MAIN_MENU_SCENE);
+            gameManager.Exit();
         }
 
         private void OnReplayPressed()
         {
-            GetTree().ReloadCurrentScene();
+            gameManager.Restart();
         }
     }
 }
