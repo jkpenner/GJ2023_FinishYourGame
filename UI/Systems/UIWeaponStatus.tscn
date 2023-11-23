@@ -82,7 +82,7 @@ theme_override_constants/separation = 6
 alignment = 1
 
 [node name="WeaponName" type="Label" parent="WeaponState/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(140, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Engines"

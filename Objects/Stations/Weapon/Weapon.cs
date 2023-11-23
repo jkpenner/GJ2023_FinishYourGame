@@ -8,11 +8,13 @@ namespace SpaceEngineer
         public const string INTERACTABLE_NODE_PATH = "Interactable";
 
         [Export] AmmoType ammoType;
+        [Export] string displayName;
 
         private ShipController ship;
         private Interactable interactable;
 
         public AmmoType AmmoType => ammoType;
+        public string DisplayName => displayName;
 
         public delegate void WeaponEvent(Weapon weapon);
 

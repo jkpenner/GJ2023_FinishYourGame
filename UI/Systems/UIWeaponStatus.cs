@@ -70,7 +70,7 @@ namespace SpaceEngineer
             this.weapon = weapon;
             this.weapon.ItemChanged += OnItemChanged;
 
-            weaponName.Text = $"{weapon.AmmoType}";
+            weaponName.Text = string.IsNullOrEmpty(weapon.DisplayName) ? $"{weapon.AmmoType}" : weapon.DisplayName;
         }
 
         private void OnItemChanged(Item item)
