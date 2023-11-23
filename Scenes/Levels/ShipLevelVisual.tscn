@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2j6wym205ttx"]
+
+[ext_resource type="PackedScene" uid="uid://bas6pi4n0f8th" path="res://Assets/Models/Characters/PlayerShip.gltf" id="1_x3d1k"]
+
+[node name="ShipLevelVisual" type="Node3D"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+
+[node name="PlayerShip" parent="." instance=ExtResource("1_x3d1k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.704436, -0.518902)
