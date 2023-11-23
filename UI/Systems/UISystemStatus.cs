@@ -11,8 +11,8 @@ public partial class UISystemStatus : Control
 	private const string POWER_STATE_NODE_PATH = "SystemPower/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/PowerState";
 	private const string ENERGY_CONTAINER_PATH = "EnergyAmount";
 	private const string ENERGY_AMOUNT_NODE_PATH = "EnergyAmount/MarginContainer/HBoxContainer/CenterContainer/Panel/EmergyAmount";
-	private const string STATUS_CONTAINER_PATH = "Status";
-	private const string STATUS_LABEL_PATH = "Status/MarginContainer/HBoxContainer/Status";
+	private const string STATUS_PROGRESS_PATH = "Status/ProgressBar";
+	private const string STATUS_LABEL_PATH = "Status/ProgressBar/Status";
 
 	private const string SYSTEM_POWERED_ON_TEXT = "On";
 	private const string SYSTEM_POWERED_OFF_TEXT = "Off";
@@ -31,8 +31,8 @@ public partial class UISystemStatus : Control
 	private Label powerState;
 	private Control energyContainer;
 	private Label energyAmount;
-	private Control statusContainer;
-	private Label status;
+	private ProgressBar statusProgress;
+	private Label statusLabel;
 
 	public override void _Ready()
 	{
@@ -43,8 +43,8 @@ public partial class UISystemStatus : Control
 		powerState = GetNode<Label>(POWER_STATE_NODE_PATH);
 		energyContainer = GetNode<Control>(ENERGY_CONTAINER_PATH);
 		energyAmount = GetNode<Label>(ENERGY_AMOUNT_NODE_PATH);
-		statusContainer = GetNode<Control>(STATUS_CONTAINER_PATH);
-		status = GetNode<Label>(STATUS_LABEL_PATH);
+		statusProgress = GetNode<ProgressBar>(STATUS_PROGRESS_PATH);
+		statusLabel = GetNode<Label>(STATUS_LABEL_PATH);
 
 		systemName.Text = systemType.ToString();
 		OnSystemStateChanged(systemType);
@@ -124,22 +124,25 @@ public partial class UISystemStatus : Control
 		{
 			case ShipSystemState.Powered:
 			case ShipSystemState.Disabled:
-				statusContainer.Visible = false;
+				statusProgress.Visible = false;
 				break;
 			case ShipSystemState.Damaged:
-				statusContainer.Visible = true;
-				statusContainer.SelfModulate = damaged;
-				status.Text = system.State.ToString();
+				statusProgress.Visible = true;
+				statusProgress.Value = 1;
+				statusProgress.SelfModulate = damaged;
+				statusLabel.Text = system.State.ToString();
 				break;
 			case ShipSystemState.Destroyed:
-				statusContainer.Visible = true;
-				statusContainer.SelfModulate = destroyed;
-				status.Text = system.State.ToString();
+				statusProgress.Visible = true;
+				statusProgress.Value = 1;
+				statusProgress.SelfModulate = destroyed;
+				statusLabel.Text = system.State.ToString();
 				break;
 			case ShipSystemState.Overclocked:
-				statusContainer.Visible = true;
-				statusContainer.SelfModulate = overclocked;
-				status.Text = $"{system.State} {(int)system.OverclockRemainder}";
+				statusProgress.Visible = true;
+				statusProgress.Value = system.OverclockRemainder / system.OverclockDuration;
+				statusProgress.SelfModulate = overclocked;
+				statusLabel.Text = system.State.ToString();
 				break;
 		}
 	}

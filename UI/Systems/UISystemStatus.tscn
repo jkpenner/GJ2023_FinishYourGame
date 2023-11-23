@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cmpsetgo87n82"]
+[gd_scene load_steps=9 format=3 uid="uid://cmpsetgo87n82"]
 
 [ext_resource type="Script" path="res://UI/Systems/UISystemStatus.cs" id="1_p0w7y"]
 
@@ -26,7 +26,15 @@ corner_radius_top_right = 100
 corner_radius_bottom_right = 100
 corner_radius_bottom_left = 100
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f3pqn"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tay53"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_caxek"]
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fabsu"]
 bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
@@ -128,23 +136,26 @@ vertical_alignment = 1
 
 [node name="Status" type="PanelContainer" parent="."]
 self_modulate = Color(1, 0.317647, 0, 1)
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_f3pqn")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_tay53")
 
-[node name="MarginContainer" type="MarginContainer" parent="Status"]
+[node name="ProgressBar" type="ProgressBar" parent="Status"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 4
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_caxek")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fabsu")
+max_value = 1.0
+step = 0.001
+show_percentage = false
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Status/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 20
-alignment = 1
-
-[node name="Status" type="Label" parent="Status/MarginContainer/HBoxContainer"]
-layout_mode = 2
+[node name="Status" type="Label" parent="Status/ProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Overclocked"
 horizontal_alignment = 1

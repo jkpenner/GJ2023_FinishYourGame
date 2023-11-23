@@ -155,6 +155,7 @@ namespace SpaceEngineer
         private float shieldRechargeCounter;
         private float combatTargetingCounter;
 
+        public float WeaponTargetingPercent => Mathf.Clamp(combatTargetingCounter / weaponTargetingDuration, 0f, 1f);
         public float ShieldRechargePercent => Mathf.Clamp(shieldRechargeCounter / 1f, 0f, 1f);
 
         private List<Weapon> weapons;
