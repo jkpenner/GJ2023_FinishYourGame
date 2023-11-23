@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://do3hptj36g5do"]
+[gd_scene load_steps=19 format=3 uid="uid://do3hptj36g5do"]
 
 [ext_resource type="Script" path="res://Scenes/MainMenu.cs" id="1_tat6t"]
 [ext_resource type="PackedScene" uid="uid://usiuttau5e17" path="res://Objects/Structure/Walls/TileWallCornerOuterSegA.tscn" id="2_fvew2"]
@@ -16,12 +16,16 @@
 [ext_resource type="PackedScene" uid="uid://b6twkhfyxxry1" path="res://Assets/Models/Items/Scrap.gltf" id="12_mb76s"]
 [ext_resource type="PackedScene" uid="uid://ds2o87mjamrj4" path="res://UI/Utility/UIFade.tscn" id="15_e3b4f"]
 
+[sub_resource type="Sky" id="Sky_p7pr1"]
+
 [sub_resource type="Environment" id="Environment_5vjnn"]
 background_mode = 1
+sky = SubResource("Sky_p7pr1")
 ambient_light_source = 2
 ambient_light_color = Color(0.784314, 0.784314, 0.784314, 1)
 ssao_intensity = 6.04
 sdfgi_enabled = true
+sdfgi_read_sky_light = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t0c0a"]
 bg_color = Color(0.12549, 0.12549, 0.12549, 1)
@@ -33,10 +37,10 @@ corner_radius_bottom_left = 40
 [node name="Main" type="Node" node_paths=PackedStringArray("fade", "hallwayObjects", "hallwayStart", "hallwayEnd", "conveyorObjects", "conveyorStart", "conveyorEnd")]
 script = ExtResource("1_tat6t")
 fade = NodePath("Control/UIFade")
-hallwayObjects = [NodePath("Scene/HallwayObjects/Hamster"), NodePath("Scene/HallwayObjects/HamsterBall")]
+hallwayObjects = []
 hallwayStart = NodePath("Scene/HallwayStart")
 hallwayEnd = NodePath("Scene/HallwayEnd")
-conveyorObjects = [NodePath("Scene/ConveyorObjects/KineticAmmo"), NodePath("Scene/ConveyorObjects/LaserAmmo"), NodePath("Scene/ConveyorObjects/Missiles"), NodePath("Scene/ConveyorObjects/Scrap")]
+conveyorObjects = []
 conveyorStart = NodePath("Scene/ConveyorStart")
 conveyorEnd = NodePath("Scene/ConveyorEnd")
 

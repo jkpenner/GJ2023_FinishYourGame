@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bt4so6txrls2p" path="res://UI/UIHullBreachNotification.tscn" id="3_sj372"]
 [ext_resource type="PackedScene" uid="uid://ccru6kl27et5s" path="res://UI/UIShipEnergy.tscn" id="4_aefyu"]
 [ext_resource type="PackedScene" uid="uid://6ggaalyjavuq" path="res://UI/Notifications/UIGameNotifications.tscn" id="5_j3slu"]
-[ext_resource type="PackedScene" uid="uid://dqrpdhtboquqw" path="res://UI/UIShipShields.tscn" id="6_vnfd2"]
+[ext_resource type="PackedScene" path="res://UI/UIShipShields.tscn" id="6_vnfd2"]
 [ext_resource type="PackedScene" uid="uid://dig1s3mb3biym" path="res://UI/UIInteractionPrompt.tscn" id="6_w0x32"]
 [ext_resource type="PackedScene" uid="uid://cmpsetgo87n82" path="res://UI/Systems/UISystemStatus.tscn" id="7_f505c"]
 [ext_resource type="PackedScene" uid="uid://d1a4m6lsivhwn" path="res://UI/Screens/UIGameOverScreen.tscn" id="8_xmwj4"]

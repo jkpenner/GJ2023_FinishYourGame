@@ -30,9 +30,8 @@
 [ext_resource type="PackedScene" uid="uid://bvcjnwns7wnyx" path="res://Scenes/UI.tscn" id="27_jou7u"]
 [ext_resource type="PackedScene" uid="uid://ds2o87mjamrj4" path="res://UI/Utility/UIFade.tscn" id="29_jtjyq"]
 
-[node name="GameManager" type="Node" node_paths=PackedStringArray("fade", "player", "playerShip")]
+[node name="GameManager" type="Node" node_paths=PackedStringArray("player", "playerShip")]
 script = ExtResource("1_xxbf2")
-fade = NodePath("UIFade")
 player = NodePath("PlayerController")
 playerShip = NodePath("Ship")
 encoutner = ExtResource("2_6loqw")
