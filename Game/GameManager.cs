@@ -83,6 +83,11 @@ namespace SpaceEngineer
 
         public override void _Process(double delta)
         {
+            if (Input.IsActionJustPressed("Exit"))
+            {
+                Exit();
+            }
+
             switch (State)
             {
                 case GameState.Active:

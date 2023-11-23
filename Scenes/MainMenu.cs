@@ -36,6 +36,11 @@ public partial class MainMenu : Node
 
     public override void _Process(double delta)
     {
+        if (Input.IsActionJustPressed("Exit"))
+        {
+            GetTree().Quit();
+        }
+
         if (Input.IsActionJustPressed("P1Dash"))
         {
             fade.FadeOut();
