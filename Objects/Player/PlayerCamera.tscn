@@ -1,9 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://b5d5u1gteslnb"]
+[gd_scene load_steps=6 format=3 uid="uid://b5d5u1gteslnb"]
 
 [ext_resource type="Script" path="res://Objects/Player/PlayerCamera.cs" id="1_rh5fg"]
+[ext_resource type="Texture2D" uid="uid://cjrijps12imsg" path="res://Assets/panorama_image.png" id="2_0lfob"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_2f021"]
+panorama = ExtResource("2_0lfob")
+
+[sub_resource type="Sky" id="Sky_oce4h"]
+sky_material = SubResource("PanoramaSkyMaterial_2f021")
 
 [sub_resource type="Environment" id="Environment_qywyq"]
-background_mode = 1
+background_mode = 2
+sky = SubResource("Sky_oce4h")
 
 [node name="PlayerCamera" type="Node3D"]
 script = ExtResource("1_rh5fg")

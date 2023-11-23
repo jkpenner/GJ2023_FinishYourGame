@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://fkwduka2l4a4"]
+[gd_scene load_steps=42 format=3 uid="uid://dsc8pvwmyuwfi"]
 
 [ext_resource type="Script" path="res://Game/GameManager.cs" id="1_3ne7h"]
 [ext_resource type="Resource" uid="uid://k5vdxex2jteo" path="res://Game/Encounters/TestEncounter/TestEncounter.tres" id="2_rd38y"]
@@ -40,7 +40,7 @@
 [ext_resource type="PackedScene" uid="uid://bvcjnwns7wnyx" path="res://Scenes/UI.tscn" id="28_rqsuf"]
 [ext_resource type="PackedScene" uid="uid://ds2o87mjamrj4" path="res://UI/Utility/UIFade.tscn" id="29_qwc62"]
 [ext_resource type="PackedScene" uid="uid://dia3yt47b5xv4" path="res://Objects/Structure/Walls/TileWallCornerInner.tscn" id="32_gbvwc"]
-[ext_resource type="PackedScene" uid="uid://cjsoxqmvrc78x" path="res://Objects/Structure/Walls/TileWallCap.tscn" id="33_apvkk"]
+[ext_resource type="PackedScene" path="res://Objects/Structure/Walls/TileWallCap.tscn" id="33_apvkk"]
 
 [node name="GameManager" type="Node" node_paths=PackedStringArray("fade", "player", "playerShip")]
 script = ExtResource("1_3ne7h")
