@@ -1,0 +1,23 @@
+[gd_resource type="VisualShader" load_steps=3 format=3 uid="uid://cikvqbvdfrmi6"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_1t6t7"]
+input_name = "vertex"
+
+[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_so68k"]
+default_input_values = [0, 15.0, 1, 1.0, 2, 0.0]
+op_type = 0
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+
+
+"
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(400, 160)
+nodes/fragment/2/node = SubResource("VisualShaderNodeInput_1t6t7")
+nodes/fragment/2/position = Vector2(-820, 300)
+nodes/fragment/3/node = SubResource("VisualShaderNodeVectorCompose_so68k")
+nodes/fragment/3/position = Vector2(-340, 320)

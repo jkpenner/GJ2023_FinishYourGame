@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8h327t0aoe3d"]
+
+[ext_resource type="Shader" path="res://Assets/Shaders/test.gdshader" id="1_nhvni"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fp82o"]
+render_priority = 0
+shader = ExtResource("1_nhvni")
+
+[sub_resource type="SphereMesh" id="SphereMesh_6pj58"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_fp82o")
+mesh = SubResource("SphereMesh_6pj58")
