@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bvcjnwns7wnyx"]
+[gd_scene load_steps=11 format=3 uid="uid://bvcjnwns7wnyx"]
 
 [ext_resource type="PackedScene" uid="uid://brv5sb3yx1tt" path="res://UI/EnemyCards/UIEnemyCardController.tscn" id="1_beiqm"]
 [ext_resource type="PackedScene" uid="uid://bt4so6txrls2p" path="res://UI/UIHullBreachNotification.tscn" id="3_sj372"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cmpsetgo87n82" path="res://UI/Systems/UISystemStatus.tscn" id="7_f505c"]
 [ext_resource type="PackedScene" uid="uid://d1a4m6lsivhwn" path="res://UI/Screens/UIGameOverScreen.tscn" id="8_xmwj4"]
 [ext_resource type="PackedScene" uid="uid://bfhfxtptg5ogg" path="res://UI/Screens/UIVictoryScreen.tscn" id="9_1gwmy"]
+[ext_resource type="Script" path="res://UI/Systems/UIWeaponContainer.cs" id="10_b74kg"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -87,3 +88,19 @@ layout_mode = 1
 
 [node name="UIVictoryScreen" parent="." instance=ExtResource("9_1gwmy")]
 layout_mode = 1
+
+[node name="UIWeaponContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -61.0
+offset_top = -63.0
+offset_right = -21.0
+offset_bottom = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 2
+script = ExtResource("10_b74kg")
