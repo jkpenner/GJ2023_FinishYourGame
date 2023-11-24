@@ -1,0 +1,39 @@
+[gd_resource type="ShaderMaterial" load_steps=8 format=3 uid="uid://8yah45cdwxtp"]
+
+[ext_resource type="Shader" path="res://Shaders/FireShader.gdshader" id="1_rqcvq"]
+
+[sub_resource type="Gradient" id="Gradient_bj1q8"]
+offsets = PackedFloat32Array(0.585366, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_05bq1"]
+frequency = 0.1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0rakt"]
+seamless = true
+color_ramp = SubResource("Gradient_bj1q8")
+noise = SubResource("FastNoiseLite_05bq1")
+
+[sub_resource type="Gradient" id="Gradient_2tfpt"]
+offsets = PackedFloat32Array(0, 0.260163)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bwqct"]
+noise_type = 0
+seed = 20
+frequency = 0.02
+fractal_octaves = 10
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rmba8"]
+seamless = true
+color_ramp = SubResource("Gradient_2tfpt")
+noise = SubResource("FastNoiseLite_bwqct")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_rqcvq")
+shader_parameter/root_color = Color(0, 1, 1, 1)
+shader_parameter/tip_color = Color(0.701961, 1, 0.988235, 1)
+shader_parameter/fire_alpha = 1.0
+shader_parameter/fire_speed = Vector2(0, 0.2)
+shader_parameter/fire_aperture = 0.22
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_rmba8")
+shader_parameter/noise2_tex = SubResource("NoiseTexture2D_0rakt")
