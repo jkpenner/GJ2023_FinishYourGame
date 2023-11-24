@@ -10,15 +10,19 @@ namespace SpaceEngineer
         [Export] Interactable overclock;
         [Export] Interactable repair;
 
+        [ExportGroup("Screens")]
+        [Export] MeshInstance3D[] mainScreens;
+        [Export] MeshInstance3D[] progressScreens;
+
         [ExportGroup("Materials")]
-        public Material active;
-        public Material inactive;
-        public Material overclocked;
+        [Export] Color poweredColor = new Color("#00FF00");
+        [Export] Color disabledColor = new Color("#FFAA00");
+        [Export] Color overclockedColor = new Color("#0000FF");
+        [Export] Color damagedColor = new Color("#FF0000");
+        [Export] Color destroyedColor = new Color("#AA0000");
 
         private GameManager gameManager;
         private ShipSystem system;
-
-        private Node3D[] displays;
 
         public override void _Ready()
         {
@@ -43,10 +47,6 @@ namespace SpaceEngineer
             repair.SetActionText($"Repair {systemType}");
 
             var visual = GetNode<Node3D>("SystemTerminal");
-            foreach(var display in displays)
-            {
-                // display
-            }
         }
 
         private bool OnValidateToggle(PlayerController interator)
@@ -79,27 +79,48 @@ namespace SpaceEngineer
                     toggle.IsInteractable = false;
                     overclock.IsInteractable = false;
                     repair.IsInteractable = true;
+                    SetScreenColor(damagedColor);
                     break;
                 case ShipSystemState.Destroyed:
                     toggle.IsInteractable = false;
                     overclock.IsInteractable = false;
                     repair.IsInteractable = true;
+                    SetScreenColor(destroyedColor);
                     break;
                 case ShipSystemState.Disabled:
                     toggle.IsInteractable = true;
                     overclock.IsInteractable = true;
                     repair.IsInteractable = false;
+                    SetScreenColor(disabledColor);
                     break;
                 case ShipSystemState.Overclocked:
                     toggle.IsInteractable = false;
                     overclock.IsInteractable = false;
                     repair.IsInteractable = false;
+                    SetScreenColor(overclockedColor);
                     break;
                 case ShipSystemState.Powered:
                     toggle.IsInteractable = true;
                     overclock.IsInteractable = true;
                     repair.IsInteractable = false;
+                    SetScreenColor(poweredColor);
                     break;
+            }
+        }
+
+        private void SetScreenColor(Color color)
+        {
+            foreach (var screen in mainScreens)
+            {
+                if (screen.GetSurfaceOverrideMaterial(0) is ShaderMaterial shader)
+                {
+                    shader.SetShaderParameter("fade", 0.0f);
+                    shader.SetShaderParameter("main_color", color);
+                }
+                else
+                {
+                    GD.Print("No ShaderMaterial assigned to MaterialOverride");
+                }
             }
         }
 
