@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c0lsejc0mxtq1"]
+
+[ext_resource type="Shader" path="res://Shaders/PanelVisuals.gdshader" id="1_31cf0"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_31cf0")
+shader_parameter/main_color = Color(0, 0.309804, 0.298039, 1)
+shader_parameter/base_color = Color(0, 0.309804, 0.298039, 1)
+shader_parameter/fade = 0.5
+shader_parameter/fade_size = 0.05
+shader_parameter/pulse_main = false
+shader_parameter/main_pulse_color = Color(0.5, 0.5, 0.5, 1)
+shader_parameter/pulse_base = false
+shader_parameter/base_pulse_color = Color(1, 0.945098, 1, 1)
+shader_parameter/pulse_rate = 10.0
