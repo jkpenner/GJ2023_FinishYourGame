@@ -10,8 +10,15 @@ namespace SpaceEngineer
         [Export] Interactable overclock;
         [Export] Interactable repair;
 
+        [ExportGroup("Materials")]
+        public Material active;
+        public Material inactive;
+        public Material overclocked;
+
         private GameManager gameManager;
         private ShipSystem system;
+
+        private Node3D[] displays;
 
         public override void _Ready()
         {
@@ -34,6 +41,12 @@ namespace SpaceEngineer
             overclock.SetActionText($"Overclock {systemType}");
             repair.Interacted += OnRepairInteraction;
             repair.SetActionText($"Repair {systemType}");
+
+            var visual = GetNode<Node3D>("SystemTerminal");
+            foreach(var display in displays)
+            {
+                // display
+            }
         }
 
         private bool OnValidateToggle(PlayerController interator)
