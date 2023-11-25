@@ -109,6 +109,7 @@ namespace SpaceEngineer
                     visual.SetProgressPulse(true, true, 8f);
                     visual.SetProgressFade(0.0f);
                     visual.SetProgressPulseColors(damagedColor * 1.6f, damagedColor * 1.6f);
+                    visual.SetOverloadBodyVisible(false);
                     break;
                 case ShipSystemState.Destroyed:
                     toggle.IsInteractable = false;
@@ -121,6 +122,7 @@ namespace SpaceEngineer
                     visual.SetProgressPulse(true, true, 8f);
                     visual.SetProgressFade(0.0f);
                     visual.SetProgressPulseColors(destroyedColor * 1.6f, destroyedColor * 1.6f);
+                    visual.SetOverloadBodyVisible(false);
                     break;
                 case ShipSystemState.Disabled:
                     toggle.IsInteractable = true;
@@ -130,6 +132,7 @@ namespace SpaceEngineer
                     visual.SetNormalScreenPulseMode(false);
                     visual.SetProgressColors(disabledColor, disabledColor);
                     visual.SetProgressPulse(false, false);
+                    visual.SetOverloadBodyVisible(false);
                     break;
                 case ShipSystemState.Overclocked:
                     toggle.IsInteractable = false;
@@ -141,6 +144,7 @@ namespace SpaceEngineer
                     visual.SetProgressPulse(true, true, 10f);
                     visual.SetProgressFade(0.0f);
                     visual.SetProgressPulseColors(overclockedColor * 2f, overclockedColor * 0.4f);
+                    visual.SetOverloadBodyVisible(true);
                     break;
                 case ShipSystemState.Powered:
                     toggle.IsInteractable = true;
@@ -150,6 +154,7 @@ namespace SpaceEngineer
                     visual.SetNormalScreenPulseMode(false);
                     visual.SetProgressColors(poweredColor, poweredColor);
                     visual.SetProgressPulse(false, false);
+                    visual.SetOverloadBodyVisible(false);
                     break;
             }
         }

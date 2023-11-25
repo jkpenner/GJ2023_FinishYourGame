@@ -6,6 +6,7 @@ namespace SpaceEngineer
     {
         [Export] ShaderMaterial normalShaderMaterial;
         [Export] ShaderMaterial progressShaderMaterial;
+        [Export] Node3D overloadBody;
 
         private readonly static string[] NormalScreenPaths = new string[]
         {
@@ -25,6 +26,7 @@ namespace SpaceEngineer
         public override void _Ready()
         {
             normalScreens = new MeshInstance3D[NormalScreenPaths.Length];
+            overloadBody.Visible = false;
 
             for (int i = 0; i < NormalScreenPaths.Length; i++)
             {
@@ -80,6 +82,11 @@ namespace SpaceEngineer
         {
                 progressShaderMaterial.SetShaderParameter("main_pulse_color", mainColor);
                 progressShaderMaterial.SetShaderParameter("base_pulse_color", baseColor);
+        }
+        
+        public void SetOverloadBodyVisible(bool visible)
+        {
+            overloadBody.Visible = visible;
         }
     }
 }

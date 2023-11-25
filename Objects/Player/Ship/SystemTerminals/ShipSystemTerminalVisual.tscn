@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://bovmjwgenxxc8"]
+[gd_scene load_steps=2 format=3 uid="uid://b8o2cefjclo7"]
 
 [ext_resource type="Script" path="res://Objects/Player/Ship/SystemTerminals/ShipSystemTerminalVisual.cs" id="1_pvjwr"]
 
