@@ -365,18 +365,18 @@ namespace SpaceEngineer
 
 			if (MoveAndSlide())
 			{
-				if (IsOnWall() && !isOnWall)
-				{
-					isOnWall = true;
-					var forward = CalculateForwardVectorAfterCollision();
-					GlobalTransform = GlobalTransform.LookingAt(GlobalPosition + forward, Vector3.Up);
-				}
+				// if (IsOnWall() && !isOnWall)
+				// {
+				// 	isOnWall = true;
+				// 	var forward = CalculateForwardVectorAfterCollision();
+				// 	GlobalTransform = GlobalTransform.LookingAt(GlobalPosition + forward, Vector3.Up);
+				// }
 			}
 
-			if (!IsOnWall() && isOnWall)
-			{
-				isOnWall = false;
-			}
+			// if (!IsOnWall() && isOnWall)
+			// {
+			// 	isOnWall = false;
+			// }
 
 			if (GetInputDirection().Length() >= 0.2f)
 			{
