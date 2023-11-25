@@ -17,7 +17,7 @@ namespace SpaceEngineer
 
     public partial class Station : Node3D
     {
-        public const string ITEM_VISUAL_PARENT_NODE_PATH = "ItemVisualParent";
+        public virtual string ITEM_VISUAL_PARENT_NODE_PATH { get => "ItemVisualParent"; }
 
         public StationState State { get; private set; }
         public Item HeldItem
