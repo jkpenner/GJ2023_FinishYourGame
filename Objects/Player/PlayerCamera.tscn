@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b5d5u1gteslnb"]
 
 [ext_resource type="Script" path="res://Objects/Player/PlayerCamera.cs" id="1_rh5fg"]
-[ext_resource type="Texture2D" uid="uid://cjrijps12imsg" path="res://Assets/panorama_image.png" id="2_0lfob"]
+[ext_resource type="Texture2D" path="res://Assets/panorama_image.png" id="2_0lfob"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_2f021"]
 panorama = ExtResource("2_0lfob")
@@ -17,7 +17,7 @@ sky = SubResource("Sky_oce4h")
 script = ExtResource("1_rh5fg")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 5.5, 3.5)
+transform = Transform3D(1, 0, 0, 0, 0.573576, 0.819152, 0, -0.819152, 0.573576, 0, 5, 2)
 current = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
