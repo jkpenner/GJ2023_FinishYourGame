@@ -23,6 +23,8 @@ namespace SpaceEngineer
 
         private GameManager gameManager;
         private ShipSystem system;
+        private ShipSystemTerminalVisual visual;
+        private Label3D status;
 
         public override void _Ready()
         {
@@ -30,6 +32,14 @@ namespace SpaceEngineer
             {
                 return;
             }
+
+            visual = GetNode<ShipSystemTerminalVisual>("ShipSystemTerminalVisual");
+            if (visual is null)
+            {
+                GD.PrintErr("Failed to find terminal visual in children");
+            }
+
+            status = GetNode<Label3D>("SystemStatus");
 
             system = gameManager.PlayerShip.GetSystem(systemType);
             if (system is not null)
@@ -46,7 +56,7 @@ namespace SpaceEngineer
             repair.Interacted += OnRepairInteraction;
             repair.SetActionText($"Repair {systemType}");
 
-            var visual = GetNode<Node3D>("SystemTerminal");
+            
         }
 
         private bool OnValidateToggle(PlayerController interator)
@@ -71,39 +81,75 @@ namespace SpaceEngineer
             }
         }
 
+        public override void _Process(double delta)
+        {
+            if (system is not null && system.State == ShipSystemState.Overclocked)
+            {
+                visual.SetProgressFade(1.0f - (system.OverclockRemainder / system.OverclockDuration));
+            }
+        }
+
         private void OnSystemStateChanged()
         {
+            status.Text = system.State.ToString();
+
             switch (system.State)
             {
                 case ShipSystemState.Damaged:
+                    
+
                     toggle.IsInteractable = false;
                     overclock.IsInteractable = false;
                     repair.IsInteractable = true;
-                    SetScreenColor(damagedColor);
+                    
+                    visual.SetNormalScreenColor(damagedColor);
+                    visual.SetNormalScreenPulseMode(true, 8f);
+                    visual.SetNormalScreenPulseColor(damagedColor * 1.2f);
+                    visual.SetProgressColors(damagedColor, damagedColor);
+                    visual.SetProgressPulse(true, true, 8f);
+                    visual.SetProgressFade(0.0f);
+                    visual.SetProgressPulseColors(damagedColor * 1.6f, damagedColor * 1.6f);
                     break;
                 case ShipSystemState.Destroyed:
                     toggle.IsInteractable = false;
                     overclock.IsInteractable = false;
                     repair.IsInteractable = true;
-                    SetScreenColor(destroyedColor);
+                    visual.SetNormalScreenColor(destroyedColor);
+                    visual.SetNormalScreenPulseMode(true, 8f);
+                    visual.SetNormalScreenPulseColor(destroyedColor * 1.2f);
+                    visual.SetProgressColors(destroyedColor, destroyedColor);
+                    visual.SetProgressPulse(true, true, 8f);
+                    visual.SetProgressFade(0.0f);
+                    visual.SetProgressPulseColors(destroyedColor * 1.6f, destroyedColor * 1.6f);
                     break;
                 case ShipSystemState.Disabled:
                     toggle.IsInteractable = true;
                     overclock.IsInteractable = true;
                     repair.IsInteractable = false;
-                    SetScreenColor(disabledColor);
+                    visual.SetNormalScreenColor(disabledColor);
+                    visual.SetNormalScreenPulseMode(false);
+                    visual.SetProgressColors(disabledColor, disabledColor);
+                    visual.SetProgressPulse(false, false);
                     break;
                 case ShipSystemState.Overclocked:
                     toggle.IsInteractable = false;
                     overclock.IsInteractable = false;
                     repair.IsInteractable = false;
-                    SetScreenColor(overclockedColor);
+                    visual.SetNormalScreenColor(overclockedColor);
+                    visual.SetNormalScreenPulseMode(false);
+                    visual.SetProgressColors(overclockedColor * 0.8f, overclockedColor * 0.2f);
+                    visual.SetProgressPulse(true, true, 10f);
+                    visual.SetProgressFade(0.0f);
+                    visual.SetProgressPulseColors(overclockedColor * 2f, overclockedColor * 0.4f);
                     break;
                 case ShipSystemState.Powered:
                     toggle.IsInteractable = true;
                     overclock.IsInteractable = true;
                     repair.IsInteractable = false;
-                    SetScreenColor(poweredColor);
+                    visual.SetNormalScreenColor(poweredColor);
+                    visual.SetNormalScreenPulseMode(false);
+                    visual.SetProgressColors(poweredColor, poweredColor);
+                    visual.SetProgressPulse(false, false);
                     break;
             }
         }

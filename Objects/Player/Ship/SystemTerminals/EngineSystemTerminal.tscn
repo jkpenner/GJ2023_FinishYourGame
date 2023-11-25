@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cj2x356scj2ji"]
+[gd_scene load_steps=12 format=3 uid="uid://cj2x356scj2ji"]
 
 [ext_resource type="Script" path="res://Objects/Stations/Interactable.cs" id="1_87s0l"]
 [ext_resource type="Script" path="res://Objects/Player/Ship/SystemTerminals/ShipSystemTerminal.cs" id="1_y2r7e"]
 [ext_resource type="PackedScene" uid="uid://btxgsuvix2gq1" path="res://Assets/Models/SystemTerminal.gltf" id="3_kshgw"]
-[ext_resource type="Material" uid="uid://c0lsejc0mxtq1" path="res://Shaders/PanelVisualMaterial.tres" id="4_me876"]
+[ext_resource type="Script" path="res://Objects/Player/Ship/SystemTerminals/ShipSystemTerminalVisual.cs" id="4_n5eky"]
+[ext_resource type="Shader" path="res://Shaders/PanelVisuals.gdshader" id="5_xio5j"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_7kjew"]
 
@@ -15,26 +16,39 @@ size = Vector3(3, 1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5g8aj"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qlvni"]
+render_priority = 0
+shader = ExtResource("5_xio5j")
+shader_parameter/main_color = Color(1, 0.75, 0.3, 1)
+shader_parameter/base_color = Color(1, 0.03, 0.001, 1)
+shader_parameter/fade = 0.5
+shader_parameter/fade_size = 0.1
+shader_parameter/pulse_main = false
+shader_parameter/main_pulse_color = Color(1, 1, 1, 1)
+shader_parameter/pulse_base = false
+shader_parameter/base_pulse_color = Color(1, 1, 1, 1)
+shader_parameter/pulse_rate = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kv3xx"]
+render_priority = 0
+shader = ExtResource("5_xio5j")
+shader_parameter/main_color = Color(1, 0.75, 0.3, 1)
+shader_parameter/base_color = Color(1, 0.03, 0.001, 1)
+shader_parameter/fade = 0.5
+shader_parameter/fade_size = 0.1
+shader_parameter/pulse_main = false
+shader_parameter/main_pulse_color = Color(1, 1, 1, 1)
+shader_parameter/pulse_base = false
+shader_parameter/base_pulse_color = Color(1, 1, 1, 1)
+shader_parameter/pulse_rate = 3.0
+
 [node name="EngineSystemTerminal" type="Node3D" node_paths=PackedStringArray("toggle", "overclock", "repair", "mainScreens", "progressScreens")]
 script = ExtResource("1_y2r7e")
 toggle = NodePath("ToggleInteractable")
 overclock = NodePath("OverclockInteractable")
 repair = NodePath("RepairInteractable")
-mainScreens = [NodePath("SystemTerminal/SecondaryMonitor1"), NodePath("SystemTerminal/SecondaryMonitor2"), NodePath("SystemTerminal/MainMonitor")]
+mainScreens = []
 progressScreens = []
-
-[node name="Toggle" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, -0.0451622, 0.941455, 0.0903796)
-text = "Toggle"
-
-[node name="Overclock" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 2.00518, 0.916209, 0.0978902)
-text = "Overclock"
-
-[node name="SystemName" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.967015, 0.25472, 0, -0.25472, 0.967015, 1.02567, 1.66825, -0.274991)
-text = "Engines"
-font_size = 62
 
 [node name="ToggleInteractable" type="Area3D" parent="." node_paths=PackedStringArray("promptLocation")]
 script = ExtResource("1_87s0l")
@@ -84,19 +98,26 @@ shape = SubResource("BoxShape3D_jdvwr")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, 0.450553)
 shape = SubResource("BoxShape3D_5g8aj")
 
-[node name="SystemTerminal" parent="." instance=ExtResource("3_kshgw")]
+[node name="ShipSystemTerminalVisual" parent="." instance=ExtResource("3_kshgw")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+script = ExtResource("4_n5eky")
+normalShaderMaterial = SubResource("ShaderMaterial_qlvni")
+progressShaderMaterial = SubResource("ShaderMaterial_kv3xx")
 
-[node name="CenterIndicators" parent="SystemTerminal" index="1"]
-surface_material_override/0 = ExtResource("4_me876")
+[node name="Toggle" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0.925117, 0.0779471)
+text = "Toggle"
 
-[node name="SecondaryMonitor1" parent="SystemTerminal" index="2"]
-surface_material_override/0 = ExtResource("4_me876")
+[node name="Overclock" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 1.97768, 0.925117, 0.0779471)
+text = "Overclock"
 
-[node name="SecondaryMonitor2" parent="SystemTerminal" index="3"]
-surface_material_override/0 = ExtResource("4_me876")
+[node name="SystemName" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.969471, 0.245206, 0, -0.245206, 0.969471, 1.08875, 1.66497, -0.285579)
+text = "Engines"
+font_size = 68
 
-[node name="MainMonitor" parent="SystemTerminal" index="4"]
-surface_material_override/0 = ExtResource("4_me876")
-
-[editable path="SystemTerminal"]
+[node name="SystemStatus" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.969471, 0.245206, 0, -0.245206, 0.969471, 1.08875, 1.40136, -0.240693)
+text = "Status"
+font_size = 40

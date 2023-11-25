@@ -38,6 +38,8 @@ namespace SpaceEngineer
             NormalEnergy = normalEnergy;
             OverclockEnergy = overclockEnergy;
             OverclockDuration = overclockDuration;
+
+            StateChanged?.Invoke();
         }
 
         public void Process(double delta)
