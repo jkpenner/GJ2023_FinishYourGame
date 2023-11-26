@@ -24,12 +24,14 @@ namespace SpaceEngineer
 		[ExportGroup("Dash")]
 		[Export] float dashTurnRate = 5f;
 		[Export] float dashSpeed = 10f;
+		[Export] bool dropItemOnDash = false;
 
 		[ExportGroup("Knockback")]
 		[Export] float knockbackDuration = 2f;
 		[Export] float knockbackDirChangeTime = 0.25f;
 		[Export] float knockbackSpeed = 15f;
 		[Export] float knockbackTurnRate = 10f;
+		[Export] bool dropItemOnKnockback = true;
 
 		[ExportGroup("Inputs")]
 		[Export] private string moveForwardAction = "P1MoveForward";
@@ -515,7 +517,10 @@ namespace SpaceEngineer
 			playerAnimationPlayer.Play("Tuck");
 			ballVisual.Show();
 
-			DropItem();
+			if (dropItemOnDash)
+			{
+				DropItem();
+			}
 		}
 
 		private void StopDash()
@@ -538,7 +543,10 @@ namespace SpaceEngineer
 			playerAnimationPlayer.Play("Tuck");
 			ballVisual.Show();
 
-			DropItem();
+			if (dropItemOnKnockback)
+			{
+				DropItem();
+			}
 		}
 
 		public void DropItem()
