@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://do3hptj36g5do"]
+[gd_scene load_steps=22 format=3 uid="uid://do3hptj36g5do"]
 
 [ext_resource type="Script" path="res://Scenes/MainMenu.cs" id="1_tat6t"]
 [ext_resource type="PackedScene" uid="uid://usiuttau5e17" path="res://Objects/Structure/Walls/TileWallCornerOuterSegA.tscn" id="2_fvew2"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cst3ihv3rfbw4" path="res://Objects/Structure/Floor/TileFloorSquareMD.tscn" id="6_k6oti"]
 [ext_resource type="PackedScene" uid="uid://blopfkak2frko" path="res://Objects/Structure/Floor/TileFloorTriangleMD.tscn" id="7_wuuv7"]
 [ext_resource type="PackedScene" uid="uid://flbva3d5aoil" path="res://Objects/Stations/Conveyor/ConveyorMiddle.tscn" id="8_2owry"]
+[ext_resource type="Texture2D" uid="uid://cjrijps12imsg" path="res://Assets/panorama_image.png" id="9_77ky7"]
 [ext_resource type="PackedScene" uid="uid://dqxj4cu3cdf05" path="res://Assets/Models/Characters/Hamster.gltf" id="9_kh1s6"]
 [ext_resource type="PackedScene" uid="uid://wudjawugkbpm" path="res://Assets/Models/Items/KineticAmmo.gltf" id="9_uynn2"]
 [ext_resource type="PackedScene" uid="uid://br117piwbw8uy" path="res://Assets/Models/Characters/HamsterBall.gltf" id="10_e8iro"]
@@ -15,17 +16,17 @@
 [ext_resource type="PackedScene" uid="uid://bqi3mj75tceof" path="res://Assets/Models/Items/Missiles.gltf" id="11_kjeg0"]
 [ext_resource type="PackedScene" uid="uid://b6twkhfyxxry1" path="res://Assets/Models/Items/Scrap.gltf" id="12_mb76s"]
 [ext_resource type="PackedScene" uid="uid://ds2o87mjamrj4" path="res://UI/Utility/UIFade.tscn" id="15_e3b4f"]
+[ext_resource type="PackedScene" path="res://Scenes/space_particles.tscn" id="16_edm6m"]
 
-[sub_resource type="Sky" id="Sky_p7pr1"]
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_irv4e"]
+panorama = ExtResource("9_77ky7")
 
-[sub_resource type="Environment" id="Environment_5vjnn"]
-background_mode = 1
-sky = SubResource("Sky_p7pr1")
-ambient_light_source = 2
-ambient_light_color = Color(0.784314, 0.784314, 0.784314, 1)
-ssao_intensity = 6.04
-sdfgi_enabled = true
-sdfgi_read_sky_light = false
+[sub_resource type="Sky" id="Sky_oce4h"]
+sky_material = SubResource("PanoramaSkyMaterial_irv4e")
+
+[sub_resource type="Environment" id="Environment_3yyi1"]
+background_mode = 2
+sky = SubResource("Sky_oce4h")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t0c0a"]
 bg_color = Color(0.12549, 0.12549, 0.12549, 1)
@@ -37,12 +38,15 @@ corner_radius_bottom_left = 40
 [node name="Main" type="Node" node_paths=PackedStringArray("fade", "hallwayObjects", "hallwayStart", "hallwayEnd", "conveyorObjects", "conveyorStart", "conveyorEnd")]
 script = ExtResource("1_tat6t")
 fade = NodePath("Control/UIFade")
-hallwayObjects = []
+hallwayObjects = [NodePath("Scene/HallwayObjects/Hamster"), NodePath("Scene/HallwayObjects/HamsterBall")]
 hallwayStart = NodePath("Scene/HallwayStart")
 hallwayEnd = NodePath("Scene/HallwayEnd")
-conveyorObjects = []
+conveyorObjects = [NodePath("Scene/ConveyorObjects/KineticAmmo"), NodePath("Scene/ConveyorObjects/LaserAmmo"), NodePath("Scene/ConveyorObjects/Missiles"), NodePath("Scene/ConveyorObjects/Scrap")]
 conveyorStart = NodePath("Scene/ConveyorStart")
 conveyorEnd = NodePath("Scene/ConveyorEnd")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3yyi1")
 
 [node name="Scene" type="Node3D" parent="."]
 
@@ -169,7 +173,6 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4, 0, 
 
 [node name="Camera3D" type="Camera3D" parent="Scene"]
 transform = Transform3D(0.717166, -0.155584, 0.679313, -3.02867e-08, 0.974761, 0.22325, -0.696902, -0.160107, 0.699066, 1.95206, 1.33301, -1.49501)
-environment = SubResource("Environment_5vjnn")
 
 [node name="Lights" type="Node3D" parent="Scene"]
 
@@ -289,3 +292,12 @@ horizontal_alignment = 1
 
 [node name="UIFade" parent="Control" instance=ExtResource("15_e3b4f")]
 layout_mode = 1
+
+[node name="SpaceParticles" parent="." instance=ExtResource("16_edm6m")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -35.8159, 11.828, -4.9727)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 22.2125, 9.90542, -7.64426)
+light_energy = 100.0
+spot_range = 216.15
+spot_angle = 21.41
