@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://do3hptj36g5do"]
+[gd_scene load_steps=23 format=3 uid="uid://do3hptj36g5do"]
 
 [ext_resource type="Script" path="res://Scenes/MainMenu.cs" id="1_tat6t"]
 [ext_resource type="PackedScene" uid="uid://usiuttau5e17" path="res://Objects/Structure/Walls/TileWallCornerOuterSegA.tscn" id="2_fvew2"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://b6twkhfyxxry1" path="res://Assets/Models/Items/Scrap.gltf" id="12_mb76s"]
 [ext_resource type="PackedScene" uid="uid://ds2o87mjamrj4" path="res://UI/Utility/UIFade.tscn" id="15_e3b4f"]
 [ext_resource type="PackedScene" path="res://Scenes/space_particles.tscn" id="16_edm6m"]
+[ext_resource type="PackedScene" uid="uid://bywf2crojw86b" path="res://Assets/Models/Walls/Tile_Wall_Cap.gltf" id="18_efaen"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_irv4e"]
 panorama = ExtResource("9_77ky7")
@@ -301,3 +302,42 @@ transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 
 light_energy = 100.0
 spot_range = 216.15
 spot_angle = 21.41
+
+[node name="Tile_Wall_Cap" parent="." instance=ExtResource("18_efaen")]
+transform = Transform3D(0.586203, 0, 0.810164, 0, 1, 0, -0.810164, 0, 0.586203, 0.241383, 0.00176966, -2.27053)
+
+[node name="Tile_Wall_Cap2" parent="." instance=ExtResource("18_efaen")]
+transform = Transform3D(0.586203, 0, 0.810164, 0, 1, 0, -0.810164, 0, 0.586203, 0.241383, 0.00176966, -1.39866)
+
+[node name="Tile_Wall_Cap3" parent="." instance=ExtResource("18_efaen")]
+transform = Transform3D(0.586203, 0, 0.810164, 0, 1, 0, -0.810164, 0, 0.586203, 0.241383, 0.00176966, -0.496072)
+
+[node name="KineticAmmo" parent="." instance=ExtResource("9_uynn2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.38491, 0, -7.22004)
+
+[node name="KineticAmmo3" parent="." instance=ExtResource("9_uynn2")]
+transform = Transform3D(0.733469, 0, -0.679723, 0, 1, 0, 0.679723, 0, 0.733469, -1.00647, -2.38419e-07, -4.20083)
+
+[node name="KineticAmmo2" parent="." instance=ExtResource("9_uynn2")]
+transform = Transform3D(0.799522, -0.457353, 0.389349, 0.496535, 0.868017, 0, -0.337962, 0.193325, 0.92109, 0.717305, 0.197422, -6.99445)
+
+[node name="LaserAmmo" parent="." instance=ExtResource("10_ri5rb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120577, 0, -1.93891)
+
+[node name="LaserAmmo2" parent="." instance=ExtResource("10_ri5rb")]
+transform = Transform3D(0.935567, 0.353148, -1.54366e-08, 0, -4.37114e-08, -1, -0.353148, 0.935567, -4.08949e-08, -2.53983, 0.147004, -7.68443)
+
+[node name="LaserAmmo5" parent="." instance=ExtResource("10_ri5rb")]
+transform = Transform3D(0.69719, -0.716886, 3.13361e-08, 0, -4.37114e-08, -1, 0.716886, 0.69719, -3.04751e-08, -1.59872, 0.139576, -7.77194)
+
+[node name="LaserAmmo3" parent="." instance=ExtResource("10_ri5rb")]
+transform = Transform3D(0.935567, 0.353148, -1.54366e-08, 0, -4.37114e-08, -1, -0.353148, 0.935567, -4.08949e-08, -2.89609, 0.147004, -7.54996)
+
+[node name="LaserAmmo4" parent="." instance=ExtResource("10_ri5rb")]
+transform = Transform3D(0.935567, 0.353148, -1.54366e-08, 0, -4.37114e-08, -1, -0.353148, 0.935567, -4.08949e-08, -2.65969, 0.427308, -7.63919)
+
+[node name="Missiles" parent="." instance=ExtResource("11_kjeg0")]
+transform = Transform3D(0.833414, 0.55265, -2.41571e-08, 0, -4.37114e-08, -1, -0.55265, 0.833414, -3.64297e-08, 1.95185, 0.145416, -7.52464)
+
+[node name="Missiles2" parent="." instance=ExtResource("11_kjeg0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0603652, 0.0228271, -6.69412)
