@@ -11,6 +11,7 @@ public partial class Treadmill : Node3D
 	private List<PlayerController> players = new List<PlayerController>();
 
 	public Action EnergyGenerated;
+	private MeshInstance3D treadmillWalkway;
 
 	public override void _Ready()
 	{
@@ -26,24 +27,30 @@ public partial class Treadmill : Node3D
 
 		area.BodyEntered += OnBodyEntered;
 		area.BodyExited += OnBodyExited;
+
+		treadmillWalkway = GetNode<MeshInstance3D>("Treadmill2/Treadmill2/TreadmillWalkway");
+		var material = treadmillWalkway.GetSurfaceOverrideMaterial(0);
+		treadmillWalkway.SetSurfaceOverrideMaterial(0, (ShaderMaterial)material.Duplicate());
 	}
 
-    public override void _ExitTree()
-    {
-        if (ship is not null)
+	public override void _ExitTree()
+	{
+		if (ship is not null)
 		{
 			ship.UnregisterTreadmill(this);
 		}
-    }
+	}
 
-    public override void _Process(double delta)
-    {
-        if (players.Count == 0)
+	public override void _Process(double delta)
+	{
+		if (players.Count == 0)
 		{
 			return;
 		}
 
-		foreach(var player in players)
+		float dot = 0f;
+
+		foreach (var player in players)
 		{
 			// if almost stopped ignore.
 			if (player.DesiredVelocity.Length() <= 0.2f)
@@ -52,7 +59,7 @@ public partial class Treadmill : Node3D
 			}
 
 			var direction = player.DesiredVelocity.Normalized();
-			var dot = GlobalTransform.Basis.Z.Dot(direction);
+			dot = GlobalTransform.Basis.Z.Dot(direction);
 			if (Mathf.Abs(dot) > 0.75)
 			{
 				EnergyGenerated?.Invoke();
@@ -61,9 +68,22 @@ public partial class Treadmill : Node3D
 				break;
 			}
 		}
-    }
 
-    private void OnBodyEntered(Node3D body)
+		var material = treadmillWalkway.GetSurfaceOverrideMaterial(0);
+		if (material is ShaderMaterial shader)
+		{
+			if (Mathf.Abs(dot) > 0.75)
+			{
+				shader.SetShaderParameter("speed", 40f * Mathf.Sign(dot));
+			}
+			else
+			{
+				shader.SetShaderParameter("speed", 0f);
+			}
+		}
+	}
+
+	private void OnBodyEntered(Node3D body)
 	{
 		if (body is PlayerController player)
 		{
