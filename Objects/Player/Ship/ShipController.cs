@@ -162,6 +162,8 @@ namespace SpaceEngineer
         private List<Treadmill> treadmills;
         private List<DamagableHull> hulls;
 
+        public IReadOnlyList<DamagableHull> Hulls => hulls;
+
         public event Action Overloading;
         public event Action OverloadEventStarted;
         public event Action OverloadEventCompleted;

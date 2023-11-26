@@ -20,18 +20,25 @@ namespace SpaceEngineer
         [Export] HullState initialState;
         [Export] Item itemGainedAfterScrapped;
         [Export] Item requiredItemToRepair;
+        
 
         private ShipController ship;
         private Node3D armoredVisual;
         private Node3D damagedVisual;
         private Node3D breachedVisual;
         private Interactable interactable;
+        private Node3D warningPosition;
 
         public HullState State { get; private set; }
 
         public delegate void HullEvent(DamagableHull hull);
         public event HullEvent HullBreached;
         public event HullEvent BreachContained;
+
+        public event HullEvent HullDamaged;
+        public event HullEvent HullRepaired;
+
+        public Vector3 GlobalWarningPosition => warningPosition.GlobalPosition;
 
 
         public override void _Ready()
@@ -62,6 +69,8 @@ namespace SpaceEngineer
 
         private void FetchAndValidateSceneNodes()
         {
+            warningPosition = GetNode<Node3D>("WarningPosition");
+
             armoredVisual = GetNode<Node3D>(ARMORED_VISUAL_NODE_PATH);
             if (armoredVisual is null)
             {
@@ -161,6 +170,8 @@ namespace SpaceEngineer
 
             // Play any effects here...
 
+            HullDamaged?.Invoke(this);
+
             if (State == HullState.Breached)
             {
                 HullBreached?.Invoke(this);
@@ -187,6 +198,8 @@ namespace SpaceEngineer
             UpdateVisibility();
 
             // Play any effects here...
+
+            HullRepaired?.Invoke(this);
 
             if (wasBreached)
             {
