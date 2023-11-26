@@ -3,18 +3,38 @@ using Godot;
 
 namespace SpaceEngineer
 {
+    public enum WeaponState
+    {
+        Idle,
+        Loading,
+        Ready,
+        Unlocking,
+    }
+
     public partial class Weapon : Station
     {
+        public override string ITEM_VISUAL_PARENT_NODE_PATH => itemVisualParentPath;
+
         public const string INTERACTABLE_NODE_PATH = "Interactable";
 
         [Export] AmmoType ammoType;
         [Export] string displayName;
+        [Export] string itemVisualParentPath;
+
+        [ExportGroup("Animations")]
+        [Export] string IdleAnim = "Idle";
+        [Export] string LoadAnim = "Load";
+        [Export] string ResetAnim = "Reset";
 
         private ShipController ship;
         private Interactable interactable;
 
         public AmmoType AmmoType => ammoType;
         public string DisplayName => displayName;
+
+        private Node3D visual;
+        private AnimationPlayer animationPlayer;
+        private WeaponState weaponState;
 
         public delegate void WeaponEvent(Weapon weapon);
 
@@ -44,6 +64,8 @@ namespace SpaceEngineer
                 return;
             }
 
+            weaponState = WeaponState.Idle;
+
             ship.RegisterWeapon(this);
 
             ItemPlaced += OnItemPlaced;
@@ -63,10 +85,35 @@ namespace SpaceEngineer
             {
                 this.PrintMissingChildError(INTERACTABLE_NODE_PATH, nameof(Interactable));
             }
+
+            visual = GetNode<Node3D>("Visual");
+            animationPlayer = visual.GetNode<AnimationPlayer>("AnimationPlayer");
+            animationPlayer.AnimationFinished += OnAnimationFinished;
+            animationPlayer.Play(IdleAnim);
         }
+
+        private void OnAnimationFinished(StringName animName)
+        {
+            if (animName == LoadAnim)
+            {
+                weaponState = WeaponState.Ready;
+                WeaponArmed?.Invoke(this);
+            }
+            else if (animName == ResetAnim)
+            {
+                weaponState = WeaponState.Idle;
+            }
+
+        }
+
 
         private bool OnValidateInteration(PlayerController interactor)
         {
+            if (weaponState != WeaponState.Idle)
+            {
+                return false;
+            }
+
             if (HeldItem is null && interactor.HeldItem is not null && interactor.HeldItem.AmmoType == ammoType)
             {
                 interactable.SetActionText("Load Ammo");
@@ -90,7 +137,10 @@ namespace SpaceEngineer
 
         private void OnItemPlaced(Item item)
         {
-            WeaponArmed?.Invoke(this);
+            weaponState = WeaponState.Loading;
+            interactable.IsInteractable = false;
+            animationPlayer.Play(LoadAnim);
+            
         }
 
         private void OnItemTaken(Item item)
@@ -131,7 +181,7 @@ namespace SpaceEngineer
 
         public bool IsReadyToFire()
         {
-            return HeldItem is not null && HeldItem.AmmoType == ammoType;
+            return HeldItem is not null && HeldItem.AmmoType == ammoType && weaponState == WeaponState.Ready;
         }
 
         public void StartFiringProceedure()
@@ -160,6 +210,9 @@ namespace SpaceEngineer
             {
                 interactable.IsInteractable = true;
             }
+
+            weaponState = WeaponState.Unlocking;
+            animationPlayer.Play(ResetAnim);
 
             // Play firing animation and effects here
         }

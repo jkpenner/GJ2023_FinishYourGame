@@ -296,7 +296,7 @@ skin = SubResource("Skin_xebd4")
 surface_material_override/0 = SubResource("StandardMaterial3D_4rfcg")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="ConstructionTerminal/ConstructionTerminalBones/Skeleton3D"]
-transform = Transform3D(0.302781, -0.790089, 0.532994, 0.380371, 0.612953, 0.692536, -0.873866, -0.00695091, 0.486117, 0.69105, 0.905083, 1.00227)
+transform = Transform3D(0.302781, -0.79009, 0.532994, 0.380371, 0.612952, 0.692537, -0.873866, -0.00695151, 0.486117, 0.69105, 0.905083, 1.00227)
 bone_name = "Arm"
 bone_idx = 1
 

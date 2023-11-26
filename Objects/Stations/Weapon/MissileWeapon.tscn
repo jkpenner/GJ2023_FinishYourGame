@@ -1,54 +1,46 @@
-[gd_scene load_steps=8 format=3 uid="uid://ddr10dpgg41f1"]
+[gd_scene load_steps=7 format=3 uid="uid://ddr10dpgg41f1"]
 
 [ext_resource type="Script" path="res://Objects/Stations/Weapon/Weapon.cs" id="1_pt0cn"]
 [ext_resource type="Script" path="res://Objects/Stations/Interactable.cs" id="2_6ey3i"]
+[ext_resource type="PackedScene" uid="uid://cacwm68na1pxi" path="res://Assets/Models/Stations/MissileWeaponLoader.gltf" id="2_cfcxe"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dlxq0"]
+size = Vector3(1, 1, 4.43684)
 
-[sub_resource type="BoxMesh" id="BoxMesh_cv1sa"]
-size = Vector3(0.9, 0.8, 0.9)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xorcr"]
-albedo_color = Color(0.184314, 0.462745, 0.101961, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_dlrjh"]
-size = Vector3(0.8, 0.5, 0.8)
+[sub_resource type="BoxShape3D" id="BoxShape3D_kwdun"]
+size = Vector3(0.821561, 1, 2.85842)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0uutk"]
 
 [node name="MissileWeapon" type="StaticBody3D"]
 script = ExtResource("1_pt0cn")
 ammoType = 1
+itemVisualParentPath = "ItemVisualParent"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1.00884)
 shape = SubResource("BoxShape3D_dlxq0")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
-mesh = SubResource("BoxMesh_cv1sa")
-surface_material_override/0 = SubResource("StandardMaterial3D_xorcr")
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.542744, 0.5, -1.00884)
+shape = SubResource("BoxShape3D_kwdun")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.71259, -0.701581, 0, 0.701581, 0.71259, -0.00242019, 0.851845, -0.0271519)
-mesh = SubResource("BoxMesh_dlrjh")
-surface_material_override/0 = SubResource("StandardMaterial3D_xorcr")
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.574817, 0.5, -1.00884)
+shape = SubResource("BoxShape3D_kwdun")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 2.30742, 0, 0, 0, 0.497809, -0.00232315, 1.20867, -0.259681)
-mesh = SubResource("BoxMesh_dlrjh")
-surface_material_override/0 = SubResource("StandardMaterial3D_xorcr")
+[node name="Visual" parent="." instance=ExtResource("2_cfcxe")]
 
 [node name="ItemVisualParent" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.94077, -0.246546)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.447171, -1.37546)
 
 [node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.642787, 0.766044, 0, -0.766044, 0.642787, 0, 1.09909, 0.166677)
+transform = Transform3D(1, 0, 0, 0, 0.642787, 0.766044, 0, -0.766044, 0.642787, 0, 0.670567, 1.02498)
 text = "Missile
-Weapon"
+Loader"
 
 [node name="Interactable" type="Area3D" parent="." node_paths=PackedStringArray("promptLocation")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.868215, 0.404914)
+transform = Transform3D(1.48912, 0, 0, 0, 1.48912, 0, 0, 0, 1.48912, 0, 0.868215, -1.23358)
 script = ExtResource("2_6ey3i")
 promptLocation = NodePath("../PromptPosition")
 
@@ -56,4 +48,4 @@ promptLocation = NodePath("../PromptPosition")
 shape = SubResource("SphereShape3D_0uutk")
 
 [node name="PromptPosition" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21209, -1.19848)
