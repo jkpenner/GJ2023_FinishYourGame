@@ -215,7 +215,7 @@ namespace SpaceEngineer
 
                 kineticShields.Add(instance);
                 shieldParent.AddChild(instance);
-                instance.SetShieldType(AmmoType.Laser);
+                instance.SetShieldType(AmmoType.Kinetic);
             }
 
             for (int i = 0; i < enemy.MaxMissileShields; i++)
@@ -229,7 +229,7 @@ namespace SpaceEngineer
 
                 missileShields.Add(instance);
                 shieldParent.AddChild(instance);
-                instance.SetShieldType(AmmoType.Laser);
+                instance.SetShieldType(AmmoType.Missile);
             }
         }
 

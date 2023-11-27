@@ -30,10 +30,14 @@ namespace SpaceEngineer
             if (isActive)
             {
                 laserIcon.SelfModulate = new Color("#FFFFFF");
+                kineticIcon.SelfModulate = new Color("#FFFFFF");
+                missileIcon.SelfModulate = new Color("#FFFFFF");
             }
             else
             {
                 laserIcon.SelfModulate = new Color("#999999");
+                kineticIcon.SelfModulate = new Color("#999999");
+                missileIcon.SelfModulate = new Color("#999999");
             }
         }
 
