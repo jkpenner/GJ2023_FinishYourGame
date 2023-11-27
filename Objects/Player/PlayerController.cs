@@ -49,6 +49,7 @@ namespace SpaceEngineer
 		private Node3D heldItemVisual;
 		private AnimationPlayer playerAnimationPlayer;
 		private AnimationPlayer ballAnimationPlayer;
+		private GpuParticles3D ballParticles;
 
 		// Interactions
 		private bool isInteracting = false;
@@ -84,6 +85,9 @@ namespace SpaceEngineer
 
 		private void FetchAndValidateSceneNodes()
 		{
+			ballParticles = GetNode<GpuParticles3D>("HamsterBallParticles");
+			ballParticles.Emitting = false;
+
 			playerVisual = GetNode<Node3D>(PLAYER_VISUAL_NODE_PATH);
 			if (playerVisual is not null)
 			{
@@ -517,6 +521,8 @@ namespace SpaceEngineer
 			playerAnimationPlayer.Play("Tuck");
 			ballVisual.Show();
 
+			ballParticles.Emitting = true;
+
 			if (dropItemOnDash)
 			{
 				DropItem();
@@ -525,6 +531,7 @@ namespace SpaceEngineer
 
 		private void StopDash()
 		{
+			ballParticles.Emitting = false;
 			ballVisual.Hide();
 			playerVisual.Show();
 			playerAnimationPlayer.PlayBackwards("Tuck");
@@ -542,6 +549,8 @@ namespace SpaceEngineer
 			SetState(PlayerState.Knockback);
 			playerAnimationPlayer.Play("Tuck");
 			ballVisual.Show();
+
+			ballParticles.Emitting = true;
 
 			if (dropItemOnKnockback)
 			{

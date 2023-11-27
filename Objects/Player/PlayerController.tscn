@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dma4yhapsggvq"]
+[gd_scene load_steps=13 format=3 uid="uid://dma4yhapsggvq"]
 
 [ext_resource type="Script" path="res://Objects/Player/PlayerController.cs" id="1_rq43e"]
 [ext_resource type="PackedScene" uid="uid://dqxj4cu3cdf05" path="res://Assets/Models/Characters/Hamster.gltf" id="2_0paya"]
@@ -10,6 +10,46 @@ height = 1.4
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_75jvu"]
 radius = 1.0
+
+[sub_resource type="Gradient" id="Gradient_1klw8"]
+offsets = PackedFloat32Array(0, 0.102113, 0.447183, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0d3f0"]
+gradient = SubResource("Gradient_1klw8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ywn74"]
+lifetime_randomness = 0.24
+direction = Vector3(0, 0.25, -1)
+spread = 20.0
+flatness = 0.25
+gravity = Vector3(0, -0.25, 0)
+initial_velocity_min = 1.5
+initial_velocity_max = 2.0
+damping_min = 0.25
+damping_max = 1.0
+scale_min = 0.25
+color = Color(0.364706, 0.364706, 0.364706, 1)
+color_ramp = SubResource("GradientTexture1D_0d3f0")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wydn2"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xuoqc"]
+in_3d_space = true
+noise = SubResource("FastNoiseLite_wydn2")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6qcos"]
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("NoiseTexture2D_xuoqc")
+
+[sub_resource type="SphereMesh" id="SphereMesh_r834d"]
+material = SubResource("StandardMaterial3D_6qcos")
+radius = 0.2
+height = 0.4
+radial_segments = 6
+rings = 6
 
 [node name="PlayerController" type="CharacterBody3D"]
 collision_layer = 3
@@ -37,3 +77,10 @@ shape = SubResource("SphereShape3D_75jvu")
 
 [node name="ItemVisualParent" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45716, 0)
+
+[node name="HamsterBallParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.249505)
+amount = 64
+visibility_aabb = AABB(-4, -4, -4.11963, 8, 8, 8)
+process_material = SubResource("ParticleProcessMaterial_ywn74")
+draw_pass_1 = SubResource("SphereMesh_r834d")
