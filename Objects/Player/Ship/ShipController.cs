@@ -186,6 +186,8 @@ namespace SpaceEngineer
         public event Action<Weapon> WeaponLoading;
         public event Action<Weapon> WeaponFired;
 
+        public event DamagableHull.HullEvent HullDamaged;
+
         public ShipController()
         {
             WeaponSystem = new ShipSystem();
@@ -345,7 +347,7 @@ namespace SpaceEngineer
                     combatTargetingCounter += (float)delta;
                     if (combatTargetingCounter > weaponTargetingDuration)
                     {
-                        GD.Print("Damaging Target");
+                        // GD.Print("Damaging Target");
                         combatTargetingCounter = 0f;
                         ActiveTarget.Damage(ActiveWeapon.AmmoType);
 
@@ -364,7 +366,7 @@ namespace SpaceEngineer
 
         private void AttackTarget(EnemyController enemy, AmmoType ammoType)
         {
-            GD.Print($"Attacking target");
+            // GD.Print($"Attacking target");
             CombatState = ShipCombatState.Targeting;
             ActiveTarget = enemy;
             ActiveWeapon = GetReadyWeapon(ammoType);
@@ -468,7 +470,7 @@ namespace SpaceEngineer
 
             if (random.NextSingle() > hitChance)
             {
-                GD.Print("Damage Missed the ship");
+                // GD.Print("Damage Missed the ship");
                 return DamageType.Missed;
             }
 
@@ -490,7 +492,7 @@ namespace SpaceEngineer
                         continue;
                     }
 
-                    GD.Print($"Taking 1 damage to shields");
+                    // GD.Print($"Taking 1 damage to shields");
                     ShieldCharges -= 1;
                 }
 
@@ -520,7 +522,7 @@ namespace SpaceEngineer
                 return DamageType.Missed;
             }
 
-            GD.Print($"Taking {hullDamage} hull damage");
+            // GD.Print($"Taking {hullDamage} hull damage");
 
             // Find all hulls that can be damage
             var targets = hulls.Where(h => h.CanBeDamaged()).ToList();
@@ -535,7 +537,7 @@ namespace SpaceEngineer
 
                 if (random.NextSingle() <= dodgeChange)
                 {
-                    GD.Print("Dodged part of the enemy attack");
+                    // GD.Print("Dodged part of the enemy attack");
                     continue;
                 }
 
@@ -587,7 +589,7 @@ namespace SpaceEngineer
                 lifeSupportCounter += (float)delta;
                 if (lifeSupportCounter >= lifeSupportDuration)
                 {
-                    GD.Print("Life support ran out.");
+                    // GD.Print("Life support ran out.");
                     LifeSupportDepleted?.Invoke();
                 }
             }
@@ -656,13 +658,13 @@ namespace SpaceEngineer
 
             if (EnergyUsage > EnergyCapacity && OverloadState == ShipOverloadState.NotOverloaded)
             {
-                GD.Print($"Ship energy is overloading ({timeTillOverload} seconds)");
+                // GD.Print($"Ship energy is overloading ({timeTillOverload} seconds)");
                 OverloadState = ShipOverloadState.Overloading;
                 Overloading?.Invoke();
             }
             else if (EnergyUsage <= EnergyCapacity && OverloadState == ShipOverloadState.Overloading)
             {
-                GD.Print("Ship energy returned to normal, cooling down.");
+                // GD.Print("Ship energy returned to normal, cooling down.");
                 OverloadState = ShipOverloadState.NotOverloaded;
                 EnergyNormalized?.Invoke();
             }
@@ -776,6 +778,7 @@ namespace SpaceEngineer
             }
 
             hulls.Add(damagableHull);
+            damagableHull.HullDamaged += OnHullDamaged;
         }
 
         public void UnregisterHull(DamagableHull damagableHull)
@@ -785,7 +788,13 @@ namespace SpaceEngineer
                 return;
             }
 
+            damagableHull.HullDamaged -= OnHullDamaged;
             hulls.Remove(damagableHull);
+        }
+
+        private void OnHullDamaged(DamagableHull hull)
+        {
+            HullDamaged?.Invoke(hull);
         }
 
         public void RegisterWeapon(Weapon weapon)

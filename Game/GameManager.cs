@@ -24,6 +24,7 @@ namespace SpaceEngineer
 
         [Export] UIFade fade;
         [Export] PlayerController player;
+        [Export] PlayerCamera camera;
         [Export] ShipController playerShip;
         [Export] GameEncounter encoutner;
 
@@ -32,6 +33,7 @@ namespace SpaceEngineer
         public bool IsGameActive => State == GameState.Active;
 
         public PlayerController Player => player;
+        public PlayerCamera Camera => camera;
         public ShipController PlayerShip => playerShip;
 
         public List<EnemyController> Enemies { get; private set; } = new List<EnemyController>();
@@ -50,12 +52,32 @@ namespace SpaceEngineer
         {
             RegisterGlobalEvents();
 
+            PlayerShip.HullDamaged += OnHullDamaged;
+            PlayerShip.ShieldBroken += OnShieldBroken;
+
             // Inform game that everything is setup and ready to go.
             SetGameState(GameState.Starting);
 
             fade.FadeInCompleted += OnFadeInCompleted;
             fade.FadeOutCompleted += OnFadeOutCompleted;
         }
+
+        private void OnShieldBroken()
+        {
+            Camera.Shaker.AddTrauma(3f);
+        }
+
+
+        private void OnHullDamaged(DamagableHull hull)
+        {
+            Camera.Shaker.AddTrauma(hull.State switch
+            {
+                HullState.Damaged => 6f,
+                HullState.Breached => 12f,
+                _ => throw new NotImplementedException(),
+            });
+        }
+
 
         private void OnFadeInCompleted()
         {
@@ -78,6 +100,7 @@ namespace SpaceEngineer
 
         public override void _ExitTree()
         {
+            PlayerShip.HullDamaged -= OnHullDamaged;
             UnregisterGlobalEvents();
         }
 

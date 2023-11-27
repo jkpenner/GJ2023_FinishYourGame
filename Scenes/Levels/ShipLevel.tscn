@@ -43,10 +43,11 @@
 [ext_resource type="PackedScene" uid="uid://cjsoxqmvrc78x" path="res://Objects/Structure/Walls/TileWallCap.tscn" id="33_apvkk"]
 [ext_resource type="PackedScene" path="res://Scenes/space_particles.tscn" id="42_rhh4n"]
 
-[node name="GameManager" type="Node" node_paths=PackedStringArray("fade", "player", "playerShip")]
+[node name="GameManager" type="Node" node_paths=PackedStringArray("fade", "player", "camera", "playerShip")]
 script = ExtResource("1_3ne7h")
 fade = NodePath("UIFade")
 player = NodePath("PlayerController")
+camera = NodePath("PlayerCamera")
 playerShip = NodePath("Ship")
 encoutner = ExtResource("2_7m3gg")
 
