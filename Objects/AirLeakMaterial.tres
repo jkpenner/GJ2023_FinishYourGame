@@ -1,0 +1,26 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://6b3s2pnxax86"]
+
+[ext_resource type="Shader" path="res://Shaders/AirLeakShader.gdshader" id="1_fo41o"]
+
+[sub_resource type="Gradient" id="Gradient_2cgwj"]
+offsets = PackedFloat32Array(0, 0.1875, 0.756579, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.141176, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xvhj4"]
+gradient = SubResource("Gradient_2cgwj")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fkjsu"]
+frequency = 0.005
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_401ox"]
+in_3d_space = true
+seamless = true
+noise = SubResource("FastNoiseLite_fkjsu")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_fo41o")
+shader_parameter/speed = 2.0
+shader_parameter/wrapCompress = 11.485
+shader_parameter/noise = SubResource("NoiseTexture2D_401ox")
+shader_parameter/gradient = SubResource("GradientTexture1D_xvhj4")

@@ -20,7 +20,7 @@ namespace SpaceEngineer
         [Export] HullState initialState;
         [Export] Item itemGainedAfterScrapped;
         [Export] Item requiredItemToRepair;
-        
+
 
         private ShipController ship;
         private Node3D armoredVisual;
@@ -28,6 +28,8 @@ namespace SpaceEngineer
         private Node3D breachedVisual;
         private Interactable interactable;
         private Node3D warningPosition;
+        private Node3D shield;
+        private Node3D airleak;
 
         public HullState State { get; private set; }
 
@@ -52,23 +54,50 @@ namespace SpaceEngineer
             }
 
             ship.RegisterHull(this);
+            ship.SystemStateChanged += OnSystemStateChanged;
+
+
 
             FetchAndValidateSceneNodes();
 
             UpdateVisibility();
             UpdateInteractablity();
+
+            shield.Visible = false;
+            airleak.Visible = false;
         }
 
         public override void _ExitTree()
         {
             if (ship is not null)
             {
+                ship.SystemStateChanged -= OnSystemStateChanged;
                 ship.UnregisterHull(this);
+            }
+        }
+
+        private void OnSystemStateChanged(ShipSystemType type)
+        {
+            if (type == ShipSystemType.Shields)
+            {
+                var system = ship.GetSystem(ShipSystemType.Shields);
+                if (State == HullState.Breached)
+                {
+                    shield.Visible = system.State == ShipSystemState.Overclocked;
+                    airleak.Visible = system.State != ShipSystemState.Overclocked;
+                }
+                else
+                {
+                    shield.Visible = false;
+                    airleak.Visible = false;
+                }
             }
         }
 
         private void FetchAndValidateSceneNodes()
         {
+            shield = GetNode<Node3D>("Shield");
+            airleak = GetNode<Node3D>("AirLeak");
             warningPosition = GetNode<Node3D>("WarningPosition");
 
             armoredVisual = GetNode<Node3D>(ARMORED_VISUAL_NODE_PATH);
@@ -175,6 +204,10 @@ namespace SpaceEngineer
             if (State == HullState.Breached)
             {
                 HullBreached?.Invoke(this);
+
+                var system = ship.GetSystem(ShipSystemType.Shields);
+                shield.Visible = system.State == ShipSystemState.Overclocked;
+                airleak.Visible = system.State != ShipSystemState.Overclocked;
             }
         }
 
@@ -204,6 +237,8 @@ namespace SpaceEngineer
             if (wasBreached)
             {
                 BreachContained?.Invoke(this);
+                shield.Visible = false;
+                airleak.Visible = false;
             }
         }
 

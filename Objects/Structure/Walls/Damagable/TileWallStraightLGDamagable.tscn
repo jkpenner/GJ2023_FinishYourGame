@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://drsb1i04eipm"]
+[gd_scene load_steps=12 format=3 uid="uid://drsb1i04eipm"]
 
 [ext_resource type="Script" path="res://Objects/Structure/Walls/Damagable/DamagableHull.cs" id="1_tuayy"]
 [ext_resource type="PackedScene" uid="uid://dl6qvd8ixqpuf" path="res://Assets/Models/Walls/Tile_Wall_Straight_LG_Damaged.gltf" id="2_gjhte"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://rooykdd7dylf" path="res://Assets/Models/Walls/Tile_Wall_Straight_LG.gltf" id="3_gq0q3"]
 [ext_resource type="PackedScene" uid="uid://dlqk2cpif7sxh" path="res://Assets/Models/Walls/Tile_Wall_Straight_LG_Breached.gltf" id="4_7eqor"]
 [ext_resource type="Script" path="res://Objects/Stations/Interactable.cs" id="5_vnfr4"]
+[ext_resource type="PackedScene" uid="uid://d0jvga21va5fk" path="res://Objects/Shield.tscn" id="7_0qcfg"]
+[ext_resource type="PackedScene" uid="uid://caccu2upmhv8u" path="res://Objects/AirLeak.tscn" id="8_cj7t1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mrbfc"]
 size = Vector3(0.5, 2, 4)
@@ -53,3 +55,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -1.5)
 
 [node name="WarningPosition" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.351031, 2.25475, -1.32458)
+
+[node name="Shield" parent="." instance=ExtResource("7_0qcfg")]
+transform = Transform3D(0.972203, -0.234141, 0, 0.234141, 0.972203, 0, 0, 0, 1, 0.0575347, 0.782627, -1.46958)
+
+[node name="AirLeak" parent="." instance=ExtResource("8_cj7t1")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.11665, 1.03034, -1.44322)
