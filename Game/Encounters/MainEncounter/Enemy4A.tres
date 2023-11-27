@@ -5,13 +5,13 @@
 [resource]
 script = ExtResource("1_fhcb2")
 displayName = ""
-laserShields = 2
-kineticShields = 0
-missileShields = 0
-hasKineticWeapon = false
+laserShields = 4
+kineticShields = 2
+missileShields = 2
+hasKineticWeapon = true
 kineticWeaponFireRate = 0.0
 kineticWeaponImpactDelay = 0.0
-hasLaserWeapon = false
+hasLaserWeapon = true
 laserWeaponFireRate = 0.0
 laserWeaponImpactDelay = 0.0
 hasMissileWeapon = true

@@ -5,15 +5,15 @@
 [resource]
 script = ExtResource("1_ks3kd")
 displayName = ""
-laserShields = 5
-kineticShields = 3
-missileShields = 2
-hasKineticWeapon = true
+laserShields = 2
+kineticShields = 0
+missileShields = 0
+hasKineticWeapon = false
 kineticWeaponFireRate = 1.0
 kineticWeaponImpactDelay = 3.0
 hasLaserWeapon = true
 laserWeaponFireRate = 3.0
 laserWeaponImpactDelay = 1.0
-hasMissileWeapon = true
+hasMissileWeapon = false
 missileWeaponFireRate = 2.0
 missileWeaponImpactDelay = 2.0
