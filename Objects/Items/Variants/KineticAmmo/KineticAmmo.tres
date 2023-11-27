@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("1_nu22b")
 displayName = ""
-ammoType = 0
+ammoType = 1
 shieldDamage = 1
 hullDamage = 2
 hitChance = 0.8

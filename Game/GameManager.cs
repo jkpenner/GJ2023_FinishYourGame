@@ -28,6 +28,12 @@ namespace SpaceEngineer
         [Export] ShipController playerShip;
         [Export] GameEncounter encoutner;
 
+        [ExportGroup("Audio")]
+        [Export] AudioStream[] enemyDestroyed;
+        [Export] float enemyDestroyedVolume;
+        [Export] AudioStream[] enemySpawned;
+        [Export] float enemySpawnedVolume;
+
 
         public GameState State { get; private set; }
         public bool IsGameActive => State == GameState.Active;
@@ -35,6 +41,9 @@ namespace SpaceEngineer
         public PlayerController Player => player;
         public PlayerCamera Camera => camera;
         public ShipController PlayerShip => playerShip;
+
+        private AudioStreamPlayer enemyDestroyedPlayer;
+        private AudioStreamPlayer enemySpawnedPlayer;
 
         public List<EnemyController> Enemies { get; private set; } = new List<EnemyController>();
 
@@ -60,6 +69,11 @@ namespace SpaceEngineer
 
             fade.FadeInCompleted += OnFadeInCompleted;
             fade.FadeOutCompleted += OnFadeOutCompleted;
+
+            enemyDestroyedPlayer = new AudioStreamPlayer();
+            AddChild(enemyDestroyedPlayer);
+            enemySpawnedPlayer = new AudioStreamPlayer();
+            AddChild(enemySpawnedPlayer);
         }
 
         private void OnShieldBroken()
@@ -165,6 +179,14 @@ namespace SpaceEngineer
                 if (Enemies[i].IsDestroyed)
                 {
                     Enemies[i].OnDestroyed();
+
+                    if (enemyDestroyed.Length > 0)
+                    {
+                        enemyDestroyedPlayer.VolumeDb = enemyDestroyedVolume;
+                        enemyDestroyedPlayer.Stream = enemyDestroyed[GD.RandRange(0, enemyDestroyed.Length - 1)];
+                        enemyDestroyedPlayer.Play();
+                    }
+
                     GameEvents.EnemyDestroy.Emit(Enemies[i]);
                     Enemies.RemoveAt(i);
                 }
@@ -182,6 +204,14 @@ namespace SpaceEngineer
             var enemy = new EnemyController(enemyData, PlayerShip);
             Enemies.Add(enemy);
             enemy.OnSpawned();
+
+            if (enemySpawned.Length > 0)
+            {
+                enemySpawnedPlayer.VolumeDb = enemySpawnedVolume;
+                enemySpawnedPlayer.Stream = enemySpawned[GD.RandRange(0, enemySpawned.Length - 1)];
+                enemySpawnedPlayer.Play();
+            }
+
             GameEvents.EnemySpawned.Emit(enemy);
         }
 

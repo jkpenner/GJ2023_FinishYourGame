@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("1_vmpy0")
 displayName = ""
-ammoType = 2
+ammoType = 3
 shieldDamage = 3
 hullDamage = 1
 hitChance = 0.9

@@ -1,8 +1,10 @@
-[gd_scene load_steps=43 format=3 uid="uid://dsc8pvwmyuwfi"]
+[gd_scene load_steps=46 format=3 uid="uid://dsc8pvwmyuwfi"]
 
 [ext_resource type="Script" path="res://Game/GameManager.cs" id="1_3ne7h"]
 [ext_resource type="Resource" uid="uid://day32pkpj2r5t" path="res://Game/Encounters/MainEncounter/MainEncounter.tres" id="2_7m3gg"]
+[ext_resource type="AudioStream" uid="uid://ditnrhd03vitr" path="res://Assets/Audio/SFX/EnemyDestroyed01.mp3" id="3_gtsg1"]
 [ext_resource type="Script" path="res://Objects/Player/Ship/ShipController.cs" id="3_xu7sp"]
+[ext_resource type="AudioStream" uid="uid://c5eadou3lex6p" path="res://Assets/Audio/SFX/EnemyDestroyed02.mp3" id="4_0t2yg"]
 [ext_resource type="PackedScene" uid="uid://cr0jw2re5fmo6" path="res://Objects/Structure/Walls/TileWallStraightLG.tscn" id="4_d8p28"]
 [ext_resource type="PackedScene" uid="uid://nx35t6j75l7k" path="res://Objects/Structure/Walls/TileWallCornerInnerRounded.tscn" id="5_kabg4"]
 [ext_resource type="PackedScene" uid="uid://d3bmxjp67y5fy" path="res://Objects/Structure/Floor/TileFloorTriangleLG.tscn" id="5_qbmdl"]
@@ -42,6 +44,7 @@
 [ext_resource type="PackedScene" uid="uid://dia3yt47b5xv4" path="res://Objects/Structure/Walls/TileWallCornerInner.tscn" id="32_gbvwc"]
 [ext_resource type="PackedScene" uid="uid://cjsoxqmvrc78x" path="res://Objects/Structure/Walls/TileWallCap.tscn" id="33_apvkk"]
 [ext_resource type="PackedScene" path="res://Scenes/space_particles.tscn" id="42_rhh4n"]
+[ext_resource type="AudioStream" uid="uid://dh6buxn8h5pfu" path="res://Assets/Audio/Music/GamePlayMusic.mp3" id="43_0gchk"]
 
 [node name="GameManager" type="Node" node_paths=PackedStringArray("fade", "player", "camera", "playerShip")]
 script = ExtResource("1_3ne7h")
@@ -50,6 +53,8 @@ player = NodePath("PlayerController")
 camera = NodePath("PlayerCamera")
 playerShip = NodePath("Ship")
 encoutner = ExtResource("2_7m3gg")
+enemyDestroyed = Array[AudioStream]([ExtResource("3_gtsg1"), ExtResource("4_0t2yg")])
+enemySpawned = Array[AudioStream]([])
 
 [node name="Ship" type="Node3D" parent="."]
 script = ExtResource("3_xu7sp")
@@ -677,3 +682,8 @@ transform = Transform3D(1, 0, 0, 0, 0.55083, 0.834617, 0, -0.834617, 0.55083, 0.
 [node name="UIFade" parent="." instance=ExtResource("29_qwc62")]
 
 [node name="SpaceParticles" parent="." instance=ExtResource("42_rhh4n")]
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("43_0gchk")
+volume_db = -20.0
+autoplay = true

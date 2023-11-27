@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://meina3ocbxe5"]
+[gd_scene load_steps=8 format=3 uid="uid://meina3ocbxe5"]
 
 [ext_resource type="Script" path="res://Objects/Stations/Table/Table.cs" id="1_vdhck"]
 [ext_resource type="PackedScene" uid="uid://bbviq8w0oxdmt" path="res://Assets/Models/Stations/Table_SM.gltf" id="2_5p0nq"]
 [ext_resource type="Script" path="res://Objects/Stations/Interactable.cs" id="2_i16qy"]
+[ext_resource type="AudioStream" uid="uid://du7xc0vbnxdhj" path="res://Assets/Audio/SFX/ItemPlaced.wav" id="2_sldvr"]
+[ext_resource type="AudioStream" uid="uid://cw5e2b1eeoxjo" path="res://Assets/Audio/SFX/ItemPickUp.wav" id="3_axv6e"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dlxq0"]
 
@@ -10,6 +12,9 @@
 
 [node name="Table" type="StaticBody3D"]
 script = ExtResource("1_vdhck")
+volume = -10.0
+placeAudio = ExtResource("2_sldvr")
+takeAudio = ExtResource("3_axv6e")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -30,3 +35,6 @@ shape = SubResource("SphereShape3D_wy4ti")
 
 [node name="PromptPosition" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+volume_db = -10.0

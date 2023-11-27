@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dyy4c3n3auxwx"]
+[gd_scene load_steps=8 format=3 uid="uid://dyy4c3n3auxwx"]
 
 [ext_resource type="Script" path="res://Objects/Stations/Weapon/Weapon.cs" id="1_1iryp"]
+[ext_resource type="AudioStream" uid="uid://du7xc0vbnxdhj" path="res://Assets/Audio/SFX/ItemPlaced.wav" id="2_5re8g"]
 [ext_resource type="PackedScene" uid="uid://mjg7us8pacvx" path="res://Assets/Models/Stations/LaserWeaponLoader.gltf" id="2_klfni"]
 [ext_resource type="Script" path="res://Objects/Stations/Interactable.cs" id="2_wn7lj"]
+[ext_resource type="AudioStream" uid="uid://cw5e2b1eeoxjo" path="res://Assets/Audio/SFX/ItemPickUp.wav" id="3_66w4s"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dlxq0"]
 size = Vector3(1.85889, 1, 1.20974)
@@ -11,10 +13,12 @@ size = Vector3(1.85889, 1, 1.20974)
 
 [node name="LaserWeapon" type="StaticBody3D"]
 script = ExtResource("1_1iryp")
-ammoType = 2
+ammoType = 3
 itemVisualParentPath = "ItemVisualParent"
 LoadAnim = "Close"
 ResetAnim = "Open"
+placeAudio = ExtResource("2_5re8g")
+takeAudio = ExtResource("3_66w4s")
 
 [node name="Visual" parent="." instance=ExtResource("2_klfni")]
 
@@ -40,3 +44,6 @@ shape = SubResource("SphereShape3D_0uutk")
 
 [node name="PromptPosition" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.479987, 1.41578, 0.198342)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+volume_db = -10.0

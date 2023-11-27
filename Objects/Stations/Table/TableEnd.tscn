@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://wtffefe67pdd"]
+[gd_scene load_steps=8 format=3 uid="uid://wtffefe67pdd"]
 
 [ext_resource type="Script" path="res://Objects/Stations/Table/Table.cs" id="1_rxy4h"]
+[ext_resource type="AudioStream" uid="uid://du7xc0vbnxdhj" path="res://Assets/Audio/SFX/ItemPlaced.wav" id="2_wlifk"]
 [ext_resource type="PackedScene" uid="uid://fdobkpuh3vwy" path="res://Assets/Models/Stations/Table_End.gltf" id="2_ysr8e"]
+[ext_resource type="AudioStream" uid="uid://cw5e2b1eeoxjo" path="res://Assets/Audio/SFX/ItemPickUp.wav" id="3_gdil5"]
 [ext_resource type="Script" path="res://Objects/Stations/Interactable.cs" id="3_j1rwh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dlxq0"]
@@ -10,6 +12,9 @@
 
 [node name="TableEnd" type="StaticBody3D"]
 script = ExtResource("1_rxy4h")
+volume = -10.0
+placeAudio = ExtResource("2_wlifk")
+takeAudio = ExtResource("3_gdil5")
 
 [node name="Table_End" parent="." instance=ExtResource("2_ysr8e")]
 
@@ -30,3 +35,6 @@ shape = SubResource("SphereShape3D_wy4ti")
 
 [node name="PromptPosition" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.80095, 0)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+volume_db = -10.0

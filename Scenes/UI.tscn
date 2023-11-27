@@ -46,6 +46,28 @@ layout_mode = 1
 [node name="UIInteractionPrompt" parent="." instance=ExtResource("6_w0x32")]
 layout_mode = 1
 
+[node name="UIHullBreachWarnings" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("11_i57dq")
+
+[node name="UIWeaponContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -61.0
+offset_top = -63.0
+offset_right = -21.0
+offset_bottom = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 2
+script = ExtResource("10_b74kg")
+
 [node name="UIShipShields" parent="." instance=ExtResource("6_vnfd2")]
 layout_mode = 1
 anchors_preset = 7
@@ -89,25 +111,3 @@ layout_mode = 1
 
 [node name="UIVictoryScreen" parent="." instance=ExtResource("9_1gwmy")]
 layout_mode = 1
-
-[node name="UIWeaponContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -61.0
-offset_top = -63.0
-offset_right = -21.0
-offset_bottom = -23.0
-grow_horizontal = 0
-grow_vertical = 0
-alignment = 2
-script = ExtResource("10_b74kg")
-
-[node name="UIHullBreachWarnings" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("11_i57dq")

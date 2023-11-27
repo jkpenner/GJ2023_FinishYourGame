@@ -19,6 +19,13 @@ namespace SpaceEngineer
     {
         public virtual string ITEM_VISUAL_PARENT_NODE_PATH { get => "ItemVisualParent"; }
 
+        [ExportGroup("Sounds")]
+        [Export] float volume = 0f;
+        [Export] AudioStream placeAudio;
+        [Export] AudioStream takeAudio;
+
+        private AudioStreamPlayer3D audioPlayer;
+
         public StationState State { get; private set; }
         public Item HeldItem
         {
@@ -50,6 +57,10 @@ namespace SpaceEngineer
 
         private void FetchAndValidateSceneNodes()
         {
+            audioPlayer = new AudioStreamPlayer3D();
+            audioPlayer.VolumeDb = volume;
+            AddChild(audioPlayer);
+
             itemVisualParent = GetNode<Node3D>(ITEM_VISUAL_PARENT_NODE_PATH);
             if (itemVisualParent is null)
             {
@@ -110,6 +121,9 @@ namespace SpaceEngineer
                 ItemVisual.Rotation = Vector3.Zero;
             }
 
+            audioPlayer.Stream = placeAudio;
+            audioPlayer.Play();
+
             ItemPlaced?.Invoke(item);
             return true;
         }
@@ -134,6 +148,9 @@ namespace SpaceEngineer
             {
                 ItemVisual.QueueFree();
             }
+
+            audioPlayer.Stream = takeAudio;
+            audioPlayer.Play();
 
             ItemTaken?.Invoke(item);
             return true;

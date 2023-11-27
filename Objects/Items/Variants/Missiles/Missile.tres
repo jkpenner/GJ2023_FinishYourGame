@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("1_5avs2")
 displayName = ""
-ammoType = 1
+ammoType = 2
 shieldDamage = 2
 hullDamage = 3
 hitChance = 0.7

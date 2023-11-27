@@ -1,8 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://ohy7mhd3xjpb"]
+[gd_scene load_steps=16 format=3 uid="uid://ohy7mhd3xjpb"]
 
 [ext_resource type="Script" path="res://Objects/Stations/Weapon/Weapon.cs" id="1_flcku"]
 [ext_resource type="Script" path="res://Objects/Stations/Interactable.cs" id="2_00n6i"]
 [ext_resource type="Material" uid="uid://c1rw6r5j30wcl" path="res://Assets/ColorPalatteMat.tres" id="2_p3qe4"]
+[ext_resource type="AudioStream" uid="uid://du7xc0vbnxdhj" path="res://Assets/Audio/SFX/ItemPlaced.wav" id="2_rpsco"]
+[ext_resource type="AudioStream" uid="uid://cw5e2b1eeoxjo" path="res://Assets/Audio/SFX/ItemPickUp.wav" id="3_1kjxa"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_0o6c7"]
 _surfaces = [{
@@ -113,7 +115,10 @@ size = Vector3(3.13319, 1, 1)
 
 [node name="KineticWeapon" type="StaticBody3D"]
 script = ExtResource("1_flcku")
+ammoType = 1
 itemVisualParentPath = "Visual/KineticLoader/Slider/ItemVisualParent"
+placeAudio = ExtResource("2_rpsco")
+takeAudio = ExtResource("3_1kjxa")
 
 [node name="Visual" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
@@ -153,3 +158,6 @@ shape = SubResource("SphereShape3D_0uutk")
 
 [node name="PromptPosition" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.304721, 1.5, 0)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+volume_db = -10.0

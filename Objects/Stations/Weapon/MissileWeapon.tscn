@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://ddr10dpgg41f1"]
+[gd_scene load_steps=9 format=3 uid="uid://ddr10dpgg41f1"]
 
 [ext_resource type="Script" path="res://Objects/Stations/Weapon/Weapon.cs" id="1_pt0cn"]
 [ext_resource type="Script" path="res://Objects/Stations/Interactable.cs" id="2_6ey3i"]
 [ext_resource type="PackedScene" uid="uid://cacwm68na1pxi" path="res://Assets/Models/Stations/MissileWeaponLoader.gltf" id="2_cfcxe"]
+[ext_resource type="AudioStream" uid="uid://du7xc0vbnxdhj" path="res://Assets/Audio/SFX/ItemPlaced.wav" id="2_cqyor"]
+[ext_resource type="AudioStream" uid="uid://cw5e2b1eeoxjo" path="res://Assets/Audio/SFX/ItemPickUp.wav" id="3_eyxpk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dlxq0"]
 size = Vector3(1, 1, 4.43684)
@@ -14,8 +16,11 @@ size = Vector3(0.821561, 1, 2.85842)
 
 [node name="MissileWeapon" type="StaticBody3D"]
 script = ExtResource("1_pt0cn")
-ammoType = 1
+ammoType = 2
 itemVisualParentPath = "ItemVisualParent"
+volume = -10.0
+placeAudio = ExtResource("2_cqyor")
+takeAudio = ExtResource("3_eyxpk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1.00884)
@@ -49,3 +54,6 @@ shape = SubResource("SphereShape3D_0uutk")
 
 [node name="PromptPosition" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21209, -1.19848)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+volume_db = -10.0

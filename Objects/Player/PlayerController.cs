@@ -33,6 +33,8 @@ namespace SpaceEngineer
 		[Export] float knockbackTurnRate = 10f;
 		[Export] bool dropItemOnKnockback = true;
 
+		
+
 		[ExportGroup("Inputs")]
 		[Export] private string moveForwardAction = "P1MoveForward";
 		[Export] private string moveBackAction = "P1MoveBack";
@@ -50,6 +52,7 @@ namespace SpaceEngineer
 		private AnimationPlayer playerAnimationPlayer;
 		private AnimationPlayer ballAnimationPlayer;
 		private GpuParticles3D ballParticles;
+		
 
 		// Interactions
 		private bool isInteracting = false;

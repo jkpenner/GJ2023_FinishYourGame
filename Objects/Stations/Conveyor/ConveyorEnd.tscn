@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dxw5g8wv42ld1"]
+[gd_scene load_steps=8 format=3 uid="uid://dxw5g8wv42ld1"]
 
 [ext_resource type="Script" path="res://Objects/Stations/Conveyor/Conveyor.cs" id="1_430re"]
 [ext_resource type="PackedScene" uid="uid://caplx0ghgtsb5" path="res://Assets/Models/Stations/Conveyor_End.gltf" id="2_a4ytn"]
+[ext_resource type="AudioStream" uid="uid://du7xc0vbnxdhj" path="res://Assets/Audio/SFX/ItemPlaced.wav" id="2_rl8fb"]
 [ext_resource type="Script" path="res://Objects/Stations/Interactable.cs" id="2_y4s01"]
+[ext_resource type="AudioStream" uid="uid://cw5e2b1eeoxjo" path="res://Assets/Audio/SFX/ItemPickUp.wav" id="3_my45c"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dlxq0"]
 
@@ -10,6 +12,9 @@
 
 [node name="ConveyorEnd" type="StaticBody3D"]
 script = ExtResource("1_430re")
+volume = -10.0
+placeAudio = ExtResource("2_rl8fb")
+takeAudio = ExtResource("3_my45c")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -30,3 +35,6 @@ shape = SubResource("SphereShape3D_wy4ti")
 
 [node name="PromptPosition" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+volume_db = -10.0

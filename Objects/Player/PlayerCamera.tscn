@@ -24,5 +24,8 @@ transform = Transform3D(1, 0, 0, 0, 0.573576, 0.819152, 0, -0.819152, 0.573576, 
 current = true
 script = ExtResource("2_yvjba")
 
+[node name="AudioListener3D" type="AudioListener3D" parent="CameraPivot/Camera3D"]
+current = true
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qywyq")

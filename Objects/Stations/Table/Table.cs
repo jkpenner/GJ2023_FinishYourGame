@@ -7,7 +7,9 @@ namespace SpaceEngineer
     {
         public const string INTERACTABLE_NODE_PATH = "Interactable";
 
-        [Export] Item initialItem;
+                [Export] Item initialItem;
+
+        
         
         private Interactable interactable;
 
@@ -24,6 +26,8 @@ namespace SpaceEngineer
 
         private void FetchAndValidateSceneNodes()
         {
+			
+
             interactable = GetNode<Interactable>(INTERACTABLE_NODE_PATH);
             if (interactable is not null)
             {
