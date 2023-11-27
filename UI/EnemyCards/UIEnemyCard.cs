@@ -54,6 +54,8 @@ namespace SpaceEngineer
         {
             UpdateEnemyWeapons();
 
+            ((Control)progressBar.GetParent().GetParent()).Visible = enemy.State != EnemyState.SelectingWeapon;
+
             if (enemy.State == EnemyState.Firing)
             {
                 progressBar.SelfModulate = new Color("#ff5500");
@@ -84,19 +86,19 @@ namespace SpaceEngineer
 
                 if (enemy.ActiveWeaponType == AmmoType.Kinetic)
                 {
-                    progressBar.Value = 1f - Mathf.Clamp(enemy.WeaponImpactCounter / enemy.Data.GetWeaponFireRate(AmmoType.Kinetic), 0f, 1f);
+                    progressBar.Value = 1f - Mathf.Clamp(enemy.WeaponImpactCounter / enemy.Data.GetWeaponImpactDelay(AmmoType.Kinetic), 0f, 1f);
                     progressLabel.Text = $"Impact in {(int)(enemy.Data.GetWeaponImpactDelay(AmmoType.Kinetic) - enemy.WeaponImpactCounter)}";
                 }
 
                 if (enemy.ActiveWeaponType == AmmoType.Laser)
                 {
-                    progressBar.Value = 1f - Mathf.Clamp(enemy.WeaponImpactCounter / enemy.Data.GetWeaponFireRate(AmmoType.Laser), 0f, 1f);
+                    progressBar.Value = 1f - Mathf.Clamp(enemy.WeaponImpactCounter / enemy.Data.GetWeaponImpactDelay(AmmoType.Laser), 0f, 1f);
                     progressLabel.Text = $"Impact in {(int)(enemy.Data.GetWeaponImpactDelay(AmmoType.Laser) - enemy.WeaponImpactCounter)}";
                 }
 
                 if (enemy.ActiveWeaponType == AmmoType.Missile)
                 {
-                    progressBar.Value = 1f - Mathf.Clamp(enemy.WeaponImpactCounter / enemy.Data.GetWeaponFireRate(AmmoType.Missile), 0f, 1f);
+                    progressBar.Value = 1f - Mathf.Clamp(enemy.WeaponImpactCounter / enemy.Data.GetWeaponImpactDelay(AmmoType.Missile), 0f, 1f);
                     progressLabel.Text = $"Impact in {(int)(enemy.Data.GetWeaponImpactDelay(AmmoType.Missile) - enemy.WeaponImpactCounter)}";
                 }
             }

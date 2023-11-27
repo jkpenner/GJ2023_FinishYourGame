@@ -102,8 +102,17 @@ namespace SpaceEngineer
             if (SpawnInfo is null && SpawnInfoIndex < encoutner.EnemySpawns.Count)
             {
                 SpawnInfo = encoutner.EnemySpawns[SpawnInfoIndex];
-                SpawnCounter = 0f;
-                SpawnInfoIndex += 1;
+                if (SpawnInfo.WaitForAllEnemiesDefeated && Enemies.Count > 0)
+                {
+                    // Skip if other enemies are still active.
+                    SpawnInfo = null;
+                }
+
+                if (SpawnInfo is not null)
+                {
+                    SpawnCounter = 0f;
+                    SpawnInfoIndex += 1;
+                }
             }
 
             // Wait for the spawn delay then spawn the enemy

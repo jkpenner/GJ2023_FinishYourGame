@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=2 format=3 uid="uid://bspqjgccwlpq3"]
+
+[ext_resource type="Script" path="res://Objects/Enemy/EnemyData.cs" id="1_08pk4"]
+
+[resource]
+script = ExtResource("1_08pk4")
+displayName = ""
+laserShields = 0
+kineticShields = 1
+missileShields = 0
+hasKineticWeapon = false
+kineticWeaponFireRate = 0.0
+kineticWeaponImpactDelay = 0.0
+hasLaserWeapon = true
+laserWeaponFireRate = 3.0
+laserWeaponImpactDelay = 1.0
+hasMissileWeapon = false
+missileWeaponFireRate = 0.0
+missileWeaponImpactDelay = 0.0

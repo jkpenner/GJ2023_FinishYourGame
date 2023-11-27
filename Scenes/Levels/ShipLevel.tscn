@@ -1,7 +1,7 @@
 [gd_scene load_steps=43 format=3 uid="uid://dsc8pvwmyuwfi"]
 
 [ext_resource type="Script" path="res://Game/GameManager.cs" id="1_3ne7h"]
-[ext_resource type="Resource" uid="uid://k5vdxex2jteo" path="res://Game/Encounters/TestEncounter/TestEncounter.tres" id="2_rd38y"]
+[ext_resource type="Resource" uid="uid://day32pkpj2r5t" path="res://Game/Encounters/MainEncounter/MainEncounter.tres" id="2_7m3gg"]
 [ext_resource type="Script" path="res://Objects/Player/Ship/ShipController.cs" id="3_xu7sp"]
 [ext_resource type="PackedScene" uid="uid://cr0jw2re5fmo6" path="res://Objects/Structure/Walls/TileWallStraightLG.tscn" id="4_d8p28"]
 [ext_resource type="PackedScene" uid="uid://nx35t6j75l7k" path="res://Objects/Structure/Walls/TileWallCornerInnerRounded.tscn" id="5_kabg4"]
@@ -48,7 +48,7 @@ script = ExtResource("1_3ne7h")
 fade = NodePath("UIFade")
 player = NodePath("PlayerController")
 playerShip = NodePath("Ship")
-encoutner = ExtResource("2_rd38y")
+encoutner = ExtResource("2_7m3gg")
 
 [node name="Ship" type="Node3D" parent="."]
 script = ExtResource("3_xu7sp")

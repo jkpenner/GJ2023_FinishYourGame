@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=2 format=3 uid="uid://c6jlvj5e2y8vo"]
+
+[ext_resource type="Script" path="res://Objects/Enemy/EnemyData.cs" id="1_tgx3x"]
+
+[resource]
+script = ExtResource("1_tgx3x")
+displayName = ""
+laserShields = 1
+kineticShields = 0
+missileShields = 1
+hasKineticWeapon = true
+kineticWeaponFireRate = 1.0
+kineticWeaponImpactDelay = 3.0
+hasLaserWeapon = false
+laserWeaponFireRate = 0.0
+laserWeaponImpactDelay = 0.0
+hasMissileWeapon = false
+missileWeaponFireRate = 3.0
+missileWeaponImpactDelay = 5.0

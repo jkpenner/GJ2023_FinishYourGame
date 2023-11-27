@@ -25,13 +25,13 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [node name="UIEnemyCard" type="VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
 offset_right = 136.0
 offset_bottom = 100.0
 script = ExtResource("1_mkftt")
 
 [node name="Card" type="PanelContainer" parent="."]
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_nnm81")
 

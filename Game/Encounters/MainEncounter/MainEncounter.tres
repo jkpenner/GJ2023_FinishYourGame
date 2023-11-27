@@ -1,0 +1,79 @@
+[gd_resource type="Resource" script_class="GameEncounter" load_steps=23 format=3 uid="uid://day32pkpj2r5t"]
+
+[ext_resource type="Resource" uid="uid://c6jlvj5e2y8vo" path="res://Game/Encounters/MainEncounter/Enemy1A.tres" id="1_e3rgj"]
+[ext_resource type="Script" path="res://Objects/Enemy/EnemySpawnInfo.cs" id="2_s2sew"]
+[ext_resource type="Script" path="res://Game/GameEncounter.cs" id="3_hey3q"]
+[ext_resource type="Resource" uid="uid://bgmwcy6j3tnkm" path="res://Game/Encounters/MainEncounter/Enemy1B.tres" id="3_ohadu"]
+[ext_resource type="Resource" uid="uid://bspqjgccwlpq3" path="res://Game/Encounters/MainEncounter/Enemy1C.tres" id="4_isywh"]
+[ext_resource type="Resource" uid="uid://dcwhr2s8c7yp8" path="res://Game/Encounters/MainEncounter/Enemy2A.tres" id="5_7yrkl"]
+[ext_resource type="Resource" uid="uid://clpaioagup5fr" path="res://Game/Encounters/MainEncounter/Enemy2B.tres" id="6_1x8b8"]
+[ext_resource type="Resource" uid="uid://7llv5od3u0yf" path="res://Game/Encounters/MainEncounter/Enemy2C.tres" id="7_0u132"]
+[ext_resource type="Resource" uid="uid://c1li7cblp21d1" path="res://Game/Encounters/MainEncounter/Enemy3A.tres" id="8_tyoap"]
+[ext_resource type="Resource" uid="uid://c56m6ghw7pcns" path="res://Game/Encounters/MainEncounter/Enemy3B.tres" id="9_o4kcp"]
+[ext_resource type="Resource" uid="uid://ds7yvoqcgibwt" path="res://Game/Encounters/MainEncounter/Enemy3C.tres" id="10_l46va"]
+[ext_resource type="Resource" uid="uid://d0133t0lssl6e" path="res://Game/Encounters/MainEncounter/Enemy4A.tres" id="11_c1mah"]
+
+[sub_resource type="Resource" id="Resource_vqdhj"]
+script = ExtResource("2_s2sew")
+WaitForAllEnemiesDefeated = false
+SpawnDelay = 10.0
+Data = ExtResource("1_e3rgj")
+
+[sub_resource type="Resource" id="Resource_biete"]
+script = ExtResource("2_s2sew")
+WaitForAllEnemiesDefeated = false
+SpawnDelay = 20.0
+Data = ExtResource("3_ohadu")
+
+[sub_resource type="Resource" id="Resource_sj4co"]
+script = ExtResource("2_s2sew")
+WaitForAllEnemiesDefeated = false
+SpawnDelay = 20.0
+Data = ExtResource("4_isywh")
+
+[sub_resource type="Resource" id="Resource_g5pas"]
+script = ExtResource("2_s2sew")
+WaitForAllEnemiesDefeated = true
+SpawnDelay = 10.0
+Data = ExtResource("5_7yrkl")
+
+[sub_resource type="Resource" id="Resource_8iacv"]
+script = ExtResource("2_s2sew")
+WaitForAllEnemiesDefeated = false
+SpawnDelay = 10.0
+Data = ExtResource("6_1x8b8")
+
+[sub_resource type="Resource" id="Resource_4mj7w"]
+script = ExtResource("2_s2sew")
+WaitForAllEnemiesDefeated = false
+SpawnDelay = 10.0
+Data = ExtResource("7_0u132")
+
+[sub_resource type="Resource" id="Resource_vw0vt"]
+script = ExtResource("2_s2sew")
+WaitForAllEnemiesDefeated = true
+SpawnDelay = 20.0
+Data = ExtResource("8_tyoap")
+
+[sub_resource type="Resource" id="Resource_lid13"]
+script = ExtResource("2_s2sew")
+WaitForAllEnemiesDefeated = false
+SpawnDelay = 10.0
+Data = ExtResource("9_o4kcp")
+
+[sub_resource type="Resource" id="Resource_s8i0d"]
+script = ExtResource("2_s2sew")
+WaitForAllEnemiesDefeated = false
+SpawnDelay = 10.0
+Data = ExtResource("10_l46va")
+
+[sub_resource type="Resource" id="Resource_bh6tl"]
+script = ExtResource("2_s2sew")
+WaitForAllEnemiesDefeated = true
+SpawnDelay = 20.0
+Data = ExtResource("11_c1mah")
+
+[resource]
+script = ExtResource("3_hey3q")
+enemySpawns = Array[Resource]([SubResource("Resource_vqdhj"), SubResource("Resource_biete"), SubResource("Resource_sj4co"), SubResource("Resource_g5pas"), SubResource("Resource_8iacv"), SubResource("Resource_4mj7w"), SubResource("Resource_vw0vt"), SubResource("Resource_lid13"), SubResource("Resource_s8i0d"), SubResource("Resource_bh6tl")])
+initialItems = Array[Object]([])

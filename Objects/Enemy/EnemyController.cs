@@ -100,11 +100,16 @@ namespace SpaceEngineer
         {
             if (State == EnemyState.SelectingWeapon)
             {
-                if (Data.TryGetRandomWeapon(out AmmoType ammoType))
+                WeaponFireCounter += (float)delta;
+                if (WeaponFireCounter > 5f)
                 {
-                    GD.Print($"Enemy Selected {ActiveWeaponType}");
-                    ActiveWeaponType = ammoType;
-                    State = EnemyState.Firing;
+                    if (Data.TryGetRandomWeapon(out AmmoType ammoType))
+                    {
+                        GD.Print($"Enemy Selected {ActiveWeaponType}");
+                        ActiveWeaponType = ammoType;
+                        WeaponFireCounter = 0f;
+                        State = EnemyState.Firing;
+                    }
                 }
             }
             else if (State == EnemyState.Firing)
